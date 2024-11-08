@@ -1,0 +1,904 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>Schema documentation for relations.xsd</title><link rel="stylesheet" href="docHtml.css" type="text/css"/><script type="text/javascript" xml:space="preserve">
+         <!--
+        var propertiesBoxes= new Array('properties_relations.xsd', 
+				'properties_eq', 
+				'properties_neq', 
+				'properties_leq', 
+				'properties_lt', 
+				'properties_geq', 
+				'properties_gt', 
+				'properties_equivalent', 
+				'properties_approx', 
+				'properties_factorof');
+var usedByBoxes= new Array('usedBy_eq', 
+				'usedBy_neq', 
+				'usedBy_leq', 
+				'usedBy_lt', 
+				'usedBy_geq', 
+				'usedBy_gt', 
+				'usedBy_equivalent', 
+				'usedBy_approx', 
+				'usedBy_factorof', 
+				'usedBy_Relations.type', 
+				'usedBy_Content-relations.class');
+var sourceBoxes= new Array('source_eq', 
+				'source_neq', 
+				'source_leq', 
+				'source_lt', 
+				'source_geq', 
+				'source_gt', 
+				'source_equivalent', 
+				'source_approx', 
+				'source_factorof', 
+				'source_Relations.type', 
+				'source_Content-relations.class');
+var diagramBoxes= new Array('diagram_eq', 
+				'diagram_neq', 
+				'diagram_leq', 
+				'diagram_lt', 
+				'diagram_geq', 
+				'diagram_gt', 
+				'diagram_equivalent', 
+				'diagram_approx', 
+				'diagram_factorof', 
+				'diagram_Relations.type', 
+				'diagram_Content-relations.class');
+var annotationBoxes= new Array('annotations_relations.xsd');
+var attributesBoxes= new Array('attributes_eq', 
+				'attributes_neq', 
+				'attributes_leq', 
+				'attributes_lt', 
+				'attributes_geq', 
+				'attributes_gt', 
+				'attributes_equivalent', 
+				'attributes_approx', 
+				'attributes_factorof', 
+				'attributes_Relations.type');
+var modelBoxes= new Array('model_Content-relations.class');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script><link rel="stylesheet" type="text/css" href="frames.css"/></head><body><iframe id="nav" src="CLMLreferenceGuide-v2-7.indexListcomp.html"> </iframe>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+                  <h3>Showing:</h3>
+                  <table><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control"/></span><span class="globalControlName">Annotations</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control"/></span><span class="globalControlName">Attributes </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control"/></span><span class="globalControlName">Diagrams</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, modelBoxes);" class="control"/></span><span class="globalControlName">Model </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control"/></span><span class="globalControlName">Properties </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control"/></span><span class="globalControlName">Source</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control"/></span><span class="globalControlName">Used by </span></td></tr></table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close"/></span></div>
+               </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      </div><a id="relations.xsd" shape="rect"/><div class="componentTitle">Included schema <span class="qname">relations.xsd</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_relations.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_relations.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_relations.xsd" style="display:block">
+                              <div class="annotation">
+                                 This is an XML Schema module for the relational operators of content MathML.
+                                 Author: Stéphane Dalmas, INRIA.
+                                 
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_relations.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_relations.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_relations.xsd" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">attribute form default</td><td rowspan="1" colspan="1"><b>unqualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">element form default</td><td rowspan="1" colspan="1"><b>qualified</b></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="eq" shape="rect"/><div class="componentTitle">Element <span class="qname">eq</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_eq" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_eq');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_eq" style="display:block"><img alt="Diagram" src="img/relations_xsd_Element_eq.jpeg" usemap="#relations_xsd_Element_eq"/><map name="relations_xsd_Element_eq" id="relations_xsd_Element_eq"><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="110,82,236,108" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="110,126,233,152" shape="rect"/><area alt="relations_xsd.tmp#Relations.type" href="relations_xsd.html#Relations.type" coords="82,3,201,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_eq" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_eq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_eq" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_eq" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_eq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_eq" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="relations_xsd.html#Content-relations.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-relations.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_eq" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_eq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_eq" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_eq" type="image" src="img/btM.gif" value="-" onclick="switchState('source_eq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_eq" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"eq"</span><span class="tAN"> type=</span><span class="tAV">"Relations.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="neq" shape="rect"/><div class="componentTitle">Element <span class="qname">neq</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_neq" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_neq');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_neq" style="display:block"><img alt="Diagram" src="img/relations_xsd_Element_neq.jpeg" usemap="#relations_xsd_Element_neq"/><map name="relations_xsd_Element_neq" id="relations_xsd_Element_neq"><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="110,82,236,108" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="110,126,233,152" shape="rect"/><area alt="relations_xsd.tmp#Relations.type" href="relations_xsd.html#Relations.type" coords="82,3,201,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_neq" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_neq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_neq" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_neq" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_neq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_neq" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="relations_xsd.html#Content-relations.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-relations.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_neq" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_neq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_neq" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_neq" type="image" src="img/btM.gif" value="-" onclick="switchState('source_neq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_neq" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"neq"</span><span class="tAN"> type=</span><span class="tAV">"Relations.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="leq" shape="rect"/><div class="componentTitle">Element <span class="qname">leq</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_leq" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_leq');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_leq" style="display:block"><img alt="Diagram" src="img/relations_xsd_Element_leq.jpeg" usemap="#relations_xsd_Element_leq"/><map name="relations_xsd_Element_leq" id="relations_xsd_Element_leq"><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="110,82,236,108" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="110,126,233,152" shape="rect"/><area alt="relations_xsd.tmp#Relations.type" href="relations_xsd.html#Relations.type" coords="82,3,201,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_leq" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_leq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_leq" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_leq" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_leq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_leq" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="relations_xsd.html#Content-relations.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-relations.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_leq" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_leq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_leq" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_leq" type="image" src="img/btM.gif" value="-" onclick="switchState('source_leq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_leq" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"leq"</span><span class="tAN"> type=</span><span class="tAV">"Relations.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="lt" shape="rect"/><div class="componentTitle">Element <span class="qname">lt</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_lt" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_lt');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_lt" style="display:block"><img alt="Diagram" src="img/relations_xsd_Element_lt.jpeg" usemap="#relations_xsd_Element_lt"/><map name="relations_xsd_Element_lt" id="relations_xsd_Element_lt"><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="110,82,236,108" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="110,126,233,152" shape="rect"/><area alt="relations_xsd.tmp#Relations.type" href="relations_xsd.html#Relations.type" coords="82,3,201,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_lt" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_lt');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_lt" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_lt" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_lt');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_lt" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="relations_xsd.html#Content-relations.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-relations.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_lt" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_lt');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_lt" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_lt" type="image" src="img/btM.gif" value="-" onclick="switchState('source_lt');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_lt" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"lt"</span><span class="tAN"> type=</span><span class="tAV">"Relations.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="geq" shape="rect"/><div class="componentTitle">Element <span class="qname">geq</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_geq" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_geq');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_geq" style="display:block"><img alt="Diagram" src="img/relations_xsd_Element_geq.jpeg" usemap="#relations_xsd_Element_geq"/><map name="relations_xsd_Element_geq" id="relations_xsd_Element_geq"><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="110,82,236,108" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="110,126,233,152" shape="rect"/><area alt="relations_xsd.tmp#Relations.type" href="relations_xsd.html#Relations.type" coords="82,3,201,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_geq" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_geq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_geq" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_geq" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_geq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_geq" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="relations_xsd.html#Content-relations.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-relations.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_geq" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_geq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_geq" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_geq" type="image" src="img/btM.gif" value="-" onclick="switchState('source_geq');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_geq" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"geq"</span><span class="tAN"> type=</span><span class="tAV">"Relations.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="gt" shape="rect"/><div class="componentTitle">Element <span class="qname">gt</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_gt" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_gt');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_gt" style="display:block"><img alt="Diagram" src="img/relations_xsd_Element_gt.jpeg" usemap="#relations_xsd_Element_gt"/><map name="relations_xsd_Element_gt" id="relations_xsd_Element_gt"><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="110,82,236,108" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="110,126,233,152" shape="rect"/><area alt="relations_xsd.tmp#Relations.type" href="relations_xsd.html#Relations.type" coords="82,3,201,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_gt" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_gt');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_gt" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_gt" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_gt');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_gt" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="relations_xsd.html#Content-relations.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-relations.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_gt" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_gt');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_gt" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_gt" type="image" src="img/btM.gif" value="-" onclick="switchState('source_gt');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_gt" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"gt"</span><span class="tAN"> type=</span><span class="tAV">"Relations.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="equivalent" shape="rect"/><div class="componentTitle">Element <span class="qname">equivalent</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_equivalent" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_equivalent');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_equivalent" style="display:block"><img alt="Diagram" src="img/relations_xsd_Element_equivalent.jpeg" usemap="#relations_xsd_Element_equivalent"/><map name="relations_xsd_Element_equivalent" id="relations_xsd_Element_equivalent"><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="139,82,265,108" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="139,126,262,152" shape="rect"/><area alt="relations_xsd.tmp#Relations.type" href="relations_xsd.html#Relations.type" coords="111,3,230,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_equivalent" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_equivalent');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_equivalent" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_equivalent" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_equivalent');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_equivalent" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="relations_xsd.html#Content-relations.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-relations.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_equivalent" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_equivalent');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_equivalent" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_equivalent" type="image" src="img/btM.gif" value="-" onclick="switchState('source_equivalent');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_equivalent" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"equivalent"</span><span class="tAN"> type=</span><span class="tAV">"Relations.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="approx" shape="rect"/><div class="componentTitle">Element <span class="qname">approx</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_approx" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_approx');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_approx" style="display:block"><img alt="Diagram" src="img/relations_xsd_Element_approx.jpeg" usemap="#relations_xsd_Element_approx"/><map name="relations_xsd_Element_approx" id="relations_xsd_Element_approx"><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="124,82,250,108" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="124,126,247,152" shape="rect"/><area alt="relations_xsd.tmp#Relations.type" href="relations_xsd.html#Relations.type" coords="96,3,215,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_approx" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_approx');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_approx" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_approx" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_approx');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_approx" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="relations_xsd.html#Content-relations.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-relations.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_approx" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_approx');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_approx" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_approx" type="image" src="img/btM.gif" value="-" onclick="switchState('source_approx');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_approx" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"approx"</span><span class="tAN"> type=</span><span class="tAV">"Relations.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="factorof" shape="rect"/><div class="componentTitle">Element <span class="qname">factorof</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_factorof" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_factorof');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_factorof" style="display:block"><img alt="Diagram" src="img/relations_xsd_Element_factorof.jpeg" usemap="#relations_xsd_Element_factorof"/><map name="relations_xsd_Element_factorof" id="relations_xsd_Element_factorof"><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="129,82,255,108" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="129,126,252,152" shape="rect"/><area alt="relations_xsd.tmp#Relations.type" href="relations_xsd.html#Relations.type" coords="101,3,220,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_factorof" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_factorof');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_factorof" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_factorof" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_factorof');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_factorof" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="relations_xsd.html#Content-relations.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-relations.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_factorof" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_factorof');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_factorof" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_factorof" type="image" src="img/btM.gif" value="-" onclick="switchState('source_factorof');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_factorof" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"factorof"</span><span class="tAN"> type=</span><span class="tAV">"Relations.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Relations.type" shape="rect"/><div class="componentTitle">Complex Type <span class="qname">Relations.type</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Relations.type" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Relations.type');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_Relations.type" style="display:block"><img alt="Diagram" src="img/relations_xsd_Complex_Type_Relations_type.jpeg" usemap="#relations_xsd_Complex_Type_Relations_type"/><map name="relations_xsd_Complex_Type_Relations_type" id="relations_xsd_Complex_Type_Relations_type"><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="168,42,294,68" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="168,86,291,112" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Relations.type" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Relations.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Relations.type" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Elements </td><td rowspan="1" colspan="1"><b><a href="relations_xsd.html#approx" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">approx</a></b>, <b><a href="relations_xsd.html#eq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">eq</a></b>, <b><a href="relations_xsd.html#equivalent" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">equivalent</a></b>, <b><a href="relations_xsd.html#factorof" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">factorof</a></b>, <b><a href="relations_xsd.html#geq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">geq</a></b>, <b><a href="relations_xsd.html#gt" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">gt</a></b>, <b><a href="relations_xsd.html#leq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">leq</a></b>, <b><a href="relations_xsd.html#lt" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">lt</a></b>, <b><a href="relations_xsd.html#neq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">neq</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_Relations.type" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_Relations.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_Relations.type" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Relations.type" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Relations.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Relations.type" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:complexType</span><span class="tAN"> name=</span><span class="tAV">"Relations.type"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"Definition.attrib"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"Common.attrib"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:complexType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Content-relations.class" shape="rect"/><div class="componentTitle">Element Group <span class="qname">Content-relations.class</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Content-relations.class" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Content-relations.class');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_Content-relations.class" style="display:block"><img alt="Diagram" src="img/relations_xsd_Element_Group_Content-relations_class.jpeg" usemap="#relations_xsd_Element_Group_Content-relations_class"/><map name="relations_xsd_Element_Group_Content-relations_class" id="relations_xsd_Element_Group_Content-relations_class"><area alt="relations_xsd.tmp#eq" href="relations_xsd.html#eq" coords="265,0,316,25" shape="rect"/><area alt="relations_xsd.tmp#neq" href="relations_xsd.html#neq" coords="265,35,316,60" shape="rect"/><area alt="relations_xsd.tmp#leq" href="relations_xsd.html#leq" coords="265,70,316,95" shape="rect"/><area alt="relations_xsd.tmp#lt" href="relations_xsd.html#lt" coords="265,105,316,130" shape="rect"/><area alt="relations_xsd.tmp#geq" href="relations_xsd.html#geq" coords="265,140,316,165" shape="rect"/><area alt="relations_xsd.tmp#gt" href="relations_xsd.html#gt" coords="265,175,316,200" shape="rect"/><area alt="relations_xsd.tmp#equivalent" href="relations_xsd.html#equivalent" coords="265,210,345,235" shape="rect"/><area alt="relations_xsd.tmp#approx" href="relations_xsd.html#approx" coords="265,245,330,270" shape="rect"/><area alt="relations_xsd.tmp#factorof" href="relations_xsd.html#factorof" coords="265,280,335,305" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Content-relations.class" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Content-relations.class');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Content-relations.class" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="math_xsd.html#ContExpr.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">ContExpr.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_Content-relations.class" type="image" src="img/btM.gif" value="-" onclick="switchState('model_Content-relations.class');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_Content-relations.class" style="display:block"><b><a href="relations_xsd.html#eq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">eq</a></b> | <b><a href="relations_xsd.html#neq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">neq</a></b> | <b><a href="relations_xsd.html#leq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">leq</a></b> | <b><a href="relations_xsd.html#lt" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">lt</a></b> | <b><a href="relations_xsd.html#geq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">geq</a></b> | <b><a href="relations_xsd.html#gt" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">gt</a></b> | <b><a href="relations_xsd.html#equivalent" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">equivalent</a></b> | <b><a href="relations_xsd.html#approx" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">approx</a></b> | <b><a href="relations_xsd.html#factorof" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">factorof</a></b></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="relations_xsd.html#approx" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">approx</a></b>, <b><a href="relations_xsd.html#eq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">eq</a></b>, <b><a href="relations_xsd.html#equivalent" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">equivalent</a></b>, <b><a href="relations_xsd.html#factorof" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">factorof</a></b>, <b><a href="relations_xsd.html#geq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">geq</a></b>, <b><a href="relations_xsd.html#gt" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">gt</a></b>, <b><a href="relations_xsd.html#leq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">leq</a></b>, <b><a href="relations_xsd.html#lt" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">lt</a></b>, <b><a href="relations_xsd.html#neq" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">neq</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Content-relations.class" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Content-relations.class');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Content-relations.class" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:group</span><span class="tAN"> name=</span><span class="tAV">"Content-relations.class"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:choice</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"eq"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"neq"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"leq"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"lt"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"geq"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"gt"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"equivalent"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"approx"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"factorof"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:choice&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:group&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      <div class="footer">
+         <hr/>
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent" shape="rect"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript" xml:space="preserve">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body></html>

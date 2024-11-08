@@ -1,0 +1,755 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>Schema documentation for schemaLegislationExplanatoryNotes.xsd</title><link rel="stylesheet" href="docHtml.css" type="text/css"/><script type="text/javascript" xml:space="preserve">
+         <!--
+        var propertiesBoxes= new Array('properties_schemaLegislationExplanatoryNotes.xsd', 
+				'properties_ExplanatoryNotes', 
+				'properties_Comment', 
+				'properties_EarlierOrders');
+var usedByBoxes= new Array('usedBy_ExplanatoryNotes', 
+				'usedBy_Comment', 
+				'usedBy_EarlierOrders');
+var sourceBoxes= new Array('source_ExplanatoryNotes', 
+				'source_Comment', 
+				'source_EarlierOrders');
+var instanceBoxes= new Array('instance_ExplanatoryNotes', 
+				'instance_Comment', 
+				'instance_EarlierOrders');
+var diagramBoxes= new Array('diagram_ExplanatoryNotes', 
+				'diagram_Comment', 
+				'diagram_EarlierOrders');
+var annotationBoxes= new Array('annotations_schemaLegislationExplanatoryNotes.xsd', 
+				'annotations_ExplanatoryNotes', 
+				'annotations_Comment', 
+				'annotations_EarlierOrders');
+var attributesBoxes= new Array('attributes_ExplanatoryNotes', 
+				'attributes_Comment', 
+				'attributes_EarlierOrders');
+var modelBoxes= new Array('model_ExplanatoryNotes', 
+				'model_Comment', 
+				'model_EarlierOrders');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script><link rel="stylesheet" type="text/css" href="frames.css"/></head><body><iframe id="nav" src="CLMLreferenceGuide-v2-7.indexListcomp.html"> </iframe>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+                  <h3>Showing:</h3>
+                  <table><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control"/></span><span class="globalControlName">Annotations</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control"/></span><span class="globalControlName">Attributes </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control"/></span><span class="globalControlName">Diagrams</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, instanceBoxes);" class="control"/></span><span class="globalControlName">Instances</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, modelBoxes);" class="control"/></span><span class="globalControlName">Model </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control"/></span><span class="globalControlName">Properties </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control"/></span><span class="globalControlName">Source</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control"/></span><span class="globalControlName">Used by </span></td></tr></table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close"/></span></div>
+               </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      </div><a id="schemaLegislationExplanatoryNotes.xsd" shape="rect"/><div class="componentTitle">Included schema <span class="qname">schemaLegislationExplanatoryNotes.xsd</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_schemaLegislationExplanatoryNotes.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_schemaLegislationExplanatoryNotes.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_schemaLegislationExplanatoryNotes.xsd" style="display:block">
+                              <div class="annotation">Defines legislation specific explanatory notes</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_schemaLegislationExplanatoryNotes.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_schemaLegislationExplanatoryNotes.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_schemaLegislationExplanatoryNotes.xsd" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">attribute form default</td><td rowspan="1" colspan="1"><b>unqualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">element form default</td><td rowspan="1" colspan="1"><b>qualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">version</td><td rowspan="1" colspan="1"><b>2.4</b></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="ExplanatoryNotes" shape="rect"/><div class="componentTitle">Element <span class="qname">ExplanatoryNotes</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_ExplanatoryNotes" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_ExplanatoryNotes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_ExplanatoryNotes" style="display:block">
+                              <div class="annotation">Explanatory Notes contains explanatory notes for secondary legislation. The explanatory
+                                 notes for primary legislation do not use this element
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_ExplanatoryNotes" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_ExplanatoryNotes');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_ExplanatoryNotes" style="display:block"><img alt="Diagram" src="img/schemaLegislationExplanatoryNotes_xsd_Element_ExplanatoryNotes.jpeg" usemap="#schemaLegislationExplanatoryNotes_xsd_Element_ExplanatoryNotes"/><map name="schemaLegislationExplanatoryNotes_xsd_Element_ExplanatoryNotes" id="schemaLegislationExplanatoryNotes_xsd_Element_ExplanatoryNotes"><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes" coords="181,44,324,70" shape="rect"/><area alt="schemaLegislationCommonAttributes_xsd.tmp#FragmentAttributes" href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes" coords="181,88,328,114" shape="rect"/><area alt="schemaCommon_xsd.tmp#OptionalURIs" href="schemaCommon_xsd.html#OptionalURIs" coords="181,132,297,158" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#http___www.legislation.gov.uk_namespaces_legislation_Title" href="schemaCommonElements_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Title" coords="256,180,307,205" shape="rect"/><area alt="schemaLegislationExplanatoryNotes_xsd.tmp#Comment" href="schemaLegislationExplanatoryNotes_xsd.html#Comment" coords="256,246,331,271" shape="rect"/><area alt="schemaLegislationNumberedSections_xsd.tmp#P" href="schemaLegislationNumberedSections_xsd.html#P" coords="412,370,463,395" shape="rect"/><area alt="schemaLists_xsd.tmp#OrderedList" href="schemaLists_xsd.html#OrderedList" coords="412,464,500,489" shape="rect"/><area alt="schemaLists_xsd.tmp#UnorderedList" href="schemaLists_xsd.html#UnorderedList" coords="412,558,511,583" shape="rect"/><area alt="schemaLegislationBoxGroup_xsd.tmp#DecoratedGroup" href="schemaLegislationBoxGroup_xsd.html#DecoratedGroup" coords="412,666,523,691" shape="rect"/><area alt="schemaLists_xsd.tmp#KeyList" href="schemaLists_xsd.html#KeyList" coords="412,746,479,771" shape="rect"/><area alt="schemaFigure_xsd.tmp#Figure" href="schemaFigure_xsd.html#Figure" coords="412,826,473,851" shape="rect"/><area alt="schemaTabular_xsd.tmp#Tabular" href="schemaTabular_xsd.html#Tabular" coords="412,920,479,945" shape="rect"/><area alt="schemaLegislationForm_xsd.tmp#Form" href="schemaLegislationForm_xsd.html#Form" coords="412,1014,467,1039" shape="rect"/><area alt="schemaFormula_xsd.tmp#Formula" href="schemaFormula_xsd.html#Formula" coords="412,1094,481,1119" shape="rect"/><area alt="schemaLegislationTypes_xsd.tmp#BlockBasic" href="schemaLegislationTypes_xsd.html#BlockBasic" coords="330,329,438,355" shape="rect"/><area alt="schemaLegislationNumberedSections_xsd.tmp#P1" href="schemaLegislationNumberedSections_xsd.html#P1" coords="327,1212,378,1237" shape="rect"/><area alt="schemaLegislationNumberedSections_xsd.tmp#P1group" href="schemaLegislationNumberedSections_xsd.html#P1group" coords="327,1306,398,1331" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_ExplanatoryNotes" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_ExplanatoryNotes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_ExplanatoryNotes" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_ExplanatoryNotes" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_ExplanatoryNotes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_ExplanatoryNotes" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Groups </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationMain_xsd.html#PrimaryContentGroup" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">PrimaryContentGroup</a></b>, <b><a href="schemaLegislationMain_xsd.html#SecondaryContentGroup" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">SecondaryContentGroup</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_ExplanatoryNotes" type="image" src="img/btM.gif" value="-" onclick="switchState('model_ExplanatoryNotes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_ExplanatoryNotes" style="display:block"><b><a href="schemaCommonElements_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Title" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Title{0,1}</a></b> , <b><a href="schemaLegislationExplanatoryNotes_xsd.html#Comment" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Comment{0,1}</a></b> , (<b><a href="schemaLegislationNumberedSections_xsd.html#P" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P</a></b> | <b><a href="schemaLists_xsd.html#OrderedList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">OrderedList</a></b> | <b><a href="schemaLists_xsd.html#UnorderedList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">UnorderedList</a></b> | <b><a href="schemaLegislationBoxGroup_xsd.html#DecoratedGroup" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DecoratedGroup</a></b> | <b><a href="schemaLists_xsd.html#KeyList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">KeyList</a></b> | <b><a href="schemaFigure_xsd.html#Figure" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Figure</a></b> | <b><a href="schemaTabular_xsd.html#Tabular" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Tabular</a></b> | <b><a href="schemaLegislationForm_xsd.html#Form" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Form</a></b> | <b><a href="schemaFormula_xsd.html#Formula" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Formula</a></b> | <b><a href="schemaLegislationNumberedSections_xsd.html#P1" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P1</a></b> | <b><a href="schemaLegislationNumberedSections_xsd.html#P1group" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P1group</a></b>)
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationExplanatoryNotes_xsd.html#Comment" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Comment</a></b>, <b><a href="schemaLegislationBoxGroup_xsd.html#DecoratedGroup" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DecoratedGroup</a></b>, <b><a href="schemaFigure_xsd.html#Figure" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Figure</a></b>, <b><a href="schemaLegislationForm_xsd.html#Form" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Form</a></b>, <b><a href="schemaFormula_xsd.html#Formula" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Formula</a></b>, <b><a href="schemaLists_xsd.html#KeyList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">KeyList</a></b>, <b><a href="schemaLists_xsd.html#OrderedList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">OrderedList</a></b>, <b><a href="schemaLegislationNumberedSections_xsd.html#P" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P</a></b>, <b><a href="schemaLegislationNumberedSections_xsd.html#P1" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P1</a></b>, <b><a href="schemaLegislationNumberedSections_xsd.html#P1group" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P1group</a></b>, <b><a href="schemaTabular_xsd.html#Tabular" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Tabular</a></b>, <b><a href="schemaCommonElements_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Title" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Title</a></b>, <b><a href="schemaLists_xsd.html#UnorderedList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">UnorderedList</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_ExplanatoryNotes" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_ExplanatoryNotes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_ExplanatoryNotes" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_AltDates" target="_top" title="No namespace" shape="rect">AltDates</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#DateOrProspectiveListType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateOrProspectiveListType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A space separated sequence of dates where amendments have been applied to the provision</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#VersionRefAttributes_AltVersionRefs" target="_top" title="No namespace" shape="rect">AltVersionRefs</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#RefsLinkType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">RefsLinkType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Links to alternate versions of the content by referencing the version's id attribute,
+                                          e.g. perhaps a Welsh version or an image (Figure) of a Formula
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_BlanketAmendment" target="_top" title="No namespace" shape="rect">BlanketAmendment</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A Boolean value to indicate whether the provision includes blanket amendments, ie
+                                          general amendments to legislation as a whole rather than a specific enactment
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Concurrent" target="_top" title="No namespace" shape="rect">Concurrent</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A Boolean value to indicate if there are concurrent versions of the same provision.
+                                          This is presently used for concurrent geographic extent versions but may be used in
+                                          future to indicate other versions of the same provision
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_ConfersPower" target="_top" title="No namespace" shape="rect">ConfersPower</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A Boolean value to indicate whether the provision includes confers power to make secondary
+                                          legislation
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs_DocumentURI" target="_top" title="No namespace" shape="rect">DocumentURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to this part of the document (to the enacted version).</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_FragmentId" target="_top" title="No namespace" shape="rect">FragmentId</a></b></td><td rowspan="1" colspan="1"><b>xsd:NMTOKEN</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The identifier for the fragment used in the old SLD (Statute Law Database) system</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs_IdURI" target="_top" title="No namespace" shape="rect">IdURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to the id of this part of the document (to the current revised version).</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Match" target="_top" title="No namespace" shape="rect">Match</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A boolean value indicator as to whether the provision should be displayed or is in
+                                          force, i.e. if the status is prospective, then it will not display as in force. Similarly
+                                          with the status set to repealed, then this will prevent the provision from displaying
+                                          when viewed from high level
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#ProvisionCountAttributes_NumberOfProvisions" target="_top" title="No namespace" shape="rect">NumberOfProvisions</a></b></td><td rowspan="1" colspan="1"><b>xsd:integer</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Count of the number of child provisions within the section of content (added automatically
+                                          when published)
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_RestrictEndDate" target="_top" title="No namespace" shape="rect">RestrictEndDate</a></b></td><td rowspan="1" colspan="1"><b>xsd:date</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The date of the next version of the current fragment</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_RestrictExtent" target="_top" title="No namespace" shape="rect">RestrictExtent</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#ExtentType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">ExtentType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The geographic extent to which the provision applies</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_RestrictStartDate" target="_top" title="No namespace" shape="rect">RestrictStartDate</a></b></td><td rowspan="1" colspan="1"><b>xsd:date</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The date of the current version of the provision and the amendments applied to it</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Status" target="_top" title="No namespace" shape="rect">Status</a></b></td><td rowspan="1" colspan="1">list of restriction of <b>xsd:token</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The status of the provision when not in force, i.e. prospective, repealed. May have
+                                          multiple whitespaced values.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_ValidDates" target="_top" title="No namespace" shape="rect">ValidDates</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#DateOrProspectiveListType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateOrProspectiveListType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A space separated sequence of valid dates where the provision is in force</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Version" target="_top" title="No namespace" shape="rect">Version</a></b></td><td rowspan="1" colspan="1"><b>xsd:integer</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The version of the provision in the old SLD (Statute Law Database) system</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>A unique identifier for the element.</p>
+                                          					
+                                          <p>The format of this identifier is yxxxxx where y is a letter and xxxxx is a number,
+                                             padded to five digits.
+                                          </p>
+                                          					
+                                          <p>Note that most elements that normally have identifiers have a separate, element-specific
+                                             definition of the id attribute in the schema.
+                                          </p>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#base" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:base</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to change the base from which relative URLs are calculated. See http://www.w3.org/TR/xmlbase/
+                                          for information about this attribute.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#lang" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:lang</a></b></td><td rowspan="1" colspan="1"><b>xs:language</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Should be used to indicate the main language of the content contained by the element
+                                          upon which the attribute is appearing. Values should be taken from the ISO 639 standard.
+                                          This attribute should be used where the language is different from the main language
+                                          of the document.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#space" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:space</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to indicate whether white space is significant in the contained content and
+                                          can contain the value ‘default’ or ‘preserve’. For a value of ‘default’, it is left
+                                          to an application as to how to treat white space.
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_ExplanatoryNotes" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_ExplanatoryNotes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="instance_ExplanatoryNotes" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;ExplanatoryNotes</span><span class="tT"> </span><span class="tAN">AltDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">BlanketAmendment=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Concurrent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ConfersPower=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FragmentId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Match=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NumberOfProvisions=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictEndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictExtent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictStartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ValidDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Version=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xmlns=</span><span class="tAV">"http://www.legislation.gov.uk/namespaces/legislation"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Title</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/Title&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Comment</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/Comment&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;P</span><span class="tT"> </span><span class="tAN">AltDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">BlanketAmendment=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Concurrent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ConfersPower=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FragmentId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Match=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NotesURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NumberOfProvisions=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictEndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictExtent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictStartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">shortId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ValidDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Version=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/P&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;OrderedList</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Decoration=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Start=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Type=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/OrderedList&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;UnorderedList</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Class=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Decoration=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/UnorderedList&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;DecoratedGroup</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Decoration=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Orientation=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/DecoratedGroup&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;KeyList</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Separator=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/KeyList&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Figure</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ImageLayout=</span><span class="tAV">"vertical"</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Orientation=</span><span class="tAV">"portrait"</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Figure&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Tabular</span><span class="tT"> </span><span class="tAN">AltDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">BlanketAmendment=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Concurrent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ConfersPower=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FragmentId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Match=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NotesURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NumberOfProvisions=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Orientation=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictEndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictExtent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictStartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">shortId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ValidDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Version=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Tabular&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Form</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Orientation=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Form&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Formula</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ID=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Formula&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;P1</span><span class="tT"> </span><span class="tAN">AltDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">BlanketAmendment=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Concurrent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ConfersPower=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FootnoteRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FragmentId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Match=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NotesURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NumberOfProvisions=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictEndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictExtent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictStartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">shortId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ValidDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Version=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/P1&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;P1group</span><span class="tT"> </span><span class="tAN">AltDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">BlanketAmendment=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Concurrent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ConfersPower=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FragmentId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Layout=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Match=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NotesURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NumberOfProvisions=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictEndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictExtent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictStartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">shortId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ValidDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Version=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/P1group&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/ExplanatoryNotes&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_ExplanatoryNotes" type="image" src="img/btM.gif" value="-" onclick="switchState('source_ExplanatoryNotes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_ExplanatoryNotes" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"ExplanatoryNotes"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Explanatory Notes contains explanatory notes for secondary legislation. The explanatory notes for primary legislation do not use this element</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:sequence</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Title"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Comment"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:choice</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:group</span><span class="tAN"> ref=</span><span class="tAV">"BlockBasic"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"P1"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"P1group"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:choice&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:sequence&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"FragmentAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"OptionalURIs"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:element&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Comment" shape="rect"/><div class="componentTitle">Element <span class="qname">Comment</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_Comment" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_Comment');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_Comment" style="display:block">
+                              <div class="annotation">A comment about the explanatory note (In SIs is generally italic centred text under
+                                 the title)
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Comment" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Comment');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_Comment" style="display:block"><img alt="Diagram" src="img/schemaLegislationExplanatoryNotes_xsd_Element_Comment.jpeg" usemap="#schemaLegislationExplanatoryNotes_xsd_Element_Comment"/><map name="schemaLegislationExplanatoryNotes_xsd_Element_Comment" id="schemaLegislationExplanatoryNotes_xsd_Element_Comment"><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes" coords="140,44,283,70" shape="rect"/><area alt="schemaCommon_xsd.tmp#OptionalURIs" href="schemaCommon_xsd.html#OptionalURIs" coords="140,88,256,114" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#Para" href="schemaCommonElements_xsd.html#Para" coords="215,140,268,165" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Comment" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Comment');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Comment" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Comment" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Comment');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Comment" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Elements </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationExplanatoryNotes_xsd.html#EarlierOrders" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">EarlierOrders</a></b>, <b><a href="schemaLegislationExplanatoryNotes_xsd.html#ExplanatoryNotes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">ExplanatoryNotes</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_Comment" type="image" src="img/btM.gif" value="-" onclick="switchState('model_Comment');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_Comment" style="display:block"><b><a href="schemaCommonElements_xsd.html#Para" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Para+</a></b></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="schemaCommonElements_xsd.html#Para" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Para</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_Comment" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_Comment');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_Comment" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#VersionRefAttributes_AltVersionRefs" target="_top" title="No namespace" shape="rect">AltVersionRefs</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#RefsLinkType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">RefsLinkType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Links to alternate versions of the content by referencing the version's id attribute,
+                                          e.g. perhaps a Welsh version or an image (Figure) of a Formula
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs_DocumentURI" target="_top" title="No namespace" shape="rect">DocumentURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to this part of the document (to the enacted version).</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs_IdURI" target="_top" title="No namespace" shape="rect">IdURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to the id of this part of the document (to the current revised version).</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>A unique identifier for the element.</p>
+                                          					
+                                          <p>The format of this identifier is yxxxxx where y is a letter and xxxxx is a number,
+                                             padded to five digits.
+                                          </p>
+                                          					
+                                          <p>Note that most elements that normally have identifiers have a separate, element-specific
+                                             definition of the id attribute in the schema.
+                                          </p>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#base" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:base</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to change the base from which relative URLs are calculated. See http://www.w3.org/TR/xmlbase/
+                                          for information about this attribute.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#lang" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:lang</a></b></td><td rowspan="1" colspan="1"><b>xs:language</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Should be used to indicate the main language of the content contained by the element
+                                          upon which the attribute is appearing. Values should be taken from the ISO 639 standard.
+                                          This attribute should be used where the language is different from the main language
+                                          of the document.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#space" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:space</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to indicate whether white space is significant in the contained content and
+                                          can contain the value ‘default’ or ‘preserve’. For a value of ‘default’, it is left
+                                          to an application as to how to treat white space.
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_Comment" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_Comment');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="instance_Comment" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;Comment</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xmlns=</span><span class="tAV">"http://www.legislation.gov.uk/namespaces/legislation"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Para</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,unbounded}</span><span class="tEl">&lt;/Para&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/Comment&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Comment" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Comment');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Comment" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"Comment"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">A comment about the explanatory note (In SIs is generally italic centred text under the title)</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:sequence</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Para"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:sequence&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"OptionalURIs"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:element&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="EarlierOrders" shape="rect"/><div class="componentTitle">Element <span class="qname">EarlierOrders</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_EarlierOrders" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_EarlierOrders');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_EarlierOrders" style="display:block">
+                              <div class="annotation">Earlier Orders to legislation providing a list of commencement orders that apply to
+                                 the document.
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_EarlierOrders" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_EarlierOrders');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_EarlierOrders" style="display:block"><img alt="Diagram" src="img/schemaLegislationExplanatoryNotes_xsd_Element_EarlierOrders.jpeg" usemap="#schemaLegislationExplanatoryNotes_xsd_Element_EarlierOrders"/><map name="schemaLegislationExplanatoryNotes_xsd_Element_EarlierOrders" id="schemaLegislationExplanatoryNotes_xsd_Element_EarlierOrders"><area alt="schemaLegislationCommonAttributes_xsd.tmp#FragmentAttributes" href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes" coords="160,44,307,70" shape="rect"/><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes" coords="160,88,303,114" shape="rect"/><area alt="schemaCommon_xsd.tmp#OptionalURIs" href="schemaCommon_xsd.html#OptionalURIs" coords="160,132,276,158" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#http___www.legislation.gov.uk_namespaces_legislation_Title" href="schemaCommonElements_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Title" coords="235,180,286,205" shape="rect"/><area alt="schemaLegislationExplanatoryNotes_xsd.tmp#Comment" href="schemaLegislationExplanatoryNotes_xsd.html#Comment" coords="235,246,310,271" shape="rect"/><area alt="schemaLegislationNumberedSections_xsd.tmp#P" href="schemaLegislationNumberedSections_xsd.html#P" coords="391,370,442,395" shape="rect"/><area alt="schemaLists_xsd.tmp#OrderedList" href="schemaLists_xsd.html#OrderedList" coords="391,464,479,489" shape="rect"/><area alt="schemaLists_xsd.tmp#UnorderedList" href="schemaLists_xsd.html#UnorderedList" coords="391,558,490,583" shape="rect"/><area alt="schemaLegislationBoxGroup_xsd.tmp#DecoratedGroup" href="schemaLegislationBoxGroup_xsd.html#DecoratedGroup" coords="391,666,502,691" shape="rect"/><area alt="schemaLists_xsd.tmp#KeyList" href="schemaLists_xsd.html#KeyList" coords="391,746,458,771" shape="rect"/><area alt="schemaFigure_xsd.tmp#Figure" href="schemaFigure_xsd.html#Figure" coords="391,826,452,851" shape="rect"/><area alt="schemaTabular_xsd.tmp#Tabular" href="schemaTabular_xsd.html#Tabular" coords="391,920,458,945" shape="rect"/><area alt="schemaLegislationForm_xsd.tmp#Form" href="schemaLegislationForm_xsd.html#Form" coords="391,1014,446,1039" shape="rect"/><area alt="schemaFormula_xsd.tmp#Formula" href="schemaFormula_xsd.html#Formula" coords="391,1094,460,1119" shape="rect"/><area alt="schemaLegislationTypes_xsd.tmp#BlockBasic" href="schemaLegislationTypes_xsd.html#BlockBasic" coords="309,329,417,355" shape="rect"/><area alt="schemaLegislationNumberedSections_xsd.tmp#P1" href="schemaLegislationNumberedSections_xsd.html#P1" coords="306,1212,357,1237" shape="rect"/><area alt="schemaLegislationNumberedSections_xsd.tmp#P1group" href="schemaLegislationNumberedSections_xsd.html#P1group" coords="306,1306,377,1331" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_EarlierOrders" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_EarlierOrders');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_EarlierOrders" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_EarlierOrders" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_EarlierOrders');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_EarlierOrders" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationMain_xsd.html#SecondaryContentGroup" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">SecondaryContentGroup</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_EarlierOrders" type="image" src="img/btM.gif" value="-" onclick="switchState('model_EarlierOrders');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_EarlierOrders" style="display:block"><b><a href="schemaCommonElements_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Title" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Title{0,1}</a></b> , <b><a href="schemaLegislationExplanatoryNotes_xsd.html#Comment" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Comment{0,1}</a></b> , (<b><a href="schemaLegislationNumberedSections_xsd.html#P" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P</a></b> | <b><a href="schemaLists_xsd.html#OrderedList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">OrderedList</a></b> | <b><a href="schemaLists_xsd.html#UnorderedList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">UnorderedList</a></b> | <b><a href="schemaLegislationBoxGroup_xsd.html#DecoratedGroup" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DecoratedGroup</a></b> | <b><a href="schemaLists_xsd.html#KeyList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">KeyList</a></b> | <b><a href="schemaFigure_xsd.html#Figure" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Figure</a></b> | <b><a href="schemaTabular_xsd.html#Tabular" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Tabular</a></b> | <b><a href="schemaLegislationForm_xsd.html#Form" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Form</a></b> | <b><a href="schemaFormula_xsd.html#Formula" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Formula</a></b> | <b><a href="schemaLegislationNumberedSections_xsd.html#P1" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P1</a></b> | <b><a href="schemaLegislationNumberedSections_xsd.html#P1group" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P1group</a></b>)
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationExplanatoryNotes_xsd.html#Comment" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Comment</a></b>, <b><a href="schemaLegislationBoxGroup_xsd.html#DecoratedGroup" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DecoratedGroup</a></b>, <b><a href="schemaFigure_xsd.html#Figure" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Figure</a></b>, <b><a href="schemaLegislationForm_xsd.html#Form" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Form</a></b>, <b><a href="schemaFormula_xsd.html#Formula" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Formula</a></b>, <b><a href="schemaLists_xsd.html#KeyList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">KeyList</a></b>, <b><a href="schemaLists_xsd.html#OrderedList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">OrderedList</a></b>, <b><a href="schemaLegislationNumberedSections_xsd.html#P" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P</a></b>, <b><a href="schemaLegislationNumberedSections_xsd.html#P1" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P1</a></b>, <b><a href="schemaLegislationNumberedSections_xsd.html#P1group" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">P1group</a></b>, <b><a href="schemaTabular_xsd.html#Tabular" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Tabular</a></b>, <b><a href="schemaCommonElements_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Title" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Title</a></b>, <b><a href="schemaLists_xsd.html#UnorderedList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">UnorderedList</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_EarlierOrders" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_EarlierOrders');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_EarlierOrders" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_AltDates" target="_top" title="No namespace" shape="rect">AltDates</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#DateOrProspectiveListType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateOrProspectiveListType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A space separated sequence of dates where amendments have been applied to the provision</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#VersionRefAttributes_AltVersionRefs" target="_top" title="No namespace" shape="rect">AltVersionRefs</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#RefsLinkType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">RefsLinkType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Links to alternate versions of the content by referencing the version's id attribute,
+                                          e.g. perhaps a Welsh version or an image (Figure) of a Formula
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_BlanketAmendment" target="_top" title="No namespace" shape="rect">BlanketAmendment</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A Boolean value to indicate whether the provision includes blanket amendments, ie
+                                          general amendments to legislation as a whole rather than a specific enactment
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Concurrent" target="_top" title="No namespace" shape="rect">Concurrent</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A Boolean value to indicate if there are concurrent versions of the same provision.
+                                          This is presently used for concurrent geographic extent versions but may be used in
+                                          future to indicate other versions of the same provision
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_ConfersPower" target="_top" title="No namespace" shape="rect">ConfersPower</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A Boolean value to indicate whether the provision includes confers power to make secondary
+                                          legislation
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs_DocumentURI" target="_top" title="No namespace" shape="rect">DocumentURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to this part of the document (to the enacted version).</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_FragmentId" target="_top" title="No namespace" shape="rect">FragmentId</a></b></td><td rowspan="1" colspan="1"><b>xsd:NMTOKEN</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The identifier for the fragment used in the old SLD (Statute Law Database) system</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs_IdURI" target="_top" title="No namespace" shape="rect">IdURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to the id of this part of the document (to the current revised version).</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Match" target="_top" title="No namespace" shape="rect">Match</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A boolean value indicator as to whether the provision should be displayed or is in
+                                          force, i.e. if the status is prospective, then it will not display as in force. Similarly
+                                          with the status set to repealed, then this will prevent the provision from displaying
+                                          when viewed from high level
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#ProvisionCountAttributes_NumberOfProvisions" target="_top" title="No namespace" shape="rect">NumberOfProvisions</a></b></td><td rowspan="1" colspan="1"><b>xsd:integer</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Count of the number of child provisions within the section of content (added automatically
+                                          when published)
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_RestrictEndDate" target="_top" title="No namespace" shape="rect">RestrictEndDate</a></b></td><td rowspan="1" colspan="1"><b>xsd:date</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The date of the next version of the current fragment</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_RestrictExtent" target="_top" title="No namespace" shape="rect">RestrictExtent</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#ExtentType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">ExtentType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The geographic extent to which the provision applies</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_RestrictStartDate" target="_top" title="No namespace" shape="rect">RestrictStartDate</a></b></td><td rowspan="1" colspan="1"><b>xsd:date</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The date of the current version of the provision and the amendments applied to it</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Status" target="_top" title="No namespace" shape="rect">Status</a></b></td><td rowspan="1" colspan="1">list of restriction of <b>xsd:token</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The status of the provision when not in force, i.e. prospective, repealed. May have
+                                          multiple whitespaced values.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_ValidDates" target="_top" title="No namespace" shape="rect">ValidDates</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#DateOrProspectiveListType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateOrProspectiveListType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A space separated sequence of valid dates where the provision is in force</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Version" target="_top" title="No namespace" shape="rect">Version</a></b></td><td rowspan="1" colspan="1"><b>xsd:integer</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The version of the provision in the old SLD (Statute Law Database) system</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>A unique identifier for the element.</p>
+                                          					
+                                          <p>The format of this identifier is yxxxxx where y is a letter and xxxxx is a number,
+                                             padded to five digits.
+                                          </p>
+                                          					
+                                          <p>Note that most elements that normally have identifiers have a separate, element-specific
+                                             definition of the id attribute in the schema.
+                                          </p>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#base" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:base</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to change the base from which relative URLs are calculated. See http://www.w3.org/TR/xmlbase/
+                                          for information about this attribute.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#lang" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:lang</a></b></td><td rowspan="1" colspan="1"><b>xs:language</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Should be used to indicate the main language of the content contained by the element
+                                          upon which the attribute is appearing. Values should be taken from the ISO 639 standard.
+                                          This attribute should be used where the language is different from the main language
+                                          of the document.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#space" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:space</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to indicate whether white space is significant in the contained content and
+                                          can contain the value ‘default’ or ‘preserve’. For a value of ‘default’, it is left
+                                          to an application as to how to treat white space.
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_EarlierOrders" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_EarlierOrders');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="instance_EarlierOrders" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;EarlierOrders</span><span class="tT"> </span><span class="tAN">AltDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">BlanketAmendment=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Concurrent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ConfersPower=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FragmentId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Match=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NumberOfProvisions=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictEndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictExtent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictStartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ValidDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Version=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xmlns=</span><span class="tAV">"http://www.legislation.gov.uk/namespaces/legislation"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Title</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/Title&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Comment</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/Comment&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;P</span><span class="tT"> </span><span class="tAN">AltDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">BlanketAmendment=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Concurrent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ConfersPower=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FragmentId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Match=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NotesURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NumberOfProvisions=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictEndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictExtent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictStartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">shortId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ValidDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Version=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/P&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;OrderedList</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Decoration=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Start=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Type=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/OrderedList&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;UnorderedList</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Class=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Decoration=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/UnorderedList&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;DecoratedGroup</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Decoration=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Orientation=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/DecoratedGroup&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;KeyList</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Separator=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/KeyList&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Figure</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ImageLayout=</span><span class="tAV">"vertical"</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Orientation=</span><span class="tAV">"portrait"</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Figure&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Tabular</span><span class="tT"> </span><span class="tAN">AltDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">BlanketAmendment=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Concurrent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ConfersPower=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FragmentId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Match=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NotesURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NumberOfProvisions=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Orientation=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictEndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictExtent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictStartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">shortId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ValidDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Version=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Tabular&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Form</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Orientation=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Form&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Formula</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ID=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Formula&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;P1</span><span class="tT"> </span><span class="tAN">AltDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">BlanketAmendment=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Concurrent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ConfersPower=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FootnoteRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FragmentId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Match=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NotesURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NumberOfProvisions=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictEndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictExtent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictStartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">shortId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ValidDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Version=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/P1&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;P1group</span><span class="tT"> </span><span class="tAN">AltDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">BlanketAmendment=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Concurrent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ConfersPower=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FragmentId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Layout=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Match=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NotesURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NumberOfProvisions=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictEndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictExtent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictStartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">shortId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ValidDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Version=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/P1group&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/EarlierOrders&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_EarlierOrders" type="image" src="img/btM.gif" value="-" onclick="switchState('source_EarlierOrders');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_EarlierOrders" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"EarlierOrders"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Earlier Orders to legislation providing a list of commencement orders that apply to the document.</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:sequence</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Title"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Comment"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:choice</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:group</span><span class="tAN"> ref=</span><span class="tAV">"BlockBasic"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"P1"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"P1group"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:choice&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:sequence&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"FragmentAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"OptionalURIs"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:element&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      <div class="footer">
+         <hr/>
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent" shape="rect"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript" xml:space="preserve">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body></html>

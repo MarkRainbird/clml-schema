@@ -1,0 +1,709 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>Schema documentation for schemaLegislationAttributes.xsd</title><link rel="stylesheet" href="docHtml.css" type="text/css"/><script type="text/javascript" xml:space="preserve">
+         <!--
+        var propertiesBoxes= new Array('properties_schemaLegislationAttributes.xsd', 
+				'properties_LegislationExtractAttributes_SourceClass', 
+				'properties_LegislationExtractAttributes_SourceSubClass', 
+				'properties_CommonBlockAmendmentExtractAttributeGroup_Context', 
+				'properties_LegislationAmendmentAttributes_TargetClass', 
+				'properties_LegislationAmendmentAttributes_TargetSubClass');
+var facetsBoxes= new Array('facets_CommonBlockAmendmentExtractAttributeGroup_Context');
+var usedByBoxes= new Array('usedBy_LegislationExtractAttributes_SourceClass', 
+				'usedBy_LegislationExtractAttributes_SourceSubClass', 
+				'usedBy_CommonBlockAmendmentExtractAttributeGroup_Context', 
+				'usedBy_LegislationAmendmentAttributes_TargetClass', 
+				'usedBy_LegislationAmendmentAttributes_TargetSubClass', 
+				'usedBy_LegislationExtractAttributes', 
+				'usedBy_CommonBlockAmendmentExtractAttributeGroup', 
+				'usedBy_LegislationAmendmentAttributes');
+var sourceBoxes= new Array('source_LegislationExtractAttributes_SourceClass', 
+				'source_LegislationExtractAttributes_SourceSubClass', 
+				'source_CommonBlockAmendmentExtractAttributeGroup_Context', 
+				'source_LegislationAmendmentAttributes_TargetClass', 
+				'source_LegislationAmendmentAttributes_TargetSubClass', 
+				'source_LegislationExtractAttributes', 
+				'source_CommonBlockAmendmentExtractAttributeGroup', 
+				'source_LegislationAmendmentAttributes');
+var diagramBoxes= new Array('diagram_LegislationExtractAttributes', 
+				'diagram_CommonBlockAmendmentExtractAttributeGroup', 
+				'diagram_LegislationAmendmentAttributes');
+var annotationBoxes= new Array('annotations_schemaLegislationAttributes.xsd', 
+				'annotations_LegislationExtractAttributes_SourceClass', 
+				'annotations_LegislationExtractAttributes_SourceSubClass', 
+				'annotations_CommonBlockAmendmentExtractAttributeGroup_Context', 
+				'annotations_LegislationAmendmentAttributes_TargetSubClass');
+var attributesBoxes= new Array('attributes_LegislationExtractAttributes', 
+				'attributes_CommonBlockAmendmentExtractAttributeGroup', 
+				'attributes_LegislationAmendmentAttributes');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script><link rel="stylesheet" type="text/css" href="frames.css"/></head><body><iframe id="nav" src="CLMLreferenceGuide-v2-7.indexListcomp.html"> </iframe>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+                  <h3>Showing:</h3>
+                  <table><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control"/></span><span class="globalControlName">Annotations</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control"/></span><span class="globalControlName">Attributes </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control"/></span><span class="globalControlName">Diagrams</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, facetsBoxes);" class="control"/></span><span class="globalControlName">Facets </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control"/></span><span class="globalControlName">Properties </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control"/></span><span class="globalControlName">Source</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control"/></span><span class="globalControlName">Used by </span></td></tr></table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close"/></span></div>
+               </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      </div><a id="schemaLegislationAttributes.xsd" shape="rect"/><div class="componentTitle">Included schema <span class="qname">schemaLegislationAttributes.xsd</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_schemaLegislationAttributes.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_schemaLegislationAttributes.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_schemaLegislationAttributes.xsd" style="display:block">
+                              <div class="annotation">Defines attributes for block amendments and extracts of legislation</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_schemaLegislationAttributes.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_schemaLegislationAttributes.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_schemaLegislationAttributes.xsd" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">attribute form default</td><td rowspan="1" colspan="1"><b>unqualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">element form default</td><td rowspan="1" colspan="1"><b>qualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">version</td><td rowspan="1" colspan="1"><b>2.4</b></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="LegislationExtractAttributes_SourceClass" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationAttributes_xsd.html#LegislationExtractAttributes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LegislationExtractAttributes</a></b> / @SourceClass</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_LegislationExtractAttributes_SourceClass" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_LegislationExtractAttributes_SourceClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_LegislationExtractAttributes_SourceClass" style="display:block">
+                              <div class="annotation">Indicates the class of the type of legislation from which the extract derives (primary,
+                                 secondary or EU retained)
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_LegislationExtractAttributes_SourceClass" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_LegislationExtractAttributes_SourceClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_LegislationExtractAttributes_SourceClass" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">use</td><td rowspan="1" colspan="1"><b>required</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_LegislationExtractAttributes_SourceClass" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_LegislationExtractAttributes_SourceClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_LegislationExtractAttributes_SourceClass" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#LegislationExtractAttributes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LegislationExtractAttributes</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_LegislationExtractAttributes_SourceClass" type="image" src="img/btM.gif" value="-" onclick="switchState('source_LegislationExtractAttributes_SourceClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_LegislationExtractAttributes_SourceClass" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"SourceClass"</span><span class="tAN"> type=</span><span class="tAV">"CategoryUnknownType"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Indicates the class of the type of legislation from which the extract derives (primary, secondary or EU retained)</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="LegislationExtractAttributes_SourceSubClass" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationAttributes_xsd.html#LegislationExtractAttributes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LegislationExtractAttributes</a></b> / @SourceSubClass</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_LegislationExtractAttributes_SourceSubClass" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_LegislationExtractAttributes_SourceSubClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_LegislationExtractAttributes_SourceSubClass" style="display:block">
+                              <div class="annotation">This extends the source for SIs so that context can be added for Regulation, Order,
+                                 etc
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_LegislationExtractAttributes_SourceSubClass" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_LegislationExtractAttributes_SourceSubClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_LegislationExtractAttributes_SourceSubClass" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">use</td><td rowspan="1" colspan="1"><b>optional</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_LegislationExtractAttributes_SourceSubClass" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_LegislationExtractAttributes_SourceSubClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_LegislationExtractAttributes_SourceSubClass" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#LegislationExtractAttributes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LegislationExtractAttributes</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_LegislationExtractAttributes_SourceSubClass" type="image" src="img/btM.gif" value="-" onclick="switchState('source_LegislationExtractAttributes_SourceSubClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_LegislationExtractAttributes_SourceSubClass" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"SourceSubClass"</span><span class="tAN"> type=</span><span class="tAV">"MinorType"</span><span class="tAN"> use=</span><span class="tAV">"optional"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This extends the source for SIs so that context can be added for Regulation, Order, etc</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="CommonBlockAmendmentExtractAttributeGroup_Context" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationAttributes_xsd.html#CommonBlockAmendmentExtractAttributeGroup" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CommonBlockAmendmentExtractAttributeGroup</a></b> / @Context</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_CommonBlockAmendmentExtractAttributeGroup_Context" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_CommonBlockAmendmentExtractAttributeGroup_Context');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_CommonBlockAmendmentExtractAttributeGroup_Context" style="display:block">
+                              <div class="annotation">Context refers to the content area within the document that the referring element
+                                 is closely associated with, e.g. contents, main, schedule and unknown. This is evaluated
+                                 based on certain conditions and criteria
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_CommonBlockAmendmentExtractAttributeGroup_Context" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_CommonBlockAmendmentExtractAttributeGroup_Context');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_CommonBlockAmendmentExtractAttributeGroup_Context" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">use</td><td rowspan="1" colspan="1"><b>required</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_CommonBlockAmendmentExtractAttributeGroup_Context" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_CommonBlockAmendmentExtractAttributeGroup_Context');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_CommonBlockAmendmentExtractAttributeGroup_Context" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>contents</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>main</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>schedule</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>unknown</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_CommonBlockAmendmentExtractAttributeGroup_Context" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_CommonBlockAmendmentExtractAttributeGroup_Context');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_CommonBlockAmendmentExtractAttributeGroup_Context" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#CommonBlockAmendmentExtractAttributeGroup" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CommonBlockAmendmentExtractAttributeGroup</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonBlockAmendmentExtractAttributeGroup_Context" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonBlockAmendmentExtractAttributeGroup_Context');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_CommonBlockAmendmentExtractAttributeGroup_Context" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Context"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Context refers to the content area within the document that the referring element is closely associated with, e.g. contents, main, schedule and unknown. This is evaluated based on certain conditions and criteria</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:string"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"contents"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"main"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"schedule"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"unknown"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="LegislationAmendmentAttributes_TargetClass" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationAttributes_xsd.html#LegislationAmendmentAttributes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LegislationAmendmentAttributes</a></b> / @TargetClass</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_LegislationAmendmentAttributes_TargetClass" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_LegislationAmendmentAttributes_TargetClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_LegislationAmendmentAttributes_TargetClass" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">use</td><td rowspan="1" colspan="1"><b>required</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_LegislationAmendmentAttributes_TargetClass" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_LegislationAmendmentAttributes_TargetClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_LegislationAmendmentAttributes_TargetClass" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#LegislationAmendmentAttributes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LegislationAmendmentAttributes</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_LegislationAmendmentAttributes_TargetClass" type="image" src="img/btM.gif" value="-" onclick="switchState('source_LegislationAmendmentAttributes_TargetClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_LegislationAmendmentAttributes_TargetClass" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"TargetClass"</span><span class="tAN"> type=</span><span class="tAV">"CategoryUnknownType"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="LegislationAmendmentAttributes_TargetSubClass" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationAttributes_xsd.html#LegislationAmendmentAttributes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LegislationAmendmentAttributes</a></b> / @TargetSubClass</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_LegislationAmendmentAttributes_TargetSubClass" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_LegislationAmendmentAttributes_TargetSubClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_LegislationAmendmentAttributes_TargetSubClass" style="display:block">
+                              <div class="annotation">This extended the source for SIs so that context can be added for Regulation, Order,
+                                 etc
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_LegislationAmendmentAttributes_TargetSubClass" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_LegislationAmendmentAttributes_TargetSubClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_LegislationAmendmentAttributes_TargetSubClass" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">use</td><td rowspan="1" colspan="1"><b>required</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_LegislationAmendmentAttributes_TargetSubClass" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_LegislationAmendmentAttributes_TargetSubClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_LegislationAmendmentAttributes_TargetSubClass" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#LegislationAmendmentAttributes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LegislationAmendmentAttributes</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_LegislationAmendmentAttributes_TargetSubClass" type="image" src="img/btM.gif" value="-" onclick="switchState('source_LegislationAmendmentAttributes_TargetSubClass');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_LegislationAmendmentAttributes_TargetSubClass" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"TargetSubClass"</span><span class="tAN"> type=</span><span class="tAV">"MinorType"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This extended the source for SIs so that context can be added for Regulation, Order, etc</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="LegislationExtractAttributes" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">LegislationExtractAttributes</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_LegislationExtractAttributes" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_LegislationExtractAttributes');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_LegislationExtractAttributes" style="display:block"><img alt="Diagram" src="img/schemaLegislationAttributes_xsd_Attribute_Group_LegislationExtractAttributes.jpeg" usemap="#schemaLegislationAttributes_xsd_Attribute_Group_LegislationExtractAttributes"/><map name="schemaLegislationAttributes_xsd_Attribute_Group_LegislationExtractAttributes" id="schemaLegislationAttributes_xsd_Attribute_Group_LegislationExtractAttributes"><area alt="schemaLegislationAttributes_xsd.tmp#LegislationExtractAttributes_SourceClass" href="schemaLegislationAttributes_xsd.html#LegislationExtractAttributes_SourceClass" coords="215,0,327,25" shape="rect"/><area alt="schemaLegislationAttributes_xsd.tmp#LegislationExtractAttributes_SourceSubClass" href="schemaLegislationAttributes_xsd.html#LegislationExtractAttributes_SourceSubClass" coords="215,80,346,105" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_LegislationExtractAttributes" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_LegislationExtractAttributes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_LegislationExtractAttributes" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaExtract_xsd.html#BlockExtract" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">BlockExtract</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">Complex Type </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationTypes_xsd.html#InlineExtractStructure" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">InlineExtractStructure</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_LegislationExtractAttributes" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_LegislationExtractAttributes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_LegislationExtractAttributes" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#LegislationExtractAttributes_SourceClass" target="_top" title="No namespace" shape="rect">SourceClass</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#CategoryUnknownType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CategoryUnknownType</a></b></td><td rowspan="1" colspan="1">required</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Indicates the class of the type of legislation from which the extract derives (primary,
+                                          secondary or EU retained)
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#LegislationExtractAttributes_SourceSubClass" target="_top" title="No namespace" shape="rect">SourceSubClass</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#MinorType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">MinorType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">This extends the source for SIs so that context can be added for Regulation, Order,
+                                          etc
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_LegislationExtractAttributes" type="image" src="img/btM.gif" value="-" onclick="switchState('source_LegislationExtractAttributes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_LegislationExtractAttributes" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"LegislationExtractAttributes"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"SourceClass"</span><span class="tAN"> type=</span><span class="tAV">"CategoryUnknownType"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Indicates the class of the type of legislation from which the extract derives (primary, secondary or EU retained)</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:attribute&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"SourceSubClass"</span><span class="tAN"> type=</span><span class="tAV">"MinorType"</span><span class="tAN"> use=</span><span class="tAV">"optional"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This extends the source for SIs so that context can be added for Regulation, Order, etc</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:attribute&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="CommonBlockAmendmentExtractAttributeGroup" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">CommonBlockAmendmentExtractAttributeGroup</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CommonBlockAmendmentExtractAttributeGroup" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CommonBlockAmendmentExtractAttributeGroup');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_CommonBlockAmendmentExtractAttributeGroup" style="display:block"><img alt="Diagram" src="img/schemaLegislationAttributes_xsd_Attribute_Group_CommonBlockAmendmentExtractAttributeGroup.jpeg" usemap="#schemaLegislationAttributes_xsd_Attribute_Group_CommonBlockAmendmentExtractAttributeGroup"/><map name="schemaLegislationAttributes_xsd_Attribute_Group_CommonBlockAmendmentExtractAttributeGroup" id="schemaLegislationAttributes_xsd_Attribute_Group_CommonBlockAmendmentExtractAttributeGroup"><area alt="schemaLegislationCommonAttributes_xsd.tmp#QuotesAttributes_Format" href="schemaLegislationCommonAttributes_xsd.html#QuotesAttributes_Format" coords="326,44,409,69" shape="rect"/><area alt="schemaLegislationCommonAttributes_xsd.tmp#QuotesAttributes" href="schemaLegislationCommonAttributes_xsd.html#QuotesAttributes" coords="315,3,452,29" shape="rect"/><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonAttributes_id" href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes_id" coords="326,175,396,200" shape="rect"/><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonSubAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonSubAttributes" coords="329,286,491,312" shape="rect"/><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes" coords="315,134,458,160" shape="rect"/><area alt="schemaLegislationCommonAttributes_xsd.tmp#StructureNumberFormattingAttributes_NumberFormat" href="schemaLegislationCommonAttributes_xsd.html#StructureNumberFormattingAttributes_NumberFormat" coords="326,378,446,403" shape="rect"/><area alt="schemaLegislationCommonAttributes_xsd.tmp#StructureNumberFormattingAttributes" href="schemaLegislationCommonAttributes_xsd.html#StructureNumberFormattingAttributes" coords="315,337,549,363" shape="rect"/><area alt="schemaLegislationAttributes_xsd.tmp#CommonBlockAmendmentExtractAttributeGroup_Context" href="schemaLegislationAttributes_xsd.html#CommonBlockAmendmentExtractAttributeGroup_Context" coords="312,465,399,490" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_CommonBlockAmendmentExtractAttributeGroup" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_CommonBlockAmendmentExtractAttributeGroup');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_CommonBlockAmendmentExtractAttributeGroup" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Elements </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationAmendments_xsd.html#BlockAmendment" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">BlockAmendment</a></b>, <b><a href="schemaExtract_xsd.html#BlockExtract" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">BlockExtract</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_CommonBlockAmendmentExtractAttributeGroup" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_CommonBlockAmendmentExtractAttributeGroup');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_CommonBlockAmendmentExtractAttributeGroup" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="10%" rowspan="1" colspan="1">Default</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#VersionRefAttributes_AltVersionRefs" target="_top" title="No namespace" shape="rect">AltVersionRefs</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#RefsLinkType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">RefsLinkType</a></b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Links to alternate versions of the content by referencing the version's id attribute,
+                                          e.g. perhaps a Welsh version or an image (Figure) of a Formula
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#CommonBlockAmendmentExtractAttributeGroup_Context" target="_top" title="No namespace" shape="rect">Context</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:string</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">required</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Context refers to the content area within the document that the referring element
+                                          is closely associated with, e.g. contents, main, schedule and unknown. This is evaluated
+                                          based on certain conditions and criteria
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#QuotesAttributes_Format" target="_top" title="No namespace" shape="rect">Format</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:string</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">required</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Defines the type of quotes to be used when formatting block or inline amendments or
+                                          extracts.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#StructureNumberFormattingAttributes_NumberFormat" target="_top" title="No namespace" shape="rect">NumberFormat</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:string</b></td><td rowspan="1" colspan="1">default</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Defines whether section numbering (top level) should be formatted in a way other then
+                                          the default. This is basically for legacy data. The use of a default attribute has
+                                          been considered and kept due to the fact that the attribute is only to be used for
+                                          legacy data and it would be a hinderance to have to consider its use going forward.
+                                          It is expected that this attribute could be changed to a fixed value of default if
+                                          required
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:NCName</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>A unique identifier for the element.</p>
+                                          					
+                                          <p>The format of this identifier is yxxxxx where y is a letter and xxxxx is a number,
+                                             padded to five digits.
+                                          </p>
+                                          					
+                                          <p>Note that most elements that normally have identifiers have a separate, element-specific
+                                             definition of the id attribute in the schema.
+                                          </p>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#base" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:base</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to change the base from which relative URLs are calculated. See http://www.w3.org/TR/xmlbase/
+                                          for information about this attribute.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#lang" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:lang</a></b></td><td rowspan="1" colspan="1"><b>xs:language</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Should be used to indicate the main language of the content contained by the element
+                                          upon which the attribute is appearing. Values should be taken from the ISO 639 standard.
+                                          This attribute should be used where the language is different from the main language
+                                          of the document.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#space" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:space</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:NCName</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to indicate whether white space is significant in the contained content and
+                                          can contain the value ‘default’ or ‘preserve’. For a value of ‘default’, it is left
+                                          to an application as to how to treat white space.
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CommonBlockAmendmentExtractAttributeGroup" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CommonBlockAmendmentExtractAttributeGroup');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_CommonBlockAmendmentExtractAttributeGroup" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"CommonBlockAmendmentExtractAttributeGroup"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"QuotesAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"StructureNumberFormattingAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- #172192631 harmonised definition of Context attribute --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Context"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Context refers to the content area within the document that the referring element is closely associated with, e.g. contents, main, schedule and unknown. This is evaluated based on certain conditions and criteria</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:string"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"contents"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"main"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"schedule"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"unknown"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:attribute&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="LegislationAmendmentAttributes" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">LegislationAmendmentAttributes</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_LegislationAmendmentAttributes" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_LegislationAmendmentAttributes');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_LegislationAmendmentAttributes" style="display:block"><img alt="Diagram" src="img/schemaLegislationAttributes_xsd_Attribute_Group_LegislationAmendmentAttributes.jpeg" usemap="#schemaLegislationAttributes_xsd_Attribute_Group_LegislationAmendmentAttributes"/><map name="schemaLegislationAttributes_xsd_Attribute_Group_LegislationAmendmentAttributes" id="schemaLegislationAttributes_xsd_Attribute_Group_LegislationAmendmentAttributes"><area alt="schemaLegislationAttributes_xsd.tmp#LegislationAmendmentAttributes_TargetClass" href="schemaLegislationAttributes_xsd.html#LegislationAmendmentAttributes_TargetClass" coords="238,0,346,25" shape="rect"/><area alt="schemaLegislationAttributes_xsd.tmp#LegislationAmendmentAttributes_TargetSubClass" href="schemaLegislationAttributes_xsd.html#LegislationAmendmentAttributes_TargetSubClass" coords="238,35,365,60" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_LegislationAmendmentAttributes" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_LegislationAmendmentAttributes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_LegislationAmendmentAttributes" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationAmendments_xsd.html#BlockAmendment" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">BlockAmendment</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_LegislationAmendmentAttributes" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_LegislationAmendmentAttributes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_LegislationAmendmentAttributes" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#LegislationAmendmentAttributes_TargetClass" target="_top" title="No namespace" shape="rect">TargetClass</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#CategoryUnknownType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CategoryUnknownType</a></b></td><td rowspan="1" colspan="1">required</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#LegislationAmendmentAttributes_TargetSubClass" target="_top" title="No namespace" shape="rect">TargetSubClass</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#MinorType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">MinorType</a></b></td><td rowspan="1" colspan="1">required</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">This extended the source for SIs so that context can be added for Regulation, Order,
+                                          etc
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_LegislationAmendmentAttributes" type="image" src="img/btM.gif" value="-" onclick="switchState('source_LegislationAmendmentAttributes');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_LegislationAmendmentAttributes" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"LegislationAmendmentAttributes"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"TargetClass"</span><span class="tAN"> type=</span><span class="tAV">"CategoryUnknownType"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"TargetSubClass"</span><span class="tAN"> type=</span><span class="tAV">"MinorType"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This extended the source for SIs so that context can be added for Regulation, Order, etc</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:attribute&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      <div class="footer">
+         <hr/>
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent" shape="rect"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript" xml:space="preserve">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body></html>

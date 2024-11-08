@@ -1,0 +1,1158 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>Schema documentation for schemaLegislationSignature.xsd</title><link rel="stylesheet" href="docHtml.css" type="text/css"/><script type="text/javascript" xml:space="preserve">
+         <!--
+        var propertiesBoxes= new Array('properties_schemaLegislationSignature.xsd', 
+				'properties_SignedSection', 
+				'properties_Signatory', 
+				'properties_Signee', 
+				'properties_LSseal', 
+				'properties_DateSigned', 
+				'properties_InlineFull_ResourceRef', 
+				'properties_InlineFull_Date', 
+				'properties_LSseal_Date', 
+				'properties_LSseal_ResourceRef', 
+				'properties_DateSigned_Date', 
+				'properties_DateSigned_Time', 
+				'properties_Signatory_Date', 
+				'properties_Signatory_Time');
+var usedByBoxes= new Array('usedBy_SignedSection', 
+				'usedBy_Signatory', 
+				'usedBy_Signee', 
+				'usedBy_LSseal', 
+				'usedBy_DateSigned', 
+				'usedBy_InlineFull_ResourceRef', 
+				'usedBy_InlineFull_Date', 
+				'usedBy_DateSigned_Date', 
+				'usedBy_DateSigned_Time', 
+				'usedBy_Signatory_Date', 
+				'usedBy_Signatory_Time');
+var sourceBoxes= new Array('source_SignedSection', 
+				'source_Signatory', 
+				'source_Signee', 
+				'source_LSseal', 
+				'source_DateSigned', 
+				'source_InlineFull_ResourceRef', 
+				'source_InlineFull_Date', 
+				'source_LSseal_Date', 
+				'source_LSseal_ResourceRef', 
+				'source_DateSigned_Date', 
+				'source_DateSigned_Time', 
+				'source_Signatory_Date', 
+				'source_Signatory_Time');
+var instanceBoxes= new Array('instance_SignedSection', 
+				'instance_Signatory', 
+				'instance_Signee', 
+				'instance_LSseal', 
+				'instance_DateSigned');
+var diagramBoxes= new Array('diagram_SignedSection', 
+				'diagram_Signatory', 
+				'diagram_Signee', 
+				'diagram_LSseal', 
+				'diagram_DateSigned');
+var annotationBoxes= new Array('annotations_schemaLegislationSignature.xsd', 
+				'annotations_SignedSection', 
+				'annotations_Signatory', 
+				'annotations_Signee', 
+				'annotations_LSseal', 
+				'annotations_DateSigned');
+var attributesBoxes= new Array('attributes_SignedSection', 
+				'attributes_Signatory', 
+				'attributes_Signee', 
+				'attributes_LSseal', 
+				'attributes_DateSigned');
+var modelBoxes= new Array('model_SignedSection', 
+				'model_Signatory', 
+				'model_Signee', 
+				'model_LSseal', 
+				'model_DateSigned');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script><link rel="stylesheet" type="text/css" href="frames.css"/></head><body><iframe id="nav" src="CLMLreferenceGuide-v2-7.indexListcomp.html"> </iframe>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+                  <h3>Showing:</h3>
+                  <table><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control"/></span><span class="globalControlName">Annotations</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control"/></span><span class="globalControlName">Attributes </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control"/></span><span class="globalControlName">Diagrams</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, instanceBoxes);" class="control"/></span><span class="globalControlName">Instances</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, modelBoxes);" class="control"/></span><span class="globalControlName">Model </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control"/></span><span class="globalControlName">Properties </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control"/></span><span class="globalControlName">Source</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control"/></span><span class="globalControlName">Used by </span></td></tr></table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close"/></span></div>
+               </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      </div><a id="schemaLegislationSignature.xsd" shape="rect"/><div class="componentTitle">Included schema <span class="qname">schemaLegislationSignature.xsd</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_schemaLegislationSignature.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_schemaLegislationSignature.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_schemaLegislationSignature.xsd" style="display:block">
+                              <div class="annotation">Describes signature sections</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_schemaLegislationSignature.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_schemaLegislationSignature.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_schemaLegislationSignature.xsd" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">attribute form default</td><td rowspan="1" colspan="1"><b>unqualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">element form default</td><td rowspan="1" colspan="1"><b>qualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">version</td><td rowspan="1" colspan="1"><b>2.4</b></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="SignedSection" shape="rect"/><div class="componentTitle">Element <span class="qname">SignedSection</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_SignedSection" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_SignedSection');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_SignedSection" style="display:block">
+                              <div class="annotation">This is the top level container for a signature. And it can hold information about
+                                 one or more persons (Signatory) connected by some reasons. This can occur in both
+                                 primary and secondary legislation although they are very rare in primary legislation
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_SignedSection" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_SignedSection');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_SignedSection" style="display:block"><img alt="Diagram" src="img/schemaLegislationSignature_xsd_Element_SignedSection.jpeg" usemap="#schemaLegislationSignature_xsd_Element_SignedSection"/><map name="schemaLegislationSignature_xsd_Element_SignedSection" id="schemaLegislationSignature_xsd_Element_SignedSection"><area alt="schemaCommon_xsd.tmp#OptionalURIs" href="schemaCommon_xsd.html#OptionalURIs" coords="165,44,281,70" shape="rect"/><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes" coords="165,88,308,114" shape="rect"/><area alt="schemaLegislationCommonAttributes_xsd.tmp#FragmentAttributes" href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes" coords="165,132,312,158" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#Para" href="schemaCommonElements_xsd.html#Para" coords="240,180,293,205" shape="rect"/><area alt="schemaLegislationSignature_xsd.tmp#Signatory" href="schemaLegislationSignature_xsd.html#Signatory" coords="240,246,317,271" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_SignedSection" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_SignedSection');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_SignedSection" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_SignedSection" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_SignedSection');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_SignedSection" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Elements </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationMain_xsd.html#AppendixBody" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">AppendixBody</a></b>, <b><a href="schemaLegislationMain_xsd.html#Body" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Body</a></b>, <b><a href="schemaLegislationMainEU_xsd.html#EUBody" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">EUBody</a></b>, <b><a href="schemaLegislationMain_xsd.html#ScheduleBody" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">ScheduleBody</a></b>, <b><a href="schemaLegislationMain_xsd.html#Schedules" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Schedules</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationTypes_xsd.html#CommonBlockAmendmentExtractGroup" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CommonBlockAmendmentExtractGroup</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_SignedSection" type="image" src="img/btM.gif" value="-" onclick="switchState('model_SignedSection');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_SignedSection" style="display:block"><b><a href="schemaCommonElements_xsd.html#Para" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Para*</a></b> , <b><a href="schemaLegislationSignature_xsd.html#Signatory" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Signatory*</a></b></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="schemaCommonElements_xsd.html#Para" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Para</a></b>, <b><a href="schemaLegislationSignature_xsd.html#Signatory" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Signatory</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_SignedSection" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_SignedSection');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_SignedSection" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_AltDates" target="_top" title="No namespace" shape="rect">AltDates</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#DateOrProspectiveListType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateOrProspectiveListType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A space separated sequence of dates where amendments have been applied to the provision</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#VersionRefAttributes_AltVersionRefs" target="_top" title="No namespace" shape="rect">AltVersionRefs</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#RefsLinkType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">RefsLinkType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Links to alternate versions of the content by referencing the version's id attribute,
+                                          e.g. perhaps a Welsh version or an image (Figure) of a Formula
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_BlanketAmendment" target="_top" title="No namespace" shape="rect">BlanketAmendment</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A Boolean value to indicate whether the provision includes blanket amendments, ie
+                                          general amendments to legislation as a whole rather than a specific enactment
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Concurrent" target="_top" title="No namespace" shape="rect">Concurrent</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A Boolean value to indicate if there are concurrent versions of the same provision.
+                                          This is presently used for concurrent geographic extent versions but may be used in
+                                          future to indicate other versions of the same provision
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_ConfersPower" target="_top" title="No namespace" shape="rect">ConfersPower</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A Boolean value to indicate whether the provision includes confers power to make secondary
+                                          legislation
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs_DocumentURI" target="_top" title="No namespace" shape="rect">DocumentURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to this part of the document (to the enacted version).</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_FragmentId" target="_top" title="No namespace" shape="rect">FragmentId</a></b></td><td rowspan="1" colspan="1"><b>xsd:NMTOKEN</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The identifier for the fragment used in the old SLD (Statute Law Database) system</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs_IdURI" target="_top" title="No namespace" shape="rect">IdURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to the id of this part of the document (to the current revised version).</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Match" target="_top" title="No namespace" shape="rect">Match</a></b></td><td rowspan="1" colspan="1"><b>xsd:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A boolean value indicator as to whether the provision should be displayed or is in
+                                          force, i.e. if the status is prospective, then it will not display as in force. Similarly
+                                          with the status set to repealed, then this will prevent the provision from displaying
+                                          when viewed from high level
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#ProvisionCountAttributes_NumberOfProvisions" target="_top" title="No namespace" shape="rect">NumberOfProvisions</a></b></td><td rowspan="1" colspan="1"><b>xsd:integer</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Count of the number of child provisions within the section of content (added automatically
+                                          when published)
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_RestrictEndDate" target="_top" title="No namespace" shape="rect">RestrictEndDate</a></b></td><td rowspan="1" colspan="1"><b>xsd:date</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The date of the next version of the current fragment</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_RestrictExtent" target="_top" title="No namespace" shape="rect">RestrictExtent</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#ExtentType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">ExtentType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The geographic extent to which the provision applies</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_RestrictStartDate" target="_top" title="No namespace" shape="rect">RestrictStartDate</a></b></td><td rowspan="1" colspan="1"><b>xsd:date</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The date of the current version of the provision and the amendments applied to it</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Status" target="_top" title="No namespace" shape="rect">Status</a></b></td><td rowspan="1" colspan="1">list of restriction of <b>xsd:token</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The status of the provision when not in force, i.e. prospective, repealed. May have
+                                          multiple whitespaced values.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_ValidDates" target="_top" title="No namespace" shape="rect">ValidDates</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#DateOrProspectiveListType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateOrProspectiveListType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A space separated sequence of valid dates where the provision is in force</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_Version" target="_top" title="No namespace" shape="rect">Version</a></b></td><td rowspan="1" colspan="1"><b>xsd:integer</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The version of the provision in the old SLD (Statute Law Database) system</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>A unique identifier for the element.</p>
+                                          					
+                                          <p>The format of this identifier is yxxxxx where y is a letter and xxxxx is a number,
+                                             padded to five digits.
+                                          </p>
+                                          					
+                                          <p>Note that most elements that normally have identifiers have a separate, element-specific
+                                             definition of the id attribute in the schema.
+                                          </p>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#base" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:base</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to change the base from which relative URLs are calculated. See http://www.w3.org/TR/xmlbase/
+                                          for information about this attribute.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#lang" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:lang</a></b></td><td rowspan="1" colspan="1"><b>xs:language</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Should be used to indicate the main language of the content contained by the element
+                                          upon which the attribute is appearing. Values should be taken from the ISO 639 standard.
+                                          This attribute should be used where the language is different from the main language
+                                          of the document.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#space" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:space</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to indicate whether white space is significant in the contained content and
+                                          can contain the value ‘default’ or ‘preserve’. For a value of ‘default’, it is left
+                                          to an application as to how to treat white space.
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_SignedSection" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_SignedSection');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="instance_SignedSection" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;SignedSection</span><span class="tT"> </span><span class="tAN">AltDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">BlanketAmendment=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Concurrent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ConfersPower=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DocumentURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">FragmentId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">IdURI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Match=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NumberOfProvisions=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictEndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictExtent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">RestrictStartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ValidDates=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Version=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xmlns=</span><span class="tAV">"http://www.legislation.gov.uk/namespaces/legislation"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Para</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,unbounded}</span><span class="tEl">&lt;/Para&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Signatory</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Date=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Time=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,unbounded}</span><span class="tEl">&lt;/Signatory&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/SignedSection&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_SignedSection" type="image" src="img/btM.gif" value="-" onclick="switchState('source_SignedSection');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_SignedSection" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"SignedSection"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">This is the top level container for a signature. And it can hold information about one or more persons (Signatory) connected by some reasons. This can occur in both primary and secondary legislation although they are very rare in primary legislation</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:sequence</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Para"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Signatory"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:sequence&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"OptionalURIs"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"FragmentAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:element&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Signatory" shape="rect"/><div class="componentTitle">Element <span class="qname">Signatory</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_Signatory" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_Signatory');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_Signatory" style="display:block">
+                              <div class="annotation">The person(s) signing-off the document. Each 'Signatory' can contain one or more 'Signee'
+                                 and 'Para' elements. It may also have a Date attribute
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Signatory" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Signatory');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_Signatory" style="display:block"><img alt="Diagram" src="img/schemaLegislationSignature_xsd_Element_Signatory.jpeg" usemap="#schemaLegislationSignature_xsd_Element_Signatory"/><map name="schemaLegislationSignature_xsd_Element_Signatory" id="schemaLegislationSignature_xsd_Element_Signatory"><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes" coords="142,44,285,70" shape="rect"/><area alt="schemaLegislationSignature_xsd.tmp#Signatory_Date" href="schemaLegislationSignature_xsd.html#Signatory_Date" coords="139,85,211,110" shape="rect"/><area alt="schemaLegislationSignature_xsd.tmp#Signatory_Time" href="schemaLegislationSignature_xsd.html#Signatory_Time" coords="139,120,211,145" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#Para" href="schemaCommonElements_xsd.html#Para" coords="217,162,270,187" shape="rect"/><area alt="schemaLegislationSignature_xsd.tmp#Signee" href="schemaLegislationSignature_xsd.html#Signee" coords="217,228,281,253" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Signatory" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Signatory');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Signatory" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Signatory" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Signatory');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Signatory" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#SignedSection" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">SignedSection</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_Signatory" type="image" src="img/btM.gif" value="-" onclick="switchState('model_Signatory');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_Signatory" style="display:block"><b><a href="schemaCommonElements_xsd.html#Para" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Para*</a></b> , <b><a href="schemaLegislationSignature_xsd.html#Signee" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Signee*</a></b></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="schemaCommonElements_xsd.html#Para" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Para</a></b>, <b><a href="schemaLegislationSignature_xsd.html#Signee" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Signee</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_Signatory" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_Signatory');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_Signatory" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#VersionRefAttributes_AltVersionRefs" target="_top" title="No namespace" shape="rect">AltVersionRefs</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#RefsLinkType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">RefsLinkType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Links to alternate versions of the content by referencing the version's id attribute,
+                                          e.g. perhaps a Welsh version or an image (Figure) of a Formula
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#Signatory_Date" target="_top" title="No namespace" shape="rect">Date</a></b></td><td rowspan="1" colspan="1"><b>xsd:date</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#Signatory_Time" target="_top" title="No namespace" shape="rect">Time</a></b></td><td rowspan="1" colspan="1"><b>xsd:time</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>A unique identifier for the element.</p>
+                                          					
+                                          <p>The format of this identifier is yxxxxx where y is a letter and xxxxx is a number,
+                                             padded to five digits.
+                                          </p>
+                                          					
+                                          <p>Note that most elements that normally have identifiers have a separate, element-specific
+                                             definition of the id attribute in the schema.
+                                          </p>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#base" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:base</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to change the base from which relative URLs are calculated. See http://www.w3.org/TR/xmlbase/
+                                          for information about this attribute.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#lang" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:lang</a></b></td><td rowspan="1" colspan="1"><b>xs:language</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Should be used to indicate the main language of the content contained by the element
+                                          upon which the attribute is appearing. Values should be taken from the ISO 639 standard.
+                                          This attribute should be used where the language is different from the main language
+                                          of the document.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#space" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:space</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to indicate whether white space is significant in the contained content and
+                                          can contain the value ‘default’ or ‘preserve’. For a value of ‘default’, it is left
+                                          to an application as to how to treat white space.
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_Signatory" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_Signatory');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="instance_Signatory" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;Signatory</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Date=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Time=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xmlns=</span><span class="tAV">"http://www.legislation.gov.uk/namespaces/legislation"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Para</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,unbounded}</span><span class="tEl">&lt;/Para&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Signee</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,unbounded}</span><span class="tEl">&lt;/Signee&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/Signatory&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Signatory" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Signatory');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Signatory" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"Signatory"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The person(s) signing-off the document. Each 'Signatory' can contain one or more 'Signee' and 'Para' elements. It may also have a Date attribute</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:sequence</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Para"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Signee"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:sequence&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Date"</span><span class="tAN"> type=</span><span class="tAV">"xsd:date"</span><span class="tAN"> use=</span><span class="tAV">"optional"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Time"</span><span class="tAN"> type=</span><span class="tAV">"xsd:time"</span><span class="tAN"> use=</span><span class="tAV">"optional"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:element&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Signee" shape="rect"/><div class="componentTitle">Element <span class="qname">Signee</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_Signee" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_Signee');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_Signee" style="display:block">
+                              <div class="annotation">Details of a single Signee. This allows an optional LSseal and then a choice of either
+                                 an Image element (where a signature has been scanned or digitally created) or structured
+                                 elements for each item of Signee information.
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Signee" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Signee');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_Signee" style="display:block"><img alt="Diagram" src="img/schemaLegislationSignature_xsd_Element_Signee.jpeg" usemap="#schemaLegislationSignature_xsd_Element_Signee"/><map name="schemaLegislationSignature_xsd_Element_Signee" id="schemaLegislationSignature_xsd_Element_Signee"><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes" coords="129,44,272,70" shape="rect"/><area alt="schemaLegislationSignature_xsd.tmp#LSseal" href="schemaLegislationSignature_xsd.html#LSseal" coords="183,92,247,117" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#Para" href="schemaCommonElements_xsd.html#Para" coords="367,186,420,211" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#PersonName" href="schemaCommonElements_xsd.html#PersonName" coords="367,252,459,277" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#JobTitle" href="schemaCommonElements_xsd.html#JobTitle" coords="367,318,434,343" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#Department" href="schemaCommonElements_xsd.html#Department" coords="367,398,453,423" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#Address" href="schemaCommonElements_xsd.html#Address" coords="367,478,440,503" shape="rect"/><area alt="schemaLegislationSignature_xsd.tmp#DateSigned" href="schemaLegislationSignature_xsd.html#DateSigned" coords="367,544,453,569" shape="rect"/><area alt="schemaFigure_xsd.tmp#http___www.legislation.gov.uk_namespaces_legislation_Image" href="schemaFigure_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Image" coords="275,610,334,635" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Signee" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Signee');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Signee" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Signee" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Signee');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Signee" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#Signatory" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Signatory</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationTypes_xsd.html#CommonBlockAmendmentExtractGroup" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CommonBlockAmendmentExtractGroup</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_Signee" type="image" src="img/btM.gif" value="-" onclick="switchState('model_Signee');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_Signee" style="display:block"><b><a href="schemaLegislationSignature_xsd.html#LSseal" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LSseal{0,1}</a></b> , ((<b><a href="schemaCommonElements_xsd.html#Para" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Para*</a></b> , <b><a href="schemaCommonElements_xsd.html#PersonName" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">PersonName*</a></b> , <b><a href="schemaCommonElements_xsd.html#JobTitle" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">JobTitle{0,1}</a></b> , <b><a href="schemaCommonElements_xsd.html#Department" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Department{0,1}</a></b> , <b><a href="schemaCommonElements_xsd.html#Address" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Address{0,1}</a></b> , <b><a href="schemaLegislationSignature_xsd.html#DateSigned" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateSigned{0,1}</a></b>) | <b><a href="schemaFigure_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Image" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Image</a></b>)
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="schemaCommonElements_xsd.html#Address" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Address</a></b>, <b><a href="schemaLegislationSignature_xsd.html#DateSigned" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateSigned</a></b>, <b><a href="schemaCommonElements_xsd.html#Department" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Department</a></b>, <b><a href="schemaFigure_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Image" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Image</a></b>, <b><a href="schemaCommonElements_xsd.html#JobTitle" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">JobTitle</a></b>, <b><a href="schemaLegislationSignature_xsd.html#LSseal" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LSseal</a></b>, <b><a href="schemaCommonElements_xsd.html#Para" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Para</a></b>, <b><a href="schemaCommonElements_xsd.html#PersonName" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">PersonName</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_Signee" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_Signee');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_Signee" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#VersionRefAttributes_AltVersionRefs" target="_top" title="No namespace" shape="rect">AltVersionRefs</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#RefsLinkType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">RefsLinkType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Links to alternate versions of the content by referencing the version's id attribute,
+                                          e.g. perhaps a Welsh version or an image (Figure) of a Formula
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>A unique identifier for the element.</p>
+                                          					
+                                          <p>The format of this identifier is yxxxxx where y is a letter and xxxxx is a number,
+                                             padded to five digits.
+                                          </p>
+                                          					
+                                          <p>Note that most elements that normally have identifiers have a separate, element-specific
+                                             definition of the id attribute in the schema.
+                                          </p>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#base" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:base</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to change the base from which relative URLs are calculated. See http://www.w3.org/TR/xmlbase/
+                                          for information about this attribute.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#lang" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:lang</a></b></td><td rowspan="1" colspan="1"><b>xs:language</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Should be used to indicate the main language of the content contained by the element
+                                          upon which the attribute is appearing. Values should be taken from the ISO 639 standard.
+                                          This attribute should be used where the language is different from the main language
+                                          of the document.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#space" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:space</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to indicate whether white space is significant in the contained content and
+                                          can contain the value ‘default’ or ‘preserve’. For a value of ‘default’, it is left
+                                          to an application as to how to treat white space.
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_Signee" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_Signee');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="instance_Signee" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;Signee</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xmlns=</span><span class="tAV">"http://www.legislation.gov.uk/namespaces/legislation"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;LSseal</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Date=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ResourceRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/LSseal&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Para</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,unbounded}</span><span class="tEl">&lt;/Para&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;PersonName</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,unbounded}</span><span class="tEl">&lt;/PersonName&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;JobTitle</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/JobTitle&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Department</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/Department&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Address</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/Address&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;DateSigned</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Date=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Time=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/DateSigned&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Image</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Description=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Height=</span><span class="tAV">"auto"</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ResourceRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Width=</span><span class="tAV">"auto"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Image&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/Signee&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Signee" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Signee');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Signee" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"Signee"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Details of a single Signee. This allows an optional LSseal and then a choice of either an Image element (where a signature has been scanned or digitally created) or structured elements for each item of Signee information.</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:sequence</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tC">&lt;!--&lt;xsd:element ref="para" minOccurs="0" maxOccurs="unbounded"/&gt;--&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"LSseal"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:choice</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:sequence</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Para"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">/&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"PersonName"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">/&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"JobTitle"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Department"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Address"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"DateSigned"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;/xsd:sequence&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Image"</span><span class="tEl">&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+            </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Allows for a graphic of a signature to be included</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;/xsd:element&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:choice&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:sequence&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:element&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="LSseal" shape="rect"/><div class="componentTitle">Element <span class="qname">LSseal</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_LSseal" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_LSseal');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_LSseal" style="display:block">
+                              <div class="annotation">Allows for an image of the seal to be included to indicate the presence of a seal
+                                 used as part of the signature. It may optionally reference a resource using the ResourceRef
+                                 attribute if it is required to reference a specific image. It may also have a Date
+                                 attribute to indicate the date of the seal. It is rare (but possible) for any content
+                                 to be within the element.
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_LSseal" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_LSseal');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_LSseal" style="display:block"><img alt="Diagram" src="img/schemaLegislationSignature_xsd_Element_LSseal.jpeg" usemap="#schemaLegislationSignature_xsd_Element_LSseal"/><map name="schemaLegislationSignature_xsd_Element_LSseal" id="schemaLegislationSignature_xsd_Element_LSseal"><area alt="schemaLegislationSignature_xsd.tmp#LSseal_ResourceRef" href="schemaLegislationSignature_xsd.html#LSseal_ResourceRef" coords="147,41,261,66" shape="rect"/><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes" coords="150,79,293,105" shape="rect"/><area alt="schemaLegislationSignature_xsd.tmp#LSseal_Date" href="schemaLegislationSignature_xsd.html#LSseal_Date" coords="147,120,219,145" shape="rect"/><area alt="schemaEmphasis_xsd.tmp#Strong" href="schemaEmphasis_xsd.html#Strong" coords="303,250,366,275" shape="rect"/><area alt="schemaEmphasis_xsd.tmp#Emphasis" href="schemaEmphasis_xsd.html#Emphasis" coords="303,344,380,369" shape="rect"/><area alt="schemaEmphasis_xsd.tmp#Inferior" href="schemaEmphasis_xsd.html#Inferior" coords="303,438,368,463" shape="rect"/><area alt="schemaEmphasis_xsd.tmp#Superior" href="schemaEmphasis_xsd.html#Superior" coords="303,532,375,557" shape="rect"/><area alt="schemaEmphasis_xsd.tmp#SmallCaps" href="schemaEmphasis_xsd.html#SmallCaps" coords="303,626,384,651" shape="rect"/><area alt="schemaEmphasis_xsd.tmp#Uppercase" href="schemaEmphasis_xsd.html#Uppercase" coords="303,720,387,745" shape="rect"/><area alt="schemaEmphasis_xsd.tmp#Underline" href="schemaEmphasis_xsd.html#Underline" coords="303,814,379,839" shape="rect"/><area alt="schemaEmphasis_xsd.tmp#Expanded" href="schemaEmphasis_xsd.html#Expanded" coords="303,908,382,933" shape="rect"/><area alt="schemaStrike_xsd.tmp#Strike" href="schemaStrike_xsd.html#Strike" coords="303,974,361,999" shape="rect"/><area alt="schemaLegislationCommon_xsd.tmp#EmphasisBasicExtras" href="schemaLegislationCommon_xsd.html#EmphasisBasicExtras" coords="306,1085,465,1111" shape="rect"/><area alt="schemaLegislationTypes_xsd.tmp#EmphasisBasic" href="schemaLegislationTypes_xsd.html#EmphasisBasic" coords="221,209,349,235" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#Character" href="schemaCommonElements_xsd.html#Character" coords="303,1288,382,1313" shape="rect"/><area alt="schemaBasicInline_xsd.tmp#Span" href="schemaBasicInline_xsd.html#Span" coords="303,1382,359,1407" shape="rect"/><area alt="schemaLegislationAmendments_xsd.tmp#InlineAmendment" href="schemaLegislationAmendments_xsd.html#InlineAmendment" coords="303,1504,415,1529" shape="rect"/><area alt="schemaExtract_xsd.tmp#InlineExtract" href="schemaExtract_xsd.html#InlineExtract" coords="303,1584,392,1609" shape="rect"/><area alt="schemaCommentary_xsd.tmp#CommentaryRef" href="schemaCommentary_xsd.html#CommentaryRef" coords="303,1678,411,1703" shape="rect"/><area alt="schemaFootnote_xsd.tmp#FootnoteRef" href="schemaFootnote_xsd.html#FootnoteRef" coords="303,1758,393,1783" shape="rect"/><area alt="schemaMarginnote_xsd.tmp#MarginNoteRef" href="schemaMarginnote_xsd.html#MarginNoteRef" coords="303,1824,405,1849" shape="rect"/><area alt="schemaLinks_xsd.tmp#InternalLink" href="schemaLinks_xsd.html#InternalLink" coords="303,1932,388,1957" shape="rect"/><area alt="schemaLinks_xsd.tmp#ExternalLink" href="schemaLinks_xsd.html#ExternalLink" coords="303,2026,392,2051" shape="rect"/><area alt="schemaCitations_xsd.tmp#http___www.legislation.gov.uk_namespaces_legislation_Citation" href="schemaCitations_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Citation" coords="303,2106,369,2131" shape="rect"/><area alt="schemaCitations_xsd.tmp#CitationSubRef" href="schemaCitations_xsd.html#CitationSubRef" coords="303,2228,405,2253" shape="rect"/><area alt="schemaCitations_xsd.tmp#CitationListRef" href="schemaCitations_xsd.html#CitationListRef" coords="303,2336,403,2361" shape="rect"/><area alt="math_xsd.tmp#math" href="math_xsd.html#math" coords="303,2402,383,2427" shape="rect"/><area alt="schemaFigure_xsd.tmp#http___www.legislation.gov.uk_namespaces_legislation_Image" href="schemaFigure_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Image" coords="303,2437,362,2462" shape="rect"/><area alt="schemaAcronymsAbbreviations_xsd.tmp#Acronym" href="schemaAcronymsAbbreviations_xsd.html#Acronym" coords="303,2531,378,2556" shape="rect"/><area alt="schemaAcronymsAbbreviations_xsd.tmp#Abbreviation" href="schemaAcronymsAbbreviations_xsd.html#Abbreviation" coords="303,2611,395,2636" shape="rect"/><area alt="schemaAcronymsAbbreviations_xsd.tmp#Term" href="schemaAcronymsAbbreviations_xsd.html#Term" coords="303,2691,358,2716" shape="rect"/><area alt="schemaChanges_xsd.tmp#Addition" href="schemaChanges_xsd.html#Addition" coords="303,2771,373,2796" shape="rect"/><area alt="schemaChanges_xsd.tmp#Repeal" href="schemaChanges_xsd.html#Repeal" coords="303,2865,367,2890" shape="rect"/><area alt="schemaChanges_xsd.tmp#Substitution" href="schemaChanges_xsd.html#Substitution" coords="303,2959,390,2984" shape="rect"/><area alt="schemaLegislationSemantics_xsd.tmp#Definition" href="schemaLegislationSemantics_xsd.html#Definition" coords="303,3053,378,3078" shape="rect"/><area alt="schemaLegislationSemantics_xsd.tmp#Proviso" href="schemaLegislationSemantics_xsd.html#Proviso" coords="303,3175,370,3200" shape="rect"/><area alt="schemaLegislationTypes_xsd.tmp#InlineBasic" href="schemaLegislationTypes_xsd.html#InlineBasic" coords="221,1247,327,1273" shape="rect"/><area alt="schemaLegislationTypes_xsd.tmp#InlineFull" href="schemaLegislationTypes_xsd.html#InlineFull" coords="136,165,231,191" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_LSseal" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_LSseal');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_LSseal" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">mixed</td><td rowspan="1" colspan="1"><b>true</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_LSseal" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_LSseal');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_LSseal" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#Signee" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Signee</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_LSseal" type="image" src="img/btM.gif" value="-" onclick="switchState('model_LSseal');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_LSseal" style="display:block"><b><a href="schemaEmphasis_xsd.html#Strong" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Strong</a></b> | <b><a href="schemaEmphasis_xsd.html#Emphasis" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Emphasis</a></b> | <b><a href="schemaEmphasis_xsd.html#Inferior" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Inferior</a></b> | <b><a href="schemaEmphasis_xsd.html#Superior" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Superior</a></b> | <b><a href="schemaEmphasis_xsd.html#SmallCaps" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">SmallCaps</a></b> | <b><a href="schemaEmphasis_xsd.html#Uppercase" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Uppercase</a></b> | <b><a href="schemaEmphasis_xsd.html#Underline" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Underline</a></b> | <b><a href="schemaEmphasis_xsd.html#Expanded" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Expanded</a></b> | <b><a href="schemaStrike_xsd.html#Strike" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Strike</a></b> | () | <b><a href="schemaCommonElements_xsd.html#Character" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Character</a></b> | <b><a href="schemaBasicInline_xsd.html#Span" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Span</a></b> | <b><a href="schemaLegislationAmendments_xsd.html#InlineAmendment" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">InlineAmendment</a></b> | <b><a href="schemaExtract_xsd.html#InlineExtract" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">InlineExtract</a></b> | <b><a href="schemaCommentary_xsd.html#CommentaryRef" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CommentaryRef</a></b> | <b><a href="schemaFootnote_xsd.html#FootnoteRef" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">FootnoteRef</a></b> | <b><a href="schemaMarginnote_xsd.html#MarginNoteRef" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">MarginNoteRef</a></b> | <b><a href="schemaLinks_xsd.html#InternalLink" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">InternalLink</a></b> | <b><a href="schemaLinks_xsd.html#ExternalLink" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">ExternalLink</a></b> | <b><a href="schemaCitations_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Citation" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Citation</a></b> | <b><a href="schemaCitations_xsd.html#CitationSubRef" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CitationSubRef</a></b> | <b><a href="schemaCitations_xsd.html#CitationListRef" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CitationListRef</a></b> | <b><a href="math_xsd.html#math" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">math</a></b> | <b><a href="schemaFigure_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Image" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Image</a></b> | <b><a href="schemaAcronymsAbbreviations_xsd.html#Acronym" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Acronym</a></b> | <b><a href="schemaAcronymsAbbreviations_xsd.html#Abbreviation" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Abbreviation</a></b> | <b><a href="schemaAcronymsAbbreviations_xsd.html#Term" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Term</a></b> | <b><a href="schemaChanges_xsd.html#Addition" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Addition</a></b> | <b><a href="schemaChanges_xsd.html#Repeal" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Repeal</a></b> | <b><a href="schemaChanges_xsd.html#Substitution" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Substitution</a></b> | <b><a href="schemaLegislationSemantics_xsd.html#Definition" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Definition</a></b> | <b><a href="schemaLegislationSemantics_xsd.html#Proviso" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Proviso</a></b></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="schemaAcronymsAbbreviations_xsd.html#Abbreviation" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Abbreviation</a></b>, <b><a href="schemaAcronymsAbbreviations_xsd.html#Acronym" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Acronym</a></b>, <b><a href="schemaChanges_xsd.html#Addition" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Addition</a></b>, <b><a href="schemaCommonElements_xsd.html#Character" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Character</a></b>, <b><a href="schemaCitations_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Citation" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Citation</a></b>, <b><a href="schemaCitations_xsd.html#CitationListRef" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CitationListRef</a></b>, <b><a href="schemaCitations_xsd.html#CitationSubRef" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CitationSubRef</a></b>, <b><a href="schemaCommentary_xsd.html#CommentaryRef" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">CommentaryRef</a></b>, <b><a href="schemaLegislationSemantics_xsd.html#Definition" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Definition</a></b>, <b><a href="schemaEmphasis_xsd.html#Emphasis" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Emphasis</a></b>, <b><a href="schemaEmphasis_xsd.html#Expanded" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Expanded</a></b>, <b><a href="schemaLinks_xsd.html#ExternalLink" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">ExternalLink</a></b>, <b><a href="schemaFootnote_xsd.html#FootnoteRef" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">FootnoteRef</a></b>, <b><a href="schemaFigure_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Image" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Image</a></b>, <b><a href="schemaEmphasis_xsd.html#Inferior" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Inferior</a></b>, <b><a href="schemaLegislationAmendments_xsd.html#InlineAmendment" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">InlineAmendment</a></b>, <b><a href="schemaExtract_xsd.html#InlineExtract" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">InlineExtract</a></b>, <b><a href="schemaLinks_xsd.html#InternalLink" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">InternalLink</a></b>, <b><a href="schemaMarginnote_xsd.html#MarginNoteRef" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">MarginNoteRef</a></b>, <b><a href="schemaLegislationSemantics_xsd.html#Proviso" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Proviso</a></b>, <b><a href="schemaChanges_xsd.html#Repeal" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Repeal</a></b>, <b><a href="schemaEmphasis_xsd.html#SmallCaps" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">SmallCaps</a></b>, <b><a href="schemaBasicInline_xsd.html#Span" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Span</a></b>, <b><a href="schemaStrike_xsd.html#Strike" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Strike</a></b>, <b><a href="schemaEmphasis_xsd.html#Strong" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Strong</a></b>, <b><a href="schemaChanges_xsd.html#Substitution" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Substitution</a></b>, <b><a href="schemaEmphasis_xsd.html#Superior" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Superior</a></b>, <b><a href="schemaAcronymsAbbreviations_xsd.html#Term" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Term</a></b>, <b><a href="schemaEmphasis_xsd.html#Underline" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Underline</a></b>, <b><a href="schemaEmphasis_xsd.html#Uppercase" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Uppercase</a></b>, <b><a href="math_xsd.html#math" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">math</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_LSseal" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_LSseal');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_LSseal" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#VersionRefAttributes_AltVersionRefs" target="_top" title="No namespace" shape="rect">AltVersionRefs</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#RefsLinkType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">RefsLinkType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Links to alternate versions of the content by referencing the version's id attribute,
+                                          e.g. perhaps a Welsh version or an image (Figure) of a Formula
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#LSseal_Date" target="_top" title="No namespace" shape="rect">Date</a></b></td><td rowspan="1" colspan="1"><b>xsd:date</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#LSseal_ResourceRef" target="_top" title="No namespace" shape="rect">ResourceRef</a></b></td><td rowspan="1" colspan="1"><b>xsd:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>A unique identifier for the element.</p>
+                                          					
+                                          <p>The format of this identifier is yxxxxx where y is a letter and xxxxx is a number,
+                                             padded to five digits.
+                                          </p>
+                                          					
+                                          <p>Note that most elements that normally have identifiers have a separate, element-specific
+                                             definition of the id attribute in the schema.
+                                          </p>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#base" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:base</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to change the base from which relative URLs are calculated. See http://www.w3.org/TR/xmlbase/
+                                          for information about this attribute.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#lang" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:lang</a></b></td><td rowspan="1" colspan="1"><b>xs:language</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Should be used to indicate the main language of the content contained by the element
+                                          upon which the attribute is appearing. Values should be taken from the ISO 639 standard.
+                                          This attribute should be used where the language is different from the main language
+                                          of the document.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#space" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:space</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to indicate whether white space is significant in the contained content and
+                                          can contain the value ‘default’ or ‘preserve’. For a value of ‘default’, it is left
+                                          to an application as to how to treat white space.
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_LSseal" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_LSseal');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="instance_LSseal" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;LSseal</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Date=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ResourceRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xmlns=</span><span class="tAV">"http://www.legislation.gov.uk/namespaces/legislation"</span><span class="tT"> </span><span class="tAN">xmlns:mathml=</span><span class="tAV">"http://www.w3.org/1998/Math/MathML"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Strong</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Strong&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Emphasis</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Emphasis&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Inferior</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Inferior&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Superior</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Superior&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;SmallCaps</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/SmallCaps&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Uppercase</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Uppercase&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Underline</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Underline&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Expanded</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Expanded&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Strike</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Strike&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Character</span><span class="tT"> </span><span class="tAN">Name=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Character&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Span</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Span&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;InlineAmendment</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/InlineAmendment&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;InlineExtract</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Format=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">SourceClass=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">SourceSubClass=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/InlineExtract&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;CommentaryRef</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Ref=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/CommentaryRef&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;FootnoteRef</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Ref=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/FootnoteRef&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;MarginNoteRef</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Ref=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/MarginNoteRef&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;InternalLink</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">EndRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Ref=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/InternalLink&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;ExternalLink</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Title=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">URI=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/ExternalLink&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Citation</span><span class="tT"> </span><span class="tAN">AlternativeNumber=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Class=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">CommencementNumber=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">CommentaryRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Date=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">DOI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">EndDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">EndPage=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">EndSectionRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">LegalNumber=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Locator=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">NorthernIrishNumber=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Number=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Prospective=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">RegnalYear=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ScottishNumber=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">SectionRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Series=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">StartDate=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">StartPage=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">StartSectionRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Title=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">URI=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Volume=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">WelshNumber=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Year=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Citation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;CitationSubRef</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">CitationRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">EndSectionRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Operative=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">SectionRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">StartSectionRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Type=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">UpTo=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">URI=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/CitationSubRef&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;CitationListRef</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Ref=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/CitationListRef&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;mathml:math</span><span class="tT"> </span><span class="tAN">altimg=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">alttext=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">baseline=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">class=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">display=</span><span class="tAV">"inline"</span><span class="tT"> </span><span class="tAN">height=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xlink:href=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">macros=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">name=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">overflow=</span><span class="tAV">"scroll"</span><span class="tT"> </span><span class="tAN">style=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">type=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">width=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xref=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/mathml:math&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Image</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Description=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Height=</span><span class="tAV">"auto"</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ResourceRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Width=</span><span class="tAV">"auto"</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Image&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Acronym</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Expansion=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Acronym&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Abbreviation</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Expansion=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Abbreviation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Term</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Term&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Addition</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ChangeId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">CommentaryRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Correction=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">Extent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Mark=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Prospective=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Addition&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Repeal</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ChangeId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">CommentaryRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Correction=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">Extent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Mark=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Prospective=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">RetainText=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">SubstitutionRef=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Repeal&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Substitution</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ChangeId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">CommentaryRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Correction=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">Extent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Mark=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Prospective=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Substitution&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Definition</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Mark=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">TermRef=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Definition&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Proviso</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Mark=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Proviso&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/LSseal&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_LSseal" type="image" src="img/btM.gif" value="-" onclick="switchState('source_LSseal');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_LSseal" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"LSseal"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Allows for an image of the seal to be included to indicate the presence of a seal used as part of the signature. It may optionally reference a resource using the ResourceRef attribute if it is required to reference a specific image. It may also have a Date attribute to indicate the date of the seal. It is rare (but possible) for any content to be within the element.</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:complexType</span><span class="tAN"> mixed=</span><span class="tAV">"true"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:group</span><span class="tAN"> ref=</span><span class="tAV">"InlineFull"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"ResourceRef"</span><span class="tAN"> type=</span><span class="tAV">"xsd:string"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Date"</span><span class="tAN"> type=</span><span class="tAV">"xsd:date"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:element&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="DateSigned" shape="rect"/><div class="componentTitle">Element <span class="qname">DateSigned</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_DateSigned" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_DateSigned');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_DateSigned" style="display:block">
+                              <div class="annotation">The date (and optionally time) of the signing.</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_DateSigned" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_DateSigned');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_DateSigned" style="display:block"><img alt="Diagram" src="img/schemaLegislationSignature_xsd_Element_DateSigned.jpeg" usemap="#schemaLegislationSignature_xsd_Element_DateSigned"/><map name="schemaLegislationSignature_xsd_Element_DateSigned" id="schemaLegislationSignature_xsd_Element_DateSigned"><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes" coords="151,44,294,70" shape="rect"/><area alt="schemaLegislationSignature_xsd.tmp#DateSigned_Date" href="schemaLegislationSignature_xsd.html#DateSigned_Date" coords="148,85,220,110" shape="rect"/><area alt="schemaLegislationSignature_xsd.tmp#DateSigned_Time" href="schemaLegislationSignature_xsd.html#DateSigned_Time" coords="148,120,220,145" shape="rect"/><area alt="schemaLegislationPrelims_xsd.tmp#DateText" href="schemaLegislationPrelims_xsd.html#DateText" coords="205,166,279,191" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_DateSigned" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_DateSigned');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_DateSigned" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_DateSigned" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_DateSigned');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_DateSigned" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#Signee" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Signee</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_DateSigned" type="image" src="img/btM.gif" value="-" onclick="switchState('model_DateSigned');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_DateSigned" style="display:block"><b><a href="schemaLegislationPrelims_xsd.html#DateText" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateText</a></b></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationPrelims_xsd.html#DateText" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateText</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_DateSigned" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_DateSigned');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_DateSigned" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#VersionRefAttributes_AltVersionRefs" target="_top" title="No namespace" shape="rect">AltVersionRefs</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#RefsLinkType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">RefsLinkType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Links to alternate versions of the content by referencing the version's id attribute,
+                                          e.g. perhaps a Welsh version or an image (Figure) of a Formula
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#DateSigned_Date" target="_top" title="No namespace" shape="rect">Date</a></b></td><td rowspan="1" colspan="1"><b>xsd:date</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#DateSigned_Time" target="_top" title="No namespace" shape="rect">Time</a></b></td><td rowspan="1" colspan="1"><b>xsd:time</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>A unique identifier for the element.</p>
+                                          					
+                                          <p>The format of this identifier is yxxxxx where y is a letter and xxxxx is a number,
+                                             padded to five digits.
+                                          </p>
+                                          					
+                                          <p>Note that most elements that normally have identifiers have a separate, element-specific
+                                             definition of the id attribute in the schema.
+                                          </p>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#base" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:base</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to change the base from which relative URLs are calculated. See http://www.w3.org/TR/xmlbase/
+                                          for information about this attribute.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#lang" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:lang</a></b></td><td rowspan="1" colspan="1"><b>xs:language</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Should be used to indicate the main language of the content contained by the element
+                                          upon which the attribute is appearing. Values should be taken from the ISO 639 standard.
+                                          This attribute should be used where the language is different from the main language
+                                          of the document.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#space" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:space</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to indicate whether white space is significant in the contained content and
+                                          can contain the value ‘default’ or ‘preserve’. For a value of ‘default’, it is left
+                                          to an application as to how to treat white space.
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_DateSigned" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_DateSigned');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="instance_DateSigned" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;DateSigned</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Date=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Time=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xmlns=</span><span class="tAV">"http://www.legislation.gov.uk/namespaces/legislation"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;DateText</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/DateText&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/DateSigned&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_DateSigned" type="image" src="img/btM.gif" value="-" onclick="switchState('source_DateSigned');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_DateSigned" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"DateSigned"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The date (and optionally time) of the signing.</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:sequence</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"DateText"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:sequence&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Date"</span><span class="tAN"> type=</span><span class="tAV">"xsd:date"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Time"</span><span class="tAN"> type=</span><span class="tAV">"xsd:time"</span><span class="tAN"> use=</span><span class="tAV">"optional"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:element&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="InlineFull_ResourceRef" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationTypes_xsd.html#InlineFull" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">InlineFull</a></b> / @ResourceRef</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_InlineFull_ResourceRef" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_InlineFull_ResourceRef');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_InlineFull_ResourceRef" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_InlineFull_ResourceRef" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_InlineFull_ResourceRef');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_InlineFull_ResourceRef" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#LSseal" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LSseal</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_InlineFull_ResourceRef" type="image" src="img/btM.gif" value="-" onclick="switchState('source_InlineFull_ResourceRef');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_InlineFull_ResourceRef" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"ResourceRef"</span><span class="tAN"> type=</span><span class="tAV">"xsd:string"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="InlineFull_Date" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationTypes_xsd.html#InlineFull" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">InlineFull</a></b> / @Date</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_InlineFull_Date" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_InlineFull_Date');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_InlineFull_Date" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_InlineFull_Date" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_InlineFull_Date');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_InlineFull_Date" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#LSseal" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LSseal</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_InlineFull_Date" type="image" src="img/btM.gif" value="-" onclick="switchState('source_InlineFull_Date');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_InlineFull_Date" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Date"</span><span class="tAN"> type=</span><span class="tAV">"xsd:date"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="LSseal_Date" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationSignature_xsd.html#LSseal" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LSseal</a></b> / @Date</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_LSseal_Date" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_LSseal_Date');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_LSseal_Date" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_LSseal_Date" type="image" src="img/btM.gif" value="-" onclick="switchState('source_LSseal_Date');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_LSseal_Date" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Date"</span><span class="tAN"> type=</span><span class="tAV">"xsd:date"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="LSseal_ResourceRef" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationSignature_xsd.html#LSseal" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">LSseal</a></b> / @ResourceRef</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_LSseal_ResourceRef" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_LSseal_ResourceRef');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_LSseal_ResourceRef" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_LSseal_ResourceRef" type="image" src="img/btM.gif" value="-" onclick="switchState('source_LSseal_ResourceRef');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_LSseal_ResourceRef" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"ResourceRef"</span><span class="tAN"> type=</span><span class="tAV">"xsd:string"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="DateSigned_Date" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationSignature_xsd.html#DateSigned" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateSigned</a></b> / @Date</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_DateSigned_Date" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_DateSigned_Date');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_DateSigned_Date" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_DateSigned_Date" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_DateSigned_Date');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_DateSigned_Date" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#DateSigned" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateSigned</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_DateSigned_Date" type="image" src="img/btM.gif" value="-" onclick="switchState('source_DateSigned_Date');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_DateSigned_Date" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Date"</span><span class="tAN"> type=</span><span class="tAV">"xsd:date"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="DateSigned_Time" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationSignature_xsd.html#DateSigned" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateSigned</a></b> / @Time</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_DateSigned_Time" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_DateSigned_Time');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_DateSigned_Time" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">use</td><td rowspan="1" colspan="1"><b>optional</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_DateSigned_Time" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_DateSigned_Time');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_DateSigned_Time" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#DateSigned" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DateSigned</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_DateSigned_Time" type="image" src="img/btM.gif" value="-" onclick="switchState('source_DateSigned_Time');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_DateSigned_Time" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Time"</span><span class="tAN"> type=</span><span class="tAV">"xsd:time"</span><span class="tAN"> use=</span><span class="tAV">"optional"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Signatory_Date" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationSignature_xsd.html#Signatory" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Signatory</a></b> / @Date</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Signatory_Date" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Signatory_Date');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Signatory_Date" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">use</td><td rowspan="1" colspan="1"><b>optional</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Signatory_Date" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Signatory_Date');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Signatory_Date" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#Signatory" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Signatory</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Signatory_Date" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Signatory_Date');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Signatory_Date" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Date"</span><span class="tAN"> type=</span><span class="tAV">"xsd:date"</span><span class="tAN"> use=</span><span class="tAV">"optional"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Signatory_Time" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaLegislationSignature_xsd.html#Signatory" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Signatory</a></b> / @Time</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Signatory_Time" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Signatory_Time');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Signatory_Time" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">use</td><td rowspan="1" colspan="1"><b>optional</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Signatory_Time" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Signatory_Time');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Signatory_Time" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationSignature_xsd.html#Signatory" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Signatory</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Signatory_Time" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Signatory_Time');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Signatory_Time" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"Time"</span><span class="tAN"> type=</span><span class="tAV">"xsd:time"</span><span class="tAN"> use=</span><span class="tAV">"optional"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      <div class="footer">
+         <hr/>
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent" shape="rect"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript" xml:space="preserve">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body></html>

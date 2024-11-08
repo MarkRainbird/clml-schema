@@ -1,0 +1,652 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>Schema documentation for space.xsd</title><link rel="stylesheet" href="docHtml.css" type="text/css"/><script type="text/javascript" xml:space="preserve">
+         <!--
+        var propertiesBoxes= new Array('properties_space.xsd', 
+				'properties_mspace', 
+				'properties_mspace.attlist_width', 
+				'properties_mspace.attlist_height', 
+				'properties_mspace.attlist_depth', 
+				'properties_mspace.attlist_linebreak');
+var facetsBoxes= new Array('facets_mspace.attlist_height', 
+				'facets_mspace.attlist_depth', 
+				'facets_mspace.attlist_linebreak');
+var usedByBoxes= new Array('usedBy_mspace', 
+				'usedBy_mspace.type', 
+				'usedBy_mspace.attlist_width', 
+				'usedBy_mspace.attlist_height', 
+				'usedBy_mspace.attlist_depth', 
+				'usedBy_mspace.attlist_linebreak', 
+				'usedBy_mspace.attlist');
+var sourceBoxes= new Array('source_mspace', 
+				'source_mspace.type', 
+				'source_mspace.attlist_width', 
+				'source_mspace.attlist_height', 
+				'source_mspace.attlist_depth', 
+				'source_mspace.attlist_linebreak', 
+				'source_mspace.attlist');
+var diagramBoxes= new Array('diagram_mspace', 
+				'diagram_mspace.type', 
+				'diagram_mspace.attlist');
+var annotationBoxes= new Array('annotations_space.xsd');
+var attributesBoxes= new Array('attributes_mspace', 
+				'attributes_mspace.type', 
+				'attributes_mspace.attlist');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script><link rel="stylesheet" type="text/css" href="frames.css"/></head><body><iframe id="nav" src="CLMLreferenceGuide-v2-7.indexListcomp.html"> </iframe>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+                  <h3>Showing:</h3>
+                  <table><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control"/></span><span class="globalControlName">Annotations</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control"/></span><span class="globalControlName">Attributes </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control"/></span><span class="globalControlName">Diagrams</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, facetsBoxes);" class="control"/></span><span class="globalControlName">Facets </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control"/></span><span class="globalControlName">Properties </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control"/></span><span class="globalControlName">Source</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control"/></span><span class="globalControlName">Used by </span></td></tr></table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close"/></span></div>
+               </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      </div><a id="space.xsd" shape="rect"/><div class="componentTitle">Included schema <span class="qname">space.xsd</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_space.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_space.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_space.xsd" style="display:block">
+                              <div class="annotation">
+                                 This is the XML Schema module for the MathML "mspace" element.
+                                 Author: Stéphane Dalmas, INRIA.
+                                 
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_space.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_space.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_space.xsd" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">attribute form default</td><td rowspan="1" colspan="1"><b>unqualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">element form default</td><td rowspan="1" colspan="1"><b>qualified</b></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="mspace" shape="rect"/><div class="componentTitle">Element <span class="qname">mspace</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_mspace" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_mspace');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_mspace" style="display:block"><img alt="Diagram" src="img/space_xsd_Element_mspace.jpeg" usemap="#space_xsd_Element_mspace"/><map name="space_xsd_Element_mspace" id="space_xsd_Element_mspace"><area alt="space_xsd.tmp#mspace.attlist" href="space_xsd.html#mspace.attlist" coords="128,82,249,108" shape="rect"/><area alt="space_xsd.tmp#mspace.type" href="space_xsd.html#mspace.type" coords="100,3,213,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_mspace" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_mspace');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_mspace" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_mspace" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_mspace');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_mspace" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="math_xsd.html#PresExpr.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">PresExpr.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_mspace" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_mspace');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_mspace" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="10%" rowspan="1" colspan="1">Default</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_depth" target="_top" title="No namespace" shape="rect">depth</a></b></td><td rowspan="1" colspan="1"><b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b></td><td rowspan="1" colspan="1">0ex</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_height" target="_top" title="No namespace" shape="rect">height</a></b></td><td rowspan="1" colspan="1"><b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b></td><td rowspan="1" colspan="1">0ex</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_linebreak" target="_top" title="No namespace" shape="rect">linebreak</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:string</b></td><td rowspan="1" colspan="1">auto</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_width" target="_top" title="No namespace" shape="rect">width</a></b></td><td rowspan="1" colspan="1">union of(<b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b>, <b><a href="common-types_xsd.html#named-space" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">named-space</a></b>)
+                                    </td><td rowspan="1" colspan="1">0em</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_mspace" type="image" src="img/btM.gif" value="-" onclick="switchState('source_mspace');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_mspace" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"mspace"</span><span class="tAN"> type=</span><span class="tAV">"mspace.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="mspace.type" shape="rect"/><div class="componentTitle">Complex Type <span class="qname">mspace.type</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_mspace.type" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_mspace.type');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_mspace.type" style="display:block"><img alt="Diagram" src="img/space_xsd_Complex_Type_mspace_type.jpeg" usemap="#space_xsd_Complex_Type_mspace_type"/><map name="space_xsd_Complex_Type_mspace_type" id="space_xsd_Complex_Type_mspace_type"><area alt="space_xsd.tmp#mspace.attlist" href="space_xsd.html#mspace.attlist" coords="162,42,283,68" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_mspace.type" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_mspace.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_mspace.type" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mspace</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_mspace.type" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_mspace.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_mspace.type" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="10%" rowspan="1" colspan="1">Default</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_depth" target="_top" title="No namespace" shape="rect">depth</a></b></td><td rowspan="1" colspan="1"><b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b></td><td rowspan="1" colspan="1">0ex</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_height" target="_top" title="No namespace" shape="rect">height</a></b></td><td rowspan="1" colspan="1"><b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b></td><td rowspan="1" colspan="1">0ex</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_linebreak" target="_top" title="No namespace" shape="rect">linebreak</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:string</b></td><td rowspan="1" colspan="1">auto</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_width" target="_top" title="No namespace" shape="rect">width</a></b></td><td rowspan="1" colspan="1">union of(<b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b>, <b><a href="common-types_xsd.html#named-space" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">named-space</a></b>)
+                                    </td><td rowspan="1" colspan="1">0em</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_mspace.type" type="image" src="img/btM.gif" value="-" onclick="switchState('source_mspace.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_mspace.type" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:complexType</span><span class="tAN"> name=</span><span class="tAV">"mspace.type"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"mspace.attlist"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:complexType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="mspace.attlist_width" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="space_xsd.html#mspace.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mspace.attlist</a></b> / @width</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_mspace.attlist_width" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_mspace.attlist_width');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_mspace.attlist_width" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">default</td><td rowspan="1" colspan="1"><b>0em</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_mspace.attlist_width" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_mspace.attlist_width');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_mspace.attlist_width" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mspace.attlist</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_mspace.attlist_width" type="image" src="img/btM.gif" value="-" onclick="switchState('source_mspace.attlist_width');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_mspace.attlist_width" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"width"</span><span class="tAN"> default=</span><span class="tAV">"0em"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"length-with-unit named-space"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="mspace.attlist_height" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="space_xsd.html#mspace.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mspace.attlist</a></b> / @height</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_mspace.attlist_height" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_mspace.attlist_height');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_mspace.attlist_height" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">default</td><td rowspan="1" colspan="1"><b>0ex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_mspace.attlist_height" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_mspace.attlist_height');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_mspace.attlist_height" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">pattern</td><td rowspan="1" colspan="1"><b>(-?([0-9]+|[0-9]*\.[0-9]+)*(em|ex|px|in|cm|mm|pt|pc|%))|0</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_mspace.attlist_height" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_mspace.attlist_height');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_mspace.attlist_height" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mspace.attlist</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_mspace.attlist_height" type="image" src="img/btM.gif" value="-" onclick="switchState('source_mspace.attlist_height');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_mspace.attlist_height" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"height"</span><span class="tAN"> type=</span><span class="tAV">"length-with-unit"</span><span class="tAN"> default=</span><span class="tAV">"0ex"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="mspace.attlist_depth" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="space_xsd.html#mspace.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mspace.attlist</a></b> / @depth</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_mspace.attlist_depth" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_mspace.attlist_depth');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_mspace.attlist_depth" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">default</td><td rowspan="1" colspan="1"><b>0ex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_mspace.attlist_depth" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_mspace.attlist_depth');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_mspace.attlist_depth" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">pattern</td><td rowspan="1" colspan="1"><b>(-?([0-9]+|[0-9]*\.[0-9]+)*(em|ex|px|in|cm|mm|pt|pc|%))|0</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_mspace.attlist_depth" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_mspace.attlist_depth');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_mspace.attlist_depth" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mspace.attlist</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_mspace.attlist_depth" type="image" src="img/btM.gif" value="-" onclick="switchState('source_mspace.attlist_depth');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_mspace.attlist_depth" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"depth"</span><span class="tAN"> type=</span><span class="tAV">"length-with-unit"</span><span class="tAN"> default=</span><span class="tAV">"0ex"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="mspace.attlist_linebreak" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="space_xsd.html#mspace.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mspace.attlist</a></b> / @linebreak</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_mspace.attlist_linebreak" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_mspace.attlist_linebreak');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_mspace.attlist_linebreak" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">default</td><td rowspan="1" colspan="1"><b>auto</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_mspace.attlist_linebreak" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_mspace.attlist_linebreak');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_mspace.attlist_linebreak" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>auto</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>newline</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>indentingnewline</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>nobreak</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>goodbreak</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>badbreak</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_mspace.attlist_linebreak" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_mspace.attlist_linebreak');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_mspace.attlist_linebreak" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mspace.attlist</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_mspace.attlist_linebreak" type="image" src="img/btM.gif" value="-" onclick="switchState('source_mspace.attlist_linebreak');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_mspace.attlist_linebreak" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"linebreak"</span><span class="tAN"> default=</span><span class="tAV">"auto"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:restriction</span><span class="tAN"> base=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"auto"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"newline"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"indentingnewline"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"nobreak"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"goodbreak"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"badbreak"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:restriction&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="mspace.attlist" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">mspace.attlist</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_mspace.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_mspace.attlist');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_mspace.attlist" style="display:block"><img alt="Diagram" src="img/space_xsd_Attribute_Group_mspace_attlist.jpeg" usemap="#space_xsd_Attribute_Group_mspace_attlist"/><map name="space_xsd_Attribute_Group_mspace_attlist" id="space_xsd_Attribute_Group_mspace_attlist"><area alt="space_xsd.tmp#mspace.attlist_width" href="space_xsd.html#mspace.attlist_width" coords="149,0,226,25" shape="rect"/><area alt="space_xsd.tmp#mspace.attlist_height" href="space_xsd.html#mspace.attlist_height" coords="149,35,228,60" shape="rect"/><area alt="space_xsd.tmp#mspace.attlist_depth" href="space_xsd.html#mspace.attlist_depth" coords="149,70,226,95" shape="rect"/><area alt="space_xsd.tmp#mspace.attlist_linebreak" href="space_xsd.html#mspace.attlist_linebreak" coords="149,105,242,130" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_class" href="common-attribs_xsd.html#Common.attrib_class" coords="163,184,239,209" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_style" href="common-attribs_xsd.html#Common.attrib_style" coords="163,219,236,244" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_xref" href="common-attribs_xsd.html#Common.attrib_xref" coords="163,254,233,279" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_id" href="common-attribs_xsd.html#Common.attrib_id" coords="163,289,233,314" shape="rect"/><area alt="xlink-href_xsd.tmp#href" href="xlink-href_xsd.html#href" coords="163,324,257,349" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="152,143,275,169" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_mspace.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_mspace.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_mspace.attlist" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Complex Type </td><td rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.type" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mspace.type</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_mspace.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_mspace.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_mspace.attlist" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="10%" rowspan="1" colspan="1">Default</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_depth" target="_top" title="No namespace" shape="rect">depth</a></b></td><td rowspan="1" colspan="1"><b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b></td><td rowspan="1" colspan="1">0ex</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_height" target="_top" title="No namespace" shape="rect">height</a></b></td><td rowspan="1" colspan="1"><b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b></td><td rowspan="1" colspan="1">0ex</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_linebreak" target="_top" title="No namespace" shape="rect">linebreak</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:string</b></td><td rowspan="1" colspan="1">auto</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="space_xsd.html#mspace.attlist_width" target="_top" title="No namespace" shape="rect">width</a></b></td><td rowspan="1" colspan="1">union of(<b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b>, <b><a href="common-types_xsd.html#named-space" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">named-space</a></b>)
+                                    </td><td rowspan="1" colspan="1">0em</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1"/><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_mspace.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('source_mspace.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_mspace.attlist" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"mspace.attlist"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"width"</span><span class="tAN"> default=</span><span class="tAV">"0em"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"length-with-unit named-space"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"height"</span><span class="tAN"> type=</span><span class="tAV">"length-with-unit"</span><span class="tAN"> default=</span><span class="tAV">"0ex"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"depth"</span><span class="tAN"> type=</span><span class="tAV">"length-with-unit"</span><span class="tAN"> default=</span><span class="tAV">"0ex"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"linebreak"</span><span class="tAN"> default=</span><span class="tAV">"auto"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:restriction</span><span class="tAN"> base=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"auto"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"newline"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"indentingnewline"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"nobreak"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"goodbreak"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"badbreak"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:restriction&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"Common.attrib"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      <div class="footer">
+         <hr/>
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent" shape="rect"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript" xml:space="preserve">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body></html>
