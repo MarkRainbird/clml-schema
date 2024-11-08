@@ -1,0 +1,1425 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>Schema documentation for schemaCommon.xsd</title><link rel="stylesheet" href="docHtml.css" type="text/css"/><script type="text/javascript" xml:space="preserve">
+         <!--
+        var propertiesBoxes= new Array('properties_schemaCommon.xsd', 
+				'properties_OptionalURIs_DocumentURI', 
+				'properties_OptionalURIs_IdURI', 
+				'properties_SchemaVersion_SchemaVersion', 
+				'properties_MandatoryURIs_DocumentURI', 
+				'properties_MandatoryURIs_IdURI');
+var facetsBoxes= new Array('facets_CategoryType', 
+				'facets_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType', 
+				'facets_DocumentMainTypeBasic', 
+				'facets_UKMinorType', 
+				'facets_ExtentType', 
+				'facets_DocumentMainTypeDeprecated', 
+				'facets_EUMinorType', 
+				'facets_SchemaVersion_SchemaVersion');
+var usedByBoxes= new Array('usedBy_CategoryType', 
+				'usedBy_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType', 
+				'usedBy_DocumentMainTypeBasic', 
+				'usedBy_UKMinorType', 
+				'usedBy_ExtentType', 
+				'usedBy_AffectingExtentType', 
+				'usedBy_CategoryUnknownType', 
+				'usedBy_MinorType', 
+				'usedBy_OptionalURIs_DocumentURI', 
+				'usedBy_OptionalURIs_IdURI', 
+				'usedBy_SchemaVersion_SchemaVersion', 
+				'usedBy_MandatoryURIs_DocumentURI', 
+				'usedBy_MandatoryURIs_IdURI', 
+				'usedBy_OptionalURIs', 
+				'usedBy_SchemaVersion');
+var sourceBoxes= new Array('source_CategoryType', 
+				'source_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType', 
+				'source_DocumentMainTypeBasic', 
+				'source_UKMinorType', 
+				'source_ExtentType', 
+				'source_AffectingExtentType', 
+				'source_CategoryUnknownType', 
+				'source_MinorType', 
+				'source_DocumentMainTypeDeprecated', 
+				'source_EUMinorType', 
+				'source_OptionalURIs_DocumentURI', 
+				'source_OptionalURIs_IdURI', 
+				'source_SchemaVersion_SchemaVersion', 
+				'source_MandatoryURIs_DocumentURI', 
+				'source_MandatoryURIs_IdURI', 
+				'source_OptionalURIs', 
+				'source_SchemaVersion', 
+				'source_MandatoryURIs');
+var diagramBoxes= new Array('diagram_CategoryType', 
+				'diagram_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType', 
+				'diagram_DocumentMainTypeBasic', 
+				'diagram_UKMinorType', 
+				'diagram_ExtentType', 
+				'diagram_AffectingExtentType', 
+				'diagram_CategoryUnknownType', 
+				'diagram_MinorType', 
+				'diagram_DocumentMainTypeDeprecated', 
+				'diagram_EUMinorType', 
+				'diagram_OptionalURIs', 
+				'diagram_SchemaVersion', 
+				'diagram_MandatoryURIs');
+var annotationBoxes= new Array('annotations_schemaCommon.xsd', 
+				'annotations_DocumentMainTypeBasic', 
+				'annotations_UKMinorType', 
+				'annotations_ExtentType', 
+				'annotations_AffectingExtentType', 
+				'annotations_MinorType', 
+				'annotations_DocumentMainTypeDeprecated', 
+				'annotations_EUMinorType', 
+				'annotations_OptionalURIs_DocumentURI', 
+				'annotations_OptionalURIs_IdURI', 
+				'annotations_MandatoryURIs_DocumentURI', 
+				'annotations_MandatoryURIs_IdURI', 
+				'annotations_SchemaVersion');
+var attributesBoxes= new Array('attributes_OptionalURIs', 
+				'attributes_SchemaVersion', 
+				'attributes_MandatoryURIs');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script><link rel="stylesheet" type="text/css" href="frames.css"/></head><body><iframe id="nav" src="CLMLreferenceGuide-v2-7.indexListcomp.html"> </iframe>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+                  <h3>Showing:</h3>
+                  <table><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control"/></span><span class="globalControlName">Annotations</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control"/></span><span class="globalControlName">Attributes </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control"/></span><span class="globalControlName">Diagrams</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, facetsBoxes);" class="control"/></span><span class="globalControlName">Facets </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control"/></span><span class="globalControlName">Properties </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control"/></span><span class="globalControlName">Source</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control"/></span><span class="globalControlName">Used by </span></td></tr></table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close"/></span></div>
+               </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      </div><a id="schemaCommon.xsd" shape="rect"/><div class="componentTitle">Included schema <span class="qname">schemaCommon.xsd</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_schemaCommon.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_schemaCommon.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_schemaCommon.xsd" style="display:block">
+                              <div class="annotation">Defines common types that can be used across all legislation and associated documents</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_schemaCommon.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_schemaCommon.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_schemaCommon.xsd" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">attribute form default</td><td rowspan="1" colspan="1"><b>unqualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">element form default</td><td rowspan="1" colspan="1"><b>qualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">version</td><td rowspan="1" colspan="1"><b>2.7</b></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="CategoryType" shape="rect"/><div class="componentTitle">Simple Type <span class="qname">CategoryType</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CategoryType" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CategoryType');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_CategoryType" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Simple_Type_CategoryType.jpeg"/></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_CategoryType" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_CategoryType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_CategoryType" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>primary</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>secondary</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>euretained</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_CategoryType" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_CategoryType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_CategoryType" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationMetadata_xsd.html#DocumentCategory_Value" target="_top" title="No namespace" shape="rect">DocumentCategory/@Value</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CategoryType" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CategoryType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_CategoryType" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:simpleType</span><span class="tAN"> name=</span><span class="tAV">"CategoryType"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:string"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"primary"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"secondary"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"euretained"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:simpleType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType" shape="rect"/><div class="componentTitle">Simple Type <span class="qname">DocumentMainType</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Simple_Type_DocumentMainType.jpeg" usemap="#schemaCommon_xsd_Simple_Type_DocumentMainType"/><map name="schemaCommon_xsd_Simple_Type_DocumentMainType" id="schemaCommon_xsd_Simple_Type_DocumentMainType"><area alt="schemaCommon_xsd.tmp#DocumentMainTypeBasic" href="schemaCommon_xsd.html#DocumentMainTypeBasic" coords="177,0,353,26" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EnglandAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>GreatBritainAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>IrelandAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandAssemblyMeasure</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandParliamentAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandOrderInCouncil</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandDraftOrderInCouncil</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandStatutoryRule</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandStatutoryRuleOrOrder</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandDraftStatutoryRule</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>ScottishAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>ScottishOldAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>ScottishStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>ScottishDraftStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomChurchInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomChurchMeasure</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomPrivateAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomPublicGeneralAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomLocalAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomPrivateOrPersonalAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>GreatBritainPrivateOrPersonalAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>GreatBritainLocalAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomMinisterialDirection</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomMinisterialOrder</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomDraftStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomStatutoryRuleOrOrder</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>WelshParliamentAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The new name for Acts created in the Welsh parliament following law  http://www.legislation.gov.uk/anaw/2020/1/enacted#section-3</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>WelshAssemblyMeasure</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>WelshNationalAssemblyAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>WelshStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>WelshDraftStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomImpactAssessment</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionRegulation</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanEconomicCommunityRegulation</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionDirective</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionTreaty</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanEconomicCommunityDirective</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionDecision</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanEconomicCommunityDecision</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionCorrigendum</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionOfficialJournal</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionOther</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attributes </td><td rowspan="1" colspan="1"><b><a href="schemaCitations_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_Citation_Class" target="_top" title="No namespace" shape="rect">Citation/@Class</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#DocumentMainType_Value" target="_top" title="No namespace" shape="rect">DocumentMainType/@Value</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#EffectType_AffectedClass" target="_top" title="No namespace" shape="rect">EffectType/@AffectedClass</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#EffectType_AffectingClass" target="_top" title="No namespace" shape="rect">EffectType/@AffectingClass</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#InForce_AffectingClass" target="_top" title="No namespace" shape="rect">InForce/@AffectingClass</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#InForce_CommencingClass" target="_top" title="No namespace" shape="rect">InForce/@CommencingClass</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#ProvisionsStructure_ProvisionsStructure_Citation_Class" target="_top" title="No namespace" shape="rect">ProvisionsStructure/Citation/@Class</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#SecondaryMetadata_SecondaryMetadata_Correction_Class" target="_top" title="No namespace" shape="rect">SecondaryMetadata/Correction/@Class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType" type="image" src="img/btM.gif" value="-" onclick="switchState('source_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:simpleType</span><span class="tAN"> name=</span><span class="tAV">"DocumentMainType"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"DocumentMainTypeBasic"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:simpleType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="DocumentMainTypeBasic" shape="rect"/><div class="componentTitle">Simple Type <span class="qname">DocumentMainTypeBasic</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_DocumentMainTypeBasic" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_DocumentMainTypeBasic');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_DocumentMainTypeBasic" style="display:block">
+                              <div class="annotation">The choice of main document types common across all UK Legislation.</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_DocumentMainTypeBasic" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_DocumentMainTypeBasic');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_DocumentMainTypeBasic" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Simple_Type_DocumentMainTypeBasic.jpeg"/></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_DocumentMainTypeBasic" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_DocumentMainTypeBasic');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_DocumentMainTypeBasic" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EnglandAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>GreatBritainAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>IrelandAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandAssemblyMeasure</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandParliamentAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandOrderInCouncil</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandDraftOrderInCouncil</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandStatutoryRule</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandStatutoryRuleOrOrder</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandDraftStatutoryRule</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>ScottishAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>ScottishOldAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>ScottishStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>ScottishDraftStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomChurchInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomChurchMeasure</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomPrivateAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomPublicGeneralAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomLocalAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomPrivateOrPersonalAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>GreatBritainPrivateOrPersonalAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>GreatBritainLocalAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomMinisterialDirection</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomMinisterialOrder</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomDraftStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomStatutoryRuleOrOrder</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>WelshParliamentAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The new name for Acts created in the Welsh parliament following law  http://www.legislation.gov.uk/anaw/2020/1/enacted#section-3</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>WelshAssemblyMeasure</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>WelshNationalAssemblyAct</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>WelshStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>WelshDraftStatutoryInstrument</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomImpactAssessment</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionRegulation</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanEconomicCommunityRegulation</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionDirective</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionTreaty</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanEconomicCommunityDirective</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionDecision</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanEconomicCommunityDecision</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionCorrigendum</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionOfficialJournal</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnionOther</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_DocumentMainTypeBasic" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_DocumentMainTypeBasic');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_DocumentMainTypeBasic" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Simple Type </td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#http___www.legislation.gov.uk_namespaces_legislation_DocumentMainType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">DocumentMainType</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_DocumentMainTypeBasic" type="image" src="img/btM.gif" value="-" onclick="switchState('source_DocumentMainTypeBasic');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_DocumentMainTypeBasic" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:simpleType</span><span class="tAN"> name=</span><span class="tAV">"DocumentMainTypeBasic"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The choice of main document types common across all UK Legislation.</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:string"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EnglandAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"GreatBritainAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"IrelandAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"NorthernIrelandAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"NorthernIrelandAssemblyMeasure"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"NorthernIrelandParliamentAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"NorthernIrelandOrderInCouncil"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"NorthernIrelandDraftOrderInCouncil"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"NorthernIrelandStatutoryRule"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"NorthernIrelandStatutoryRuleOrOrder"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"NorthernIrelandDraftStatutoryRule"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"ScottishAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"ScottishOldAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"ScottishStatutoryInstrument"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"ScottishDraftStatutoryInstrument"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomChurchInstrument"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomChurchMeasure"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomPrivateAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomPublicGeneralAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomLocalAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomPrivateOrPersonalAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"GreatBritainPrivateOrPersonalAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"GreatBritainLocalAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomMinisterialDirection"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomMinisterialOrder"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomStatutoryInstrument"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomDraftStatutoryInstrument"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomStatutoryRuleOrOrder"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"WelshParliamentAct"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The new name for Acts created in the Welsh parliament following law http://www.legislation.gov.uk/anaw/2020/1/enacted#section-3</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:enumeration&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"WelshAssemblyMeasure"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"WelshNationalAssemblyAct"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"WelshStatutoryInstrument"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"WelshDraftStatutoryInstrument"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomImpactAssessment"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanUnionRegulation"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanEconomicCommunityRegulation"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanUnionDirective"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanUnionTreaty"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanEconomicCommunityDirective"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanUnionDecision"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanEconomicCommunityDecision"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanUnionCorrigendum"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanUnionOfficialJournal"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanUnionOther"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tC">&lt;!-- deprecated see #113007733 
+				Data to be changed to "EuropeanUnionOther" by #162038035
+			Allow these in publication schema but not in others... 
+			&lt;xsd:enumeration value="EuropeanUnion"/&gt;
+			&lt;xsd:enumeration value="EuropeanEconomicCommunity"/&gt;
+			&lt;xsd:enumeration value="EuropeanCommission"/&gt;
+			
+			The following are deprecated everywhere except in historical publications data
+			&lt;xsd:enumeration value="NorthernIrelandStatutoryRuleLocal"/&gt;
+			&lt;xsd:enumeration value="ScottishStatutoryInstrumentLocal"/&gt;
+			&lt;xsd:enumeration value="WelshStatutoryInstrumentLocal"/&gt;  --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:simpleType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="UKMinorType" shape="rect"/><div class="componentTitle">Simple Type <span class="qname">UKMinorType</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_UKMinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_UKMinorType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_UKMinorType" style="display:block">
+                              <div class="annotation">UK minor document types.</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_UKMinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_UKMinorType');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_UKMinorType" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Simple_Type_UKMinorType.jpeg"/></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_UKMinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_UKMinorType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_UKMinorType" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>order</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>regulation</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>rule</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>scheme</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>resolution</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>unknown</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_UKMinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_UKMinorType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_UKMinorType" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationMetadata_xsd.html#DocumentClassification_DocumentClassification_DocumentMinorType_Value" target="_top" title="No namespace" shape="rect">DocumentClassification/DocumentMinorType/@Value</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_UKMinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('source_UKMinorType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_UKMinorType" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:simpleType</span><span class="tAN"> name=</span><span class="tAV">"UKMinorType"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">UK minor document types.</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:string"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"order"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"regulation"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"rule"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"scheme"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"resolution"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"unknown"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:simpleType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="ExtentType" shape="rect"/><div class="componentTitle">Simple Type <span class="qname">ExtentType</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_ExtentType" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_ExtentType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_ExtentType" style="display:block">
+                              <div class="annotation">
+                                 				
+                                 <p>Valid Extent Types</p>
+                                 				
+                                 <ul>
+                                    					
+                                    <li>E = England</li>
+                                    					
+                                    <li>W = Wales</li>
+                                    					
+                                    <li>S = Scotland</li>
+                                    					
+                                    <li>N.I. = Northern Ireland</li>
+                                    					
+                                    <li>E.U. = European Union</li>
+                                    					
+                                    <li>+ = combines</li>
+                                    				
+                                 </ul>
+                                 			
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_ExtentType" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_ExtentType');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_ExtentType" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Simple_Type_ExtentType.jpeg"/></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_ExtentType" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_ExtentType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_ExtentType" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>E</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>W</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>S</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>N.I.</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>E+W</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>E+S</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>E+N.I.</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>W+S</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>W+N.I.</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>S+N.I.</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>E+W+S</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>E+W+N.I.</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>W+S+N.I.</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>E+W+S+N.I.</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>E+S+N.I.</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_ExtentType" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_ExtentType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_ExtentType" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attributes </td><td rowspan="1" colspan="1"><b><a href="schemaChanges_xsd.html#ChangeType_Extent" target="_top" title="No namespace" shape="rect">ChangeType/@Extent</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#EffectType_AffectedExtent" target="_top" title="No namespace" shape="rect">EffectType/@AffectedExtent</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#EffectType_AffectedTerritorialApplication" target="_top" title="No namespace" shape="rect">EffectType/@AffectedTerritorialApplication</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#EffectType_AffectingExtent" target="_top" title="No namespace" shape="rect">EffectType/@AffectingExtent</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#EffectType_AffectingTerritorialApplication" target="_top" title="No namespace" shape="rect">EffectType/@AffectingTerritorialApplication</a></b>, <b><a href="schemaLegislationCommonAttributes_xsd.html#FragmentAttributes_RestrictExtent" target="_top" title="No namespace" shape="rect">FragmentAttributes/@RestrictExtent</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#Section_Extent" target="_top" title="No namespace" shape="rect">Section/@Extent</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_ExtentType" type="image" src="img/btM.gif" value="-" onclick="switchState('source_ExtentType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_ExtentType" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:simpleType</span><span class="tAN"> name=</span><span class="tAV">"ExtentType"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tAN"> xmlns:h=</span><span class="tAV">"http://www.w3.org/1999/xhtml"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;h:p</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Valid Extent Types</span><span class="tEl">&lt;/h:p&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;h:ul</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;h:li</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">E = England</span><span class="tEl">&lt;/h:li&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;h:li</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">W = Wales</span><span class="tEl">&lt;/h:li&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;h:li</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">S = Scotland</span><span class="tEl">&lt;/h:li&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;h:li</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">N.I. = Northern Ireland</span><span class="tEl">&lt;/h:li&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;h:li</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">E.U. = European Union</span><span class="tEl">&lt;/h:li&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;h:li</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">+ = combines</span><span class="tEl">&lt;/h:li&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/h:ul&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:token"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"E"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"W"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"S"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"N.I."</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"E+W"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"E+S"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"E+N.I."</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"W+S"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"W+N.I."</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"S+N.I."</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"E+W+S"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"E+W+N.I."</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"W+S+N.I."</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"E+W+S+N.I."</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"E+S+N.I."</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:simpleType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="AffectingExtentType" shape="rect"/><div class="componentTitle">Simple Type <span class="qname">AffectingExtentType</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_AffectingExtentType" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_AffectingExtentType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_AffectingExtentType" style="display:block">
+                              <div class="annotation">Choice of extents plus 'Same as affected'</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_AffectingExtentType" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_AffectingExtentType');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_AffectingExtentType" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Simple_Type_AffectingExtentType.jpeg" usemap="#schemaCommon_xsd_Simple_Type_AffectingExtentType"/><map name="schemaCommon_xsd_Simple_Type_AffectingExtentType" id="schemaCommon_xsd_Simple_Type_AffectingExtentType"><area alt="schemaCommon_xsd.tmp#ExtentType" href="schemaCommon_xsd.html#ExtentType" coords="202,0,311,26" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_AffectingExtentType" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_AffectingExtentType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_AffectingExtentType" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attributes </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationMetadata_xsd.html#EffectType_AffectedEffectsExtent" target="_top" title="No namespace" shape="rect">EffectType/@AffectedEffectsExtent</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#EffectType_AffectingEffectsExtent" target="_top" title="No namespace" shape="rect">EffectType/@AffectingEffectsExtent</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_AffectingExtentType" type="image" src="img/btM.gif" value="-" onclick="switchState('source_AffectingExtentType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_AffectingExtentType" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:simpleType</span><span class="tAN"> name=</span><span class="tAV">"AffectingExtentType"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Choice of extents plus 'Same as affected'</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"ExtentType"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:string"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"Same as affected"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:union&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:simpleType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="CategoryUnknownType" shape="rect"/><div class="componentTitle">Simple Type <span class="qname">CategoryUnknownType</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_CategoryUnknownType" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_CategoryUnknownType');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_CategoryUnknownType" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Simple_Type_CategoryUnknownType.jpeg" usemap="#schemaCommon_xsd_Simple_Type_CategoryUnknownType"/><map name="schemaCommon_xsd_Simple_Type_CategoryUnknownType" id="schemaCommon_xsd_Simple_Type_CategoryUnknownType"><area alt="schemaCommon_xsd.tmp#CategoryType" href="schemaCommon_xsd.html#CategoryType" coords="197,0,320,26" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_CategoryUnknownType" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_CategoryUnknownType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_CategoryUnknownType" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attributes </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#LegislationAmendmentAttributes_TargetClass" target="_top" title="No namespace" shape="rect">LegislationAmendmentAttributes/@TargetClass</a></b>, <b><a href="schemaLegislationAttributes_xsd.html#LegislationExtractAttributes_SourceClass" target="_top" title="No namespace" shape="rect">LegislationExtractAttributes/@SourceClass</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_CategoryUnknownType" type="image" src="img/btM.gif" value="-" onclick="switchState('source_CategoryUnknownType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_CategoryUnknownType" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:simpleType</span><span class="tAN"> name=</span><span class="tAV">"CategoryUnknownType"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"CategoryType"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:string"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"unknown"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:union&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:simpleType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="MinorType" shape="rect"/><div class="componentTitle">Simple Type <span class="qname">MinorType</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_MinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_MinorType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_MinorType" style="display:block">
+                              <div class="annotation">Combination of UK and EU minor document types.</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_MinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_MinorType');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_MinorType" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Simple_Type_MinorType.jpeg" usemap="#schemaCommon_xsd_Simple_Type_MinorType"/><map name="schemaCommon_xsd_Simple_Type_MinorType" id="schemaCommon_xsd_Simple_Type_MinorType"><area alt="schemaCommon_xsd.tmp#UKMinorType" href="schemaCommon_xsd.html#UKMinorType" coords="153,0,272,26" shape="rect"/><area alt="schemaCommon_xsd.tmp#EUMinorType" href="schemaCommon_xsd.html#EUMinorType" coords="153,67,271,93" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_MinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_MinorType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_MinorType" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attributes </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationAttributes_xsd.html#LegislationAmendmentAttributes_TargetSubClass" target="_top" title="No namespace" shape="rect">LegislationAmendmentAttributes/@TargetSubClass</a></b>, <b><a href="schemaLegislationAttributes_xsd.html#LegislationExtractAttributes_SourceSubClass" target="_top" title="No namespace" shape="rect">LegislationExtractAttributes/@SourceSubClass</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_MinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('source_MinorType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_MinorType" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:simpleType</span><span class="tAN"> name=</span><span class="tAV">"MinorType"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Combination of UK and EU minor document types.</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"UKMinorType EUMinorType"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:simpleType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="DocumentMainTypeDeprecated" shape="rect"/><div class="componentTitle">Simple Type <span class="qname">DocumentMainTypeDeprecated</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_DocumentMainTypeDeprecated" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_DocumentMainTypeDeprecated');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_DocumentMainTypeDeprecated" style="display:block">
+                              <div class="annotation">Old deprecated values of main document types for UK Legislation. Not to be used in
+                                 updated or new data but may be present in old data.
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_DocumentMainTypeDeprecated" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_DocumentMainTypeDeprecated');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_DocumentMainTypeDeprecated" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Simple_Type_DocumentMainTypeDeprecated.jpeg"/></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_DocumentMainTypeDeprecated" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_DocumentMainTypeDeprecated');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_DocumentMainTypeDeprecated" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanUnion</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanEconomicCommunity</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>EuropeanCommission</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>NorthernIrelandStatutoryRuleLocal</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>ScottishStatutoryInstrumentLocal</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>WelshStatutoryInstrumentLocal</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>UnitedKingdomStatutoryInstrumentLocal</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_DocumentMainTypeDeprecated" type="image" src="img/btM.gif" value="-" onclick="switchState('source_DocumentMainTypeDeprecated');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_DocumentMainTypeDeprecated" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:simpleType</span><span class="tAN"> name=</span><span class="tAV">"DocumentMainTypeDeprecated"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Old deprecated values of main document types for UK Legislation. Not to be used in updated or new data but may be present in old data.</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:string"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanUnion"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanEconomicCommunity"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"EuropeanCommission"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"NorthernIrelandStatutoryRuleLocal"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"ScottishStatutoryInstrumentLocal"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"WelshStatutoryInstrumentLocal"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"UnitedKingdomStatutoryInstrumentLocal"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:simpleType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="EUMinorType" shape="rect"/><div class="componentTitle">Simple Type <span class="qname">EUMinorType</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_EUMinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_EUMinorType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_EUMinorType" style="display:block">
+                              <div class="annotation">EU minor document types.</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_EUMinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_EUMinorType');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_EUMinorType" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Simple_Type_EUMinorType.jpeg"/></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_EUMinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_EUMinorType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_EUMinorType" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>euregulation</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>eudecision</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>eudirective</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>eutreaty</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_EUMinorType" type="image" src="img/btM.gif" value="-" onclick="switchState('source_EUMinorType');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_EUMinorType" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:simpleType</span><span class="tAN"> name=</span><span class="tAV">"EUMinorType"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">EU minor document types.</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:string"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"euregulation"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"eudecision"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"eudirective"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"eutreaty"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:simpleType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="OptionalURIs_DocumentURI" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaCommon_xsd.html#OptionalURIs" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">OptionalURIs</a></b> / @DocumentURI</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_OptionalURIs_DocumentURI" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_OptionalURIs_DocumentURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_OptionalURIs_DocumentURI" style="display:block">
+                              <div class="annotation">The URI to this part of the document (to the enacted version).</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_OptionalURIs_DocumentURI" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_OptionalURIs_DocumentURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_OptionalURIs_DocumentURI" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_OptionalURIs_DocumentURI" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_OptionalURIs_DocumentURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_OptionalURIs_DocumentURI" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">OptionalURIs</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_OptionalURIs_DocumentURI" type="image" src="img/btM.gif" value="-" onclick="switchState('source_OptionalURIs_DocumentURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_OptionalURIs_DocumentURI" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"DocumentURI"</span><span class="tAN"> type=</span><span class="tAV">"xsd:anyURI"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The URI to this part of the document (to the enacted version).</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="OptionalURIs_IdURI" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaCommon_xsd.html#OptionalURIs" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">OptionalURIs</a></b> / @IdURI</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_OptionalURIs_IdURI" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_OptionalURIs_IdURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_OptionalURIs_IdURI" style="display:block">
+                              <div class="annotation">The URI to the id of this part of the document (to the current revised version).</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_OptionalURIs_IdURI" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_OptionalURIs_IdURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_OptionalURIs_IdURI" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_OptionalURIs_IdURI" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_OptionalURIs_IdURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_OptionalURIs_IdURI" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">OptionalURIs</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_OptionalURIs_IdURI" type="image" src="img/btM.gif" value="-" onclick="switchState('source_OptionalURIs_IdURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_OptionalURIs_IdURI" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"IdURI"</span><span class="tAN"> type=</span><span class="tAV">"xsd:anyURI"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The URI to the id of this part of the document (to the current revised version).</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="SchemaVersion_SchemaVersion" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaCommon_xsd.html#SchemaVersion" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">SchemaVersion</a></b> / @SchemaVersion</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_SchemaVersion_SchemaVersion" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_SchemaVersion_SchemaVersion');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_SchemaVersion_SchemaVersion" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">use</td><td rowspan="1" colspan="1"><b>optional</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">default</td><td rowspan="1" colspan="1"><b>2.2</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_SchemaVersion_SchemaVersion" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_SchemaVersion_SchemaVersion');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_SchemaVersion_SchemaVersion" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>1.0</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>2.0</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>2.1</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>2.2</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_SchemaVersion_SchemaVersion" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_SchemaVersion_SchemaVersion');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_SchemaVersion_SchemaVersion" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#SchemaVersion" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">SchemaVersion</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_SchemaVersion_SchemaVersion" type="image" src="img/btM.gif" value="-" onclick="switchState('source_SchemaVersion_SchemaVersion');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_SchemaVersion_SchemaVersion" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"SchemaVersion"</span><span class="tAN"> use=</span><span class="tAV">"optional"</span><span class="tAN"> default=</span><span class="tAV">"2.2"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:NMTOKEN"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"1.0"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"2.0"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"2.1"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"2.2"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="MandatoryURIs_DocumentURI" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaCommon_xsd.html#MandatoryURIs" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">MandatoryURIs</a></b> / @DocumentURI</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_MandatoryURIs_DocumentURI" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_MandatoryURIs_DocumentURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_MandatoryURIs_DocumentURI" style="display:block">
+                              <div class="annotation">The URI to this part of the document (to the enacted version).</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_MandatoryURIs_DocumentURI" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_MandatoryURIs_DocumentURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_MandatoryURIs_DocumentURI" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">use</td><td rowspan="1" colspan="1"><b>required</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_MandatoryURIs_DocumentURI" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_MandatoryURIs_DocumentURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_MandatoryURIs_DocumentURI" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#MandatoryURIs" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">MandatoryURIs</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_MandatoryURIs_DocumentURI" type="image" src="img/btM.gif" value="-" onclick="switchState('source_MandatoryURIs_DocumentURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_MandatoryURIs_DocumentURI" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"DocumentURI"</span><span class="tAN"> type=</span><span class="tAV">"xsd:anyURI"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The URI to this part of the document (to the enacted version).</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="MandatoryURIs_IdURI" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaCommon_xsd.html#MandatoryURIs" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">MandatoryURIs</a></b> / @IdURI</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_MandatoryURIs_IdURI" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_MandatoryURIs_IdURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_MandatoryURIs_IdURI" style="display:block">
+                              <div class="annotation">The URI to the id of this part of the document (to the current revised version).</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_MandatoryURIs_IdURI" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_MandatoryURIs_IdURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_MandatoryURIs_IdURI" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">use</td><td rowspan="1" colspan="1"><b>required</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_MandatoryURIs_IdURI" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_MandatoryURIs_IdURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_MandatoryURIs_IdURI" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#MandatoryURIs" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">MandatoryURIs</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_MandatoryURIs_IdURI" type="image" src="img/btM.gif" value="-" onclick="switchState('source_MandatoryURIs_IdURI');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_MandatoryURIs_IdURI" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"IdURI"</span><span class="tAN"> type=</span><span class="tAV">"xsd:anyURI"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The URI to the id of this part of the document (to the current revised version).</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="OptionalURIs" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">OptionalURIs</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_OptionalURIs" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_OptionalURIs');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_OptionalURIs" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Attribute_Group_OptionalURIs.jpeg" usemap="#schemaCommon_xsd_Attribute_Group_OptionalURIs"/><map name="schemaCommon_xsd_Attribute_Group_OptionalURIs" id="schemaCommon_xsd_Attribute_Group_OptionalURIs"><area alt="schemaCommon_xsd.tmp#OptionalURIs_DocumentURI" href="schemaCommon_xsd.html#OptionalURIs_DocumentURI" coords="144,0,258,25" shape="rect"/><area alt="schemaCommon_xsd.tmp#OptionalURIs_IdURI" href="schemaCommon_xsd.html#OptionalURIs_IdURI" coords="144,66,218,91" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_OptionalURIs" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_OptionalURIs');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_OptionalURIs" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Elements </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationExplanatoryNotes_xsd.html#Comment" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Comment</a></b>, <b><a href="schemaLegislationExplanatoryNotes_xsd.html#EarlierOrders" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">EarlierOrders</a></b>, <b><a href="schemaLegislationExplanatoryNotes_xsd.html#ExplanatoryNotes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">ExplanatoryNotes</a></b>, <b><a href="schemaLegislationCore_xsd.html#Legislation" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Legislation</a></b>, <b><a href="schemaLegislationMetadata_xsd.html#Note" target="_top" title="http://www.legislation.gov.uk/namespaces/metadata" shape="rect">Note</a></b>, <b><a href="schemaLegislationSignature_xsd.html#SignedSection" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">SignedSection</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Groups </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationContents_xsd.html#ContentsAttributes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">ContentsAttributes</a></b>, <b><a href="schemaLegislationNumberedSections_xsd.html#PelementIDattributes" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">PelementIDattributes</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_OptionalURIs" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_OptionalURIs');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_OptionalURIs" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs_DocumentURI" target="_top" title="No namespace" shape="rect">DocumentURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to this part of the document (to the enacted version).</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#OptionalURIs_IdURI" target="_top" title="No namespace" shape="rect">IdURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to the id of this part of the document (to the current revised version).</div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_OptionalURIs" type="image" src="img/btM.gif" value="-" onclick="switchState('source_OptionalURIs');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_OptionalURIs" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"OptionalURIs"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"DocumentURI"</span><span class="tAN"> type=</span><span class="tAV">"xsd:anyURI"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The URI to this part of the document (to the enacted version).</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:attribute&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"IdURI"</span><span class="tAN"> type=</span><span class="tAV">"xsd:anyURI"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The URI to the id of this part of the document (to the current revised version).</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:attribute&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="SchemaVersion" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">SchemaVersion</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_SchemaVersion" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_SchemaVersion');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_SchemaVersion" style="display:block">
+                              <div class="annotation">Can be used to indicate the version of the schema to which the document pertains.</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_SchemaVersion" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_SchemaVersion');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_SchemaVersion" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Attribute_Group_SchemaVersion.jpeg" usemap="#schemaCommon_xsd_Attribute_Group_SchemaVersion"/><map name="schemaCommon_xsd_Attribute_Group_SchemaVersion" id="schemaCommon_xsd_Attribute_Group_SchemaVersion"><area alt="schemaCommon_xsd.tmp#SchemaVersion_SchemaVersion" href="schemaCommon_xsd.html#SchemaVersion_SchemaVersion" coords="180,1,307,26" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_SchemaVersion" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_SchemaVersion');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_SchemaVersion" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCore_xsd.html#Legislation" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Legislation</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_SchemaVersion" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_SchemaVersion');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_SchemaVersion" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="10%" rowspan="1" colspan="1">Default</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#SchemaVersion_SchemaVersion" target="_top" title="No namespace" shape="rect">SchemaVersion</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:NMTOKEN</b></td><td rowspan="1" colspan="1">2.2</td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_SchemaVersion" type="image" src="img/btM.gif" value="-" onclick="switchState('source_SchemaVersion');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_SchemaVersion" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"SchemaVersion"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Can be used to indicate the version of the schema to which the document pertains.</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!--&lt;xsd:attribute name="SchemaVersion" type="xsd:NMTOKEN" use="required" fixed="1.0"/&gt;--&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"SchemaVersion"</span><span class="tAN"> use=</span><span class="tAV">"optional"</span><span class="tAN"> default=</span><span class="tAV">"2.2"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:NMTOKEN"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"1.0"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"2.0"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"2.1"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:enumeration</span><span class="tAN"> value=</span><span class="tAV">"2.2"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:attribute&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="MandatoryURIs" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">MandatoryURIs</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_MandatoryURIs" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_MandatoryURIs');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_MandatoryURIs" style="display:block"><img alt="Diagram" src="img/schemaCommon_xsd_Attribute_Group_MandatoryURIs.jpeg" usemap="#schemaCommon_xsd_Attribute_Group_MandatoryURIs"/><map name="schemaCommon_xsd_Attribute_Group_MandatoryURIs" id="schemaCommon_xsd_Attribute_Group_MandatoryURIs"><area alt="schemaCommon_xsd.tmp#MandatoryURIs_DocumentURI" href="schemaCommon_xsd.html#MandatoryURIs_DocumentURI" coords="156,0,270,25" shape="rect"/><area alt="schemaCommon_xsd.tmp#MandatoryURIs_IdURI" href="schemaCommon_xsd.html#MandatoryURIs_IdURI" coords="156,66,230,91" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_MandatoryURIs" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_MandatoryURIs');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_MandatoryURIs" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#MandatoryURIs_DocumentURI" target="_top" title="No namespace" shape="rect">DocumentURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">required</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to this part of the document (to the enacted version).</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaCommon_xsd.html#MandatoryURIs_IdURI" target="_top" title="No namespace" shape="rect">IdURI</a></b></td><td rowspan="1" colspan="1"><b>xsd:anyURI</b></td><td rowspan="1" colspan="1">required</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">The URI to the id of this part of the document (to the current revised version).</div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_MandatoryURIs" type="image" src="img/btM.gif" value="-" onclick="switchState('source_MandatoryURIs');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_MandatoryURIs" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"MandatoryURIs"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"DocumentURI"</span><span class="tAN"> type=</span><span class="tAV">"xsd:anyURI"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The URI to this part of the document (to the enacted version).</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:attribute&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"IdURI"</span><span class="tAN"> type=</span><span class="tAV">"xsd:anyURI"</span><span class="tAN"> use=</span><span class="tAV">"required"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The URI to the id of this part of the document (to the current revised version).</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:attribute&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      <div class="footer">
+         <hr/>
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent" shape="rect"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript" xml:space="preserve">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body></html>

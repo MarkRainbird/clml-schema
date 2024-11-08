@@ -1,0 +1,1009 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>Schema documentation for common-attribs.xsd</title><link rel="stylesheet" href="docHtml.css" type="text/css"/><script type="text/javascript" xml:space="preserve">
+         <!--
+        var propertiesBoxes= new Array('properties_schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd', 
+				'properties_Token-style.attrib_mathvariant', 
+				'properties_Token-style.attrib_mathsize', 
+				'properties_Token-style.attrib_mathcolor', 
+				'properties_Token-style.attrib_mathbackground', 
+				'properties_Operator.attrib_form', 
+				'properties_Operator.attrib_lspace', 
+				'properties_Operator.attrib_rspace', 
+				'properties_Operator.attrib_fence', 
+				'properties_Operator.attrib_separator', 
+				'properties_Operator.attrib_stretchy', 
+				'properties_Operator.attrib_symmetric', 
+				'properties_Operator.attrib_movablelimits', 
+				'properties_Operator.attrib_accent', 
+				'properties_Operator.attrib_largeop', 
+				'properties_Operator.attrib_minsize', 
+				'properties_Operator.attrib_maxsize');
+var facetsBoxes= new Array('facets_Token-style.attrib_mathvariant', 
+				'facets_Operator.attrib_form');
+var usedByBoxes= new Array('usedBy_Token-style.attrib_mathvariant', 
+				'usedBy_Token-style.attrib_mathsize', 
+				'usedBy_Token-style.attrib_mathcolor', 
+				'usedBy_Token-style.attrib_mathbackground', 
+				'usedBy_Operator.attrib_form', 
+				'usedBy_Operator.attrib_lspace', 
+				'usedBy_Operator.attrib_rspace', 
+				'usedBy_Operator.attrib_fence', 
+				'usedBy_Operator.attrib_separator', 
+				'usedBy_Operator.attrib_stretchy', 
+				'usedBy_Operator.attrib_symmetric', 
+				'usedBy_Operator.attrib_movablelimits', 
+				'usedBy_Operator.attrib_accent', 
+				'usedBy_Operator.attrib_largeop', 
+				'usedBy_Operator.attrib_minsize', 
+				'usedBy_Operator.attrib_maxsize', 
+				'usedBy_Token-style.attrib', 
+				'usedBy_Operator.attrib');
+var sourceBoxes= new Array('source_Token-style.attrib_mathvariant', 
+				'source_Token-style.attrib_mathsize', 
+				'source_Token-style.attrib_mathcolor', 
+				'source_Token-style.attrib_mathbackground', 
+				'source_Operator.attrib_form', 
+				'source_Operator.attrib_lspace', 
+				'source_Operator.attrib_rspace', 
+				'source_Operator.attrib_fence', 
+				'source_Operator.attrib_separator', 
+				'source_Operator.attrib_stretchy', 
+				'source_Operator.attrib_symmetric', 
+				'source_Operator.attrib_movablelimits', 
+				'source_Operator.attrib_accent', 
+				'source_Operator.attrib_largeop', 
+				'source_Operator.attrib_minsize', 
+				'source_Operator.attrib_maxsize', 
+				'source_Token-style.attrib', 
+				'source_Operator.attrib');
+var diagramBoxes= new Array('diagram_Token-style.attrib', 
+				'diagram_Operator.attrib');
+var annotationBoxes= new Array('annotations_schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd');
+var attributesBoxes= new Array('attributes_Token-style.attrib', 
+				'attributes_Operator.attrib');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script><link rel="stylesheet" type="text/css" href="frames.css"/></head><body><iframe id="nav" src="CLMLreferenceGuide-v2-7.indexListcomp.html"> </iframe>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+                  <h3>Showing:</h3>
+                  <table><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control"/></span><span class="globalControlName">Annotations</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control"/></span><span class="globalControlName">Attributes </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control"/></span><span class="globalControlName">Diagrams</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, facetsBoxes);" class="control"/></span><span class="globalControlName">Facets </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control"/></span><span class="globalControlName">Properties </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control"/></span><span class="globalControlName">Source</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control"/></span><span class="globalControlName">Used by </span></td></tr></table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close"/></span></div>
+               </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      </div><a id="schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd" shape="rect"/><div class="componentTitle">Included schema <span class="qname">common-attribs.xsd</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd" style="display:block">
+                              <div class="annotation">
+                                 This schema module defines sets of attributes common to several elements
+                                 of presentation MathML.
+                                 Author: Stéphane Dalmas, INRIA.
+                                 
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">attribute form default</td><td rowspan="1" colspan="1"><b>unqualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">element form default</td><td rowspan="1" colspan="1"><b>qualified</b></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Token-style.attrib_mathvariant" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Token-style.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Token-style.attrib</a></b> / @mathvariant</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Token-style.attrib_mathvariant" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Token-style.attrib_mathvariant');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Token-style.attrib_mathvariant" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_Token-style.attrib_mathvariant" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_Token-style.attrib_mathvariant');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_Token-style.attrib_mathvariant" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>normal</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>bold</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>italic</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>bold-italic</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>double-struck</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>bold-fraktur</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>script</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>bold-script</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>fraktur</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>sans-serif</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>bold-sans-serif</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>sans-serif-italic</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>sans-serif-bold-italic</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>monospace</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Token-style.attrib_mathvariant" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Token-style.attrib_mathvariant');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Token-style.attrib_mathvariant" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Token-style.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Token-style.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Token-style.attrib_mathvariant" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Token-style.attrib_mathvariant');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Token-style.attrib_mathvariant" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"mathvariant"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:restriction</span><span class="tAN"> base=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"normal"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"bold"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"italic"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"bold-italic"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"double-struck"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"bold-fraktur"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"script"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"bold-script"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"fraktur"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"sans-serif"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"bold-sans-serif"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"sans-serif-italic"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"sans-serif-bold-italic"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"monospace"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:restriction&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Token-style.attrib_mathsize" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Token-style.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Token-style.attrib</a></b> / @mathsize</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Token-style.attrib_mathsize" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Token-style.attrib_mathsize');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Token-style.attrib_mathsize" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Token-style.attrib_mathsize" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Token-style.attrib_mathsize');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Token-style.attrib_mathsize" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Token-style.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Token-style.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Token-style.attrib_mathsize" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Token-style.attrib_mathsize');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Token-style.attrib_mathsize" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"mathsize"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"simple-size length-with-unit"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Token-style.attrib_mathcolor" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Token-style.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Token-style.attrib</a></b> / @mathcolor</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Token-style.attrib_mathcolor" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Token-style.attrib_mathcolor');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Token-style.attrib_mathcolor" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Token-style.attrib_mathcolor" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Token-style.attrib_mathcolor');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Token-style.attrib_mathcolor" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Token-style.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Token-style.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Token-style.attrib_mathcolor" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Token-style.attrib_mathcolor');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Token-style.attrib_mathcolor" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"mathcolor"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Token-style.attrib_mathbackground" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Token-style.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Token-style.attrib</a></b> / @mathbackground</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Token-style.attrib_mathbackground" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Token-style.attrib_mathbackground');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Token-style.attrib_mathbackground" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Token-style.attrib_mathbackground" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Token-style.attrib_mathbackground');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Token-style.attrib_mathbackground" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Token-style.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Token-style.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Token-style.attrib_mathbackground" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Token-style.attrib_mathbackground');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Token-style.attrib_mathbackground" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"mathbackground"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_form" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @form</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_form" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_form');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_form" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_Operator.attrib_form" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_Operator.attrib_form');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_Operator.attrib_form" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>prefix</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>infix</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">enumeration</td><td rowspan="1" colspan="1"><b>postfix</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_form" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_form');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_form" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_form" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_form');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_form" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"form"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:restriction</span><span class="tAN"> base=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"prefix"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"infix"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"postfix"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:restriction&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_lspace" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @lspace</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_lspace" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_lspace');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_lspace" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_lspace" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_lspace');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_lspace" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_lspace" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_lspace');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_lspace" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"lspace"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"length-with-unit named-space"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_rspace" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @rspace</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_rspace" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_rspace');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_rspace" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_rspace" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_rspace');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_rspace" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_rspace" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_rspace');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_rspace" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"rspace"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"length-with-unit named-space"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_fence" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @fence</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_fence" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_fence');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_fence" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_fence" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_fence');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_fence" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_fence" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_fence');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_fence" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"fence"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_separator" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @separator</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_separator" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_separator');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_separator" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_separator" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_separator');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_separator" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_separator" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_separator');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_separator" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"separator"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_stretchy" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @stretchy</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_stretchy" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_stretchy');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_stretchy" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_stretchy" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_stretchy');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_stretchy" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_stretchy" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_stretchy');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_stretchy" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"stretchy"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_symmetric" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @symmetric</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_symmetric" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_symmetric');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_symmetric" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_symmetric" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_symmetric');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_symmetric" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_symmetric" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_symmetric');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_symmetric" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"symmetric"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_movablelimits" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @movablelimits</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_movablelimits" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_movablelimits');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_movablelimits" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_movablelimits" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_movablelimits');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_movablelimits" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_movablelimits" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_movablelimits');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_movablelimits" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"movablelimits"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_accent" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @accent</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_accent" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_accent');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_accent" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_accent" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_accent');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_accent" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_accent" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_accent');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_accent" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"accent"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_largeop" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @largeop</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_largeop" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_largeop');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_largeop" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_largeop" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_largeop');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_largeop" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_largeop" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_largeop');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_largeop" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"largeop"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_minsize" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @minsize</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_minsize" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_minsize');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_minsize" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_minsize" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_minsize');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_minsize" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_minsize" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_minsize');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_minsize" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"minsize"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"length-with-unit named-space"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib_maxsize" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b> / @maxsize</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Operator.attrib_maxsize" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Operator.attrib_maxsize');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Operator.attrib_maxsize" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib_maxsize" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib_maxsize');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib_maxsize" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Group </td><td rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Operator.attrib</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib_maxsize" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib_maxsize');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib_maxsize" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"maxsize"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"length-with-unit named-space infinity xs:float"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Token-style.attrib" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">Token-style.attrib</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Token-style.attrib" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Token-style.attrib');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_Token-style.attrib" style="display:block"><img alt="Diagram" src="img/common-attribs_xsd_Attribute_Group_Token-style_attrib.jpeg" usemap="#common-attribs_xsd_Attribute_Group_Token-style_attrib"/><map name="common-attribs_xsd_Attribute_Group_Token-style_attrib" id="common-attribs_xsd_Attribute_Group_Token-style_attrib"><area alt="common-attribs_xsd_1.tmp#Token-style.attrib_mathvariant" href="common-attribs_xsd_1.html#Token-style.attrib_mathvariant" coords="166,0,272,25" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Token-style.attrib_mathsize" href="common-attribs_xsd_1.html#Token-style.attrib_mathsize" coords="166,35,259,60" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Token-style.attrib_mathcolor" href="common-attribs_xsd_1.html#Token-style.attrib_mathcolor" coords="166,70,263,95" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Token-style.attrib_mathbackground" href="common-attribs_xsd_1.html#Token-style.attrib_mathbackground" coords="166,105,296,130" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Token-style.attrib" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Token-style.attrib');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Token-style.attrib" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Groups </td><td rowspan="1" colspan="1"><b><a href="tokens_xsd.html#mi.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mi.attlist</a></b>, <b><a href="tokens_xsd.html#mn.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mn.attlist</a></b>, <b><a href="tokens_xsd.html#mo.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mo.attlist</a></b>, <b><a href="tokens_xsd.html#ms.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">ms.attlist</a></b>, <b><a href="style_xsd.html#mstyle.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mstyle.attlist</a></b>, <b><a href="tokens_xsd.html#mtext.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mtext.attlist</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_Token-style.attrib" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_Token-style.attrib');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_Token-style.attrib" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Token-style.attrib_mathbackground" target="_top" title="No namespace" shape="rect">mathbackground</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Token-style.attrib_mathcolor" target="_top" title="No namespace" shape="rect">mathcolor</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Token-style.attrib_mathsize" target="_top" title="No namespace" shape="rect">mathsize</a></b></td><td rowspan="1" colspan="1">union of(<b><a href="common-types_xsd.html#simple-size" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">simple-size</a></b>, <b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b>)
+                                    </td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Token-style.attrib_mathvariant" target="_top" title="No namespace" shape="rect">mathvariant</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Token-style.attrib" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Token-style.attrib');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Token-style.attrib" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"Token-style.attrib"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"mathvariant"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:restriction</span><span class="tAN"> base=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"normal"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"bold"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"italic"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"bold-italic"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"double-struck"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"bold-fraktur"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"script"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"bold-script"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"fraktur"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"sans-serif"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"bold-sans-serif"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"sans-serif-italic"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"sans-serif-bold-italic"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"monospace"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:restriction&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"mathsize"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"simple-size length-with-unit"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- For both of the following attributes the types should be
+        more restricted --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"mathcolor"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"mathbackground"</span><span class="tAN"> type=</span><span class="tAV">"xs:string"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Operator.attrib" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">Operator.attrib</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Operator.attrib" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Operator.attrib');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_Operator.attrib" style="display:block"><img alt="Diagram" src="img/common-attribs_xsd_Attribute_Group_Operator_attrib.jpeg" usemap="#common-attribs_xsd_Attribute_Group_Operator_attrib"/><map name="common-attribs_xsd_Attribute_Group_Operator_attrib" id="common-attribs_xsd_Attribute_Group_Operator_attrib"><area alt="common-attribs_xsd_1.tmp#Operator.attrib_form" href="common-attribs_xsd_1.html#Operator.attrib_form" coords="153,0,225,25" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Operator.attrib_lspace" href="common-attribs_xsd_1.html#Operator.attrib_lspace" coords="153,35,235,60" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Operator.attrib_rspace" href="common-attribs_xsd_1.html#Operator.attrib_rspace" coords="153,70,237,95" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Operator.attrib_fence" href="common-attribs_xsd_1.html#Operator.attrib_fence" coords="153,105,231,130" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Operator.attrib_separator" href="common-attribs_xsd_1.html#Operator.attrib_separator" coords="153,140,250,165" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Operator.attrib_stretchy" href="common-attribs_xsd_1.html#Operator.attrib_stretchy" coords="153,175,243,200" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Operator.attrib_symmetric" href="common-attribs_xsd_1.html#Operator.attrib_symmetric" coords="153,210,252,235" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Operator.attrib_movablelimits" href="common-attribs_xsd_1.html#Operator.attrib_movablelimits" coords="153,245,266,270" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Operator.attrib_accent" href="common-attribs_xsd_1.html#Operator.attrib_accent" coords="153,280,236,305" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Operator.attrib_largeop" href="common-attribs_xsd_1.html#Operator.attrib_largeop" coords="153,315,239,340" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Operator.attrib_minsize" href="common-attribs_xsd_1.html#Operator.attrib_minsize" coords="153,350,239,375" shape="rect"/><area alt="common-attribs_xsd_1.tmp#Operator.attrib_maxsize" href="common-attribs_xsd_1.html#Operator.attrib_maxsize" coords="153,385,243,410" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Operator.attrib" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Operator.attrib');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Operator.attrib" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Attribute Groups </td><td rowspan="1" colspan="1"><b><a href="tokens_xsd.html#mo.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mo.attlist</a></b>, <b><a href="style_xsd.html#mstyle.attlist" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">mstyle.attlist</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_Operator.attrib" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_Operator.attrib');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_Operator.attrib" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_accent" target="_top" title="No namespace" shape="rect">accent</a></b></td><td rowspan="1" colspan="1"><b>xs:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_fence" target="_top" title="No namespace" shape="rect">fence</a></b></td><td rowspan="1" colspan="1"><b>xs:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_form" target="_top" title="No namespace" shape="rect">form</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_largeop" target="_top" title="No namespace" shape="rect">largeop</a></b></td><td rowspan="1" colspan="1"><b>xs:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_lspace" target="_top" title="No namespace" shape="rect">lspace</a></b></td><td rowspan="1" colspan="1">union of(<b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b>, <b><a href="common-types_xsd.html#named-space" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">named-space</a></b>)
+                                    </td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_maxsize" target="_top" title="No namespace" shape="rect">maxsize</a></b></td><td rowspan="1" colspan="1">union of(<b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b>, <b><a href="common-types_xsd.html#named-space" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">named-space</a></b>, <b><a href="common-types_xsd.html#infinity" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">infinity</a></b>, <b>xs:float</b>)
+                                    </td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_minsize" target="_top" title="No namespace" shape="rect">minsize</a></b></td><td rowspan="1" colspan="1">union of(<b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b>, <b><a href="common-types_xsd.html#named-space" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">named-space</a></b>)
+                                    </td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_movablelimits" target="_top" title="No namespace" shape="rect">movablelimits</a></b></td><td rowspan="1" colspan="1"><b>xs:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_rspace" target="_top" title="No namespace" shape="rect">rspace</a></b></td><td rowspan="1" colspan="1">union of(<b><a href="common-types_xsd.html#length-with-unit" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">length-with-unit</a></b>, <b><a href="common-types_xsd.html#named-space" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">named-space</a></b>)
+                                    </td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_separator" target="_top" title="No namespace" shape="rect">separator</a></b></td><td rowspan="1" colspan="1"><b>xs:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_stretchy" target="_top" title="No namespace" shape="rect">stretchy</a></b></td><td rowspan="1" colspan="1"><b>xs:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd_1.html#Operator.attrib_symmetric" target="_top" title="No namespace" shape="rect">symmetric</a></b></td><td rowspan="1" colspan="1"><b>xs:boolean</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Operator.attrib" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Operator.attrib');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Operator.attrib" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"Operator.attrib"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- this attribute value is normally inferred from the position of
+    the operator in its "&lt;mrow"&gt; --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"form"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:restriction</span><span class="tAN"> base=</span><span class="tAV">"xs:string"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"prefix"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"infix"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xs:enumeration</span><span class="tAN"> value=</span><span class="tAV">"postfix"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xs:restriction&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- set by dictionnary, else it is "thickmathspace" --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"lspace"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"length-with-unit named-space"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- set by dictionnary, else it is "thickmathspace" --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"rspace"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"length-with-unit named-space"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- set by dictionnary, else it is "false" --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"fence"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- set by dictionnary, else it is "false" --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"separator"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- set by dictionnary, else it is "false" --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"stretchy"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- set by dictionnary, else it is "true" --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"symmetric"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- set by dictionnary, else it is "false" --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"movablelimits"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- set by dictionnary, else it is "false" --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"accent"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tC">&lt;!-- set by dictionnary, else it is "false" --&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"largeop"</span><span class="tAN"> type=</span><span class="tAV">"xs:boolean"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"minsize"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"length-with-unit named-space"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attribute</span><span class="tAN"> name=</span><span class="tAV">"maxsize"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xs:union</span><span class="tAN"> memberTypes=</span><span class="tAV">"length-with-unit named-space infinity xs:float"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xs:simpleType&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:attribute&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      <div class="footer">
+         <hr/>
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent" shape="rect"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript" xml:space="preserve">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body></html>

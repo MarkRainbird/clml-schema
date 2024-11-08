@@ -1,0 +1,677 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>Schema documentation for schemaFormula.xsd</title><link rel="stylesheet" href="docHtml.css" type="text/css"/><script type="text/javascript" xml:space="preserve">
+         <!--
+        var propertiesBoxes= new Array('properties_schemaFormula.xsd', 
+				'properties_Formula', 
+				'properties_Formula_equationNumber', 
+				'properties_Where', 
+				'properties_Formula_ID');
+var facetsBoxes= new Array('facets_Formula_ID');
+var usedByBoxes= new Array('usedBy_Formula', 
+				'usedBy_Where', 
+				'usedBy_Formula_ID');
+var sourceBoxes= new Array('source_Formula', 
+				'source_Formula_equationNumber', 
+				'source_Where', 
+				'source_Formula_ID');
+var instanceBoxes= new Array('instance_Formula', 
+				'instance_Formula_equationNumber', 
+				'instance_Where');
+var diagramBoxes= new Array('diagram_Formula', 
+				'diagram_Formula_equationNumber', 
+				'diagram_Where');
+var annotationBoxes= new Array('annotations_schemaFormula.xsd', 
+				'annotations_Formula', 
+				'annotations_Formula_equationNumber', 
+				'annotations_Where', 
+				'annotations_Formula_ID');
+var attributesBoxes= new Array('attributes_Formula', 
+				'attributes_Where');
+var modelBoxes= new Array('model_Formula', 
+				'model_Formula_equationNumber', 
+				'model_Where');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script><link rel="stylesheet" type="text/css" href="frames.css"/></head><body><iframe id="nav" src="CLMLreferenceGuide-v2-7.indexListcomp.html"> </iframe>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+                  <h3>Showing:</h3>
+                  <table><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control"/></span><span class="globalControlName">Annotations</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control"/></span><span class="globalControlName">Attributes </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control"/></span><span class="globalControlName">Diagrams</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, facetsBoxes);" class="control"/></span><span class="globalControlName">Facets </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, instanceBoxes);" class="control"/></span><span class="globalControlName">Instances</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, modelBoxes);" class="control"/></span><span class="globalControlName">Model </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control"/></span><span class="globalControlName">Properties </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control"/></span><span class="globalControlName">Source</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control"/></span><span class="globalControlName">Used by </span></td></tr></table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close"/></span></div>
+               </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      </div><a id="schemaFormula.xsd" shape="rect"/><div class="componentTitle">Included schema <span class="qname">schemaFormula.xsd</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_schemaFormula.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_schemaFormula.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_schemaFormula.xsd" style="display:block">
+                              <div class="annotation">Describes display equations</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_schemaFormula.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_schemaFormula.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_schemaFormula.xsd" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">attribute form default</td><td rowspan="1" colspan="1"><b>unqualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">element form default</td><td rowspan="1" colspan="1"><b>qualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">version</td><td rowspan="1" colspan="1"><b>2.5</b></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Formula" shape="rect"/><div class="componentTitle">Element <span class="qname">Formula</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_Formula" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_Formula');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_Formula" style="display:block">
+                              <div class="annotation">Allows for a mathematical formula to be inserted with the content described using
+                                 MathML2.
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Formula" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Formula');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_Formula" style="display:block"><img alt="Diagram" src="img/schemaFormula_xsd_Element_Formula.jpeg" usemap="#schemaFormula_xsd_Element_Formula"/><map name="schemaFormula_xsd_Element_Formula" id="schemaFormula_xsd_Element_Formula"><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonSubAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonSubAttributes" coords="134,44,296,70" shape="rect"/><area alt="schemaFormula_xsd.tmp#Formula_ID" href="schemaFormula_xsd.html#Formula_ID" coords="131,85,201,110" shape="rect"/><area alt="schemaFormatting_xsd.tmp#CommonFormattingAttributes" href="schemaFormatting_xsd.html#CommonFormattingAttributes" coords="134,154,327,180" shape="rect"/><area alt="schemaFormula_xsd.tmp#Formula_equationNumber" href="schemaFormula_xsd.html#Formula_equationNumber" coords="209,202,318,227" shape="rect"/><area alt="schemaChanges_xsd.tmp#Substitution" href="schemaChanges_xsd.html#Substitution" coords="280,268,367,293" shape="rect"/><area alt="schemaChanges_xsd.tmp#Addition" href="schemaChanges_xsd.html#Addition" coords="280,362,350,387" shape="rect"/><area alt="schemaChanges_xsd.tmp#Repeal" href="schemaChanges_xsd.html#Repeal" coords="280,456,344,481" shape="rect"/><area alt="math_xsd.tmp#math" href="math_xsd.html#math" coords="280,550,360,575" shape="rect"/><area alt="schemaFormula_xsd.tmp#Where" href="schemaFormula_xsd.html#Where" coords="209,585,272,610" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Formula" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Formula');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Formula" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Formula" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Formula');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Formula" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Groups </td><td rowspan="1" colspan="1"><b><a href="schemaLegislationTypes_xsd.html#BlockBasic" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">BlockBasic</a></b>, <b><a href="schemaLegislationTypes_xsd.html#BlockSection" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">BlockSection</a></b>, <b><a href="schemaLegislationTypes_xsd.html#InlineModel" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">InlineModel</a></b>, <b><a href="schemaLegislationTypes_xsd.html#ParaBasic" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">ParaBasic</a></b>, <b><a href="schemaLegislationTypes_xsd.html#ParaBasicNoErrors" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">ParaBasicNoErrors</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_Formula" type="image" src="img/btM.gif" value="-" onclick="switchState('model_Formula');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_Formula" style="display:block"><b><a href="schemaFormula_xsd.html#Formula_equationNumber" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">equationNumber{0,1}</a></b> , (<b><a href="schemaChanges_xsd.html#Substitution" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Substitution</a></b> | <b><a href="schemaChanges_xsd.html#Addition" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Addition</a></b> | <b><a href="schemaChanges_xsd.html#Repeal" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Repeal</a></b> | <b><a href="math_xsd.html#math" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">math</a></b>) , <b><a href="schemaFormula_xsd.html#Where" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Where{0,1}</a></b></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="schemaChanges_xsd.html#Addition" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Addition</a></b>, <b><a href="schemaChanges_xsd.html#Repeal" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Repeal</a></b>, <b><a href="schemaChanges_xsd.html#Substitution" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Substitution</a></b>, <b><a href="schemaFormula_xsd.html#Where" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Where</a></b>, <b><a href="schemaFormula_xsd.html#Formula_equationNumber" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">equationNumber</a></b>, <b><a href="math_xsd.html#math" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">math</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_Formula" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_Formula');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_Formula" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaFormatting_xsd.html#CommonFormattingAttributes_Align" target="_top" title="No namespace" shape="rect">Align</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>Describes horizontal alignment with permissible values of:</p>
+                                          					
+                                          <ul>
+                                             						
+                                             <li>inherit (the alignment is inherited from the parent element)</li>
+                                             						
+                                             <li>left</li>
+                                             						
+                                             <li>centre</li>
+                                             						
+                                             <li>right</li>
+                                             						
+                                             <li>justify (the entire paragraph is justified. Note that the last line is not force-justified.
+                                                The decision on whether the last line should be is left to the implementation).
+                                             </li>
+                                             					
+                                          </ul>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#VersionRefAttributes_AltVersionRefs" target="_top" title="No namespace" shape="rect">AltVersionRefs</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#RefsLinkType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">RefsLinkType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Links to alternate versions of the content by referencing the version's id attribute,
+                                          e.g. perhaps a Welsh version or an image (Figure) of a Formula
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaFormula_xsd.html#Formula_ID" target="_top" title="No namespace" shape="rect">ID</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">A unique identifier in the format x00000</div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#base" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:base</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to change the base from which relative URLs are calculated. See http://www.w3.org/TR/xmlbase/
+                                          for information about this attribute.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#lang" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:lang</a></b></td><td rowspan="1" colspan="1"><b>xs:language</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Should be used to indicate the main language of the content contained by the element
+                                          upon which the attribute is appearing. Values should be taken from the ISO 639 standard.
+                                          This attribute should be used where the language is different from the main language
+                                          of the document.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#space" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:space</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to indicate whether white space is significant in the contained content and
+                                          can contain the value ‘default’ or ‘preserve’. For a value of ‘default’, it is left
+                                          to an application as to how to treat white space.
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_Formula" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_Formula');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="instance_Formula" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;Formula</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ID=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xmlns=</span><span class="tAV">"http://www.legislation.gov.uk/namespaces/legislation"</span><span class="tT"> </span><span class="tAN">xmlns:math=</span><span class="tAV">"http://www.w3.org/1998/Math/MathML"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;equationNumber</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/equationNumber&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Substitution</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ChangeId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">CommentaryRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Correction=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">Extent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Mark=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Prospective=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Substitution&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Addition</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ChangeId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">CommentaryRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Correction=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">Extent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Mark=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Prospective=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Addition&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Repeal</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">ChangeId=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">CommentaryRef=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Correction=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">Extent=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Mark=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Prospective=</span><span class="tAV">"false"</span><span class="tT"> </span><span class="tAN">RetainText=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Status=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">SubstitutionRef=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Repeal&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;math:math</span><span class="tT"> </span><span class="tAN">altimg=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">alttext=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">baseline=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">class=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">display=</span><span class="tAV">"inline"</span><span class="tT"> </span><span class="tAN">height=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xlink:href=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">macros=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">name=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">overflow=</span><span class="tAV">"scroll"</span><span class="tT"> </span><span class="tAN">style=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">type=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">width=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xref=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/math:math&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Where</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{0,1}</span><span class="tEl">&lt;/Where&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/Formula&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Formula" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Formula');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Formula" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"Formula"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Allows for a mathematical formula to be inserted with the content described using MathML2.</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:sequence</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"equationNumber"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> type=</span><span class="tAV">"BasicStringStructure"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The equation number (the need for this is very rare)</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:element&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:choice</span><span class="tAN"> minOccurs=</span><span class="tAV">"1"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Substitution"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Addition"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Repeal"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"math:math"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:choice&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Where"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:sequence&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonSubAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"ID"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">A unique identifier in the format x00000</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:ID"</span><span class="tEl">&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;xsd:pattern</span><span class="tAN"> value=</span><span class="tAV">"x[0-9]{5}"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/xsd:simpleType&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:attribute&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonFormattingAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:element&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Formula_equationNumber" shape="rect"/><div class="componentTitle">Element <span class="qname"><b><a href="schemaFormula_xsd.html#Formula" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Formula</a></b> / equationNumber</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_Formula_equationNumber" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_Formula_equationNumber');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_Formula_equationNumber" style="display:block">
+                              <div class="annotation">The equation number (the need for this is very rare)</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Formula_equationNumber" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Formula_equationNumber');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_Formula_equationNumber" style="display:block"><img alt="Diagram" src="img/schemaFormula_xsd_Element_equationNumber.jpeg" usemap="#schemaFormula_xsd_Element_equationNumber"/><map name="schemaFormula_xsd_Element_equationNumber" id="schemaFormula_xsd_Element_equationNumber"><area alt="schemaCommonElements_xsd.tmp#Character" href="schemaCommonElements_xsd.html#Character" coords="263,44,342,69" shape="rect"/><area alt="schemaDerivedTypes_xsd.tmp#BasicStringStructure" href="schemaDerivedTypes_xsd.html#BasicStringStructure" coords="181,3,332,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Formula_equationNumber" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Formula_equationNumber');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Formula_equationNumber" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">minOccurs</td><td rowspan="1" colspan="1"><b>0</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">mixed</td><td rowspan="1" colspan="1"><b>true</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_Formula_equationNumber" type="image" src="img/btM.gif" value="-" onclick="switchState('model_Formula_equationNumber');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_Formula_equationNumber" style="display:block"><b><a href="schemaCommonElements_xsd.html#Character" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Character</a></b></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="schemaCommonElements_xsd.html#Character" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Character</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_Formula_equationNumber" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_Formula_equationNumber');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="instance_Formula_equationNumber" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;equationNumber</span><span class="tT"> </span><span class="tAN">xmlns=</span><span class="tAV">"http://www.legislation.gov.uk/namespaces/legislation"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Character</span><span class="tT"> </span><span class="tAN">Name=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/Character&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/equationNumber&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Formula_equationNumber" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Formula_equationNumber');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Formula_equationNumber" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"equationNumber"</span><span class="tAN"> minOccurs=</span><span class="tAV">"0"</span><span class="tAN"> type=</span><span class="tAV">"BasicStringStructure"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">The equation number (the need for this is very rare)</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:element&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Where" shape="rect"/><div class="componentTitle">Element <span class="qname">Where</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.legislation.gov.uk/namespaces/legislation</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_Where" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_Where');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_Where" style="display:block">
+                              <div class="annotation">Explains the nomenclature used in the formula</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Where" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Where');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_Where" style="display:block"><img alt="Diagram" src="img/schemaFormula_xsd_Element_Where.jpeg" usemap="#schemaFormula_xsd_Element_Where"/><map name="schemaFormula_xsd_Element_Where" id="schemaFormula_xsd_Element_Where"><area alt="schemaLegislationCommonAttributes_xsd.tmp#CommonAttributes" href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes" coords="128,44,271,70" shape="rect"/><area alt="schemaFormatting_xsd.tmp#CommonFormattingAttributes" href="schemaFormatting_xsd.html#CommonFormattingAttributes" coords="128,88,321,114" shape="rect"/><area alt="schemaLists_xsd.tmp#KeyList" href="schemaLists_xsd.html#KeyList" coords="203,136,270,161" shape="rect"/><area alt="schemaLists_xsd.tmp#UnorderedList" href="schemaLists_xsd.html#UnorderedList" coords="203,216,302,241" shape="rect"/><area alt="schemaCommonElements_xsd.tmp#Para" href="schemaCommonElements_xsd.html#Para" coords="203,324,256,349" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Where" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Where');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Where" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Where" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Where');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Where" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaFormula_xsd.html#Formula" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Formula</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_Where" type="image" src="img/btM.gif" value="-" onclick="switchState('model_Where');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_Where" style="display:block"><b><a href="schemaLists_xsd.html#KeyList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">KeyList</a></b> | <b><a href="schemaLists_xsd.html#UnorderedList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">UnorderedList</a></b> | <b><a href="schemaCommonElements_xsd.html#Para" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Para+</a></b></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="schemaLists_xsd.html#KeyList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">KeyList</a></b>, <b><a href="schemaCommonElements_xsd.html#Para" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Para</a></b>, <b><a href="schemaLists_xsd.html#UnorderedList" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">UnorderedList</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_Where" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_Where');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_Where" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1">Annotation</th></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaFormatting_xsd.html#CommonFormattingAttributes_Align" target="_top" title="No namespace" shape="rect">Align</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>Describes horizontal alignment with permissible values of:</p>
+                                          					
+                                          <ul>
+                                             						
+                                             <li>inherit (the alignment is inherited from the parent element)</li>
+                                             						
+                                             <li>left</li>
+                                             						
+                                             <li>centre</li>
+                                             						
+                                             <li>right</li>
+                                             						
+                                             <li>justify (the entire paragraph is justified. Note that the last line is not force-justified.
+                                                The decision on whether the last line should be is left to the implementation).
+                                             </li>
+                                             					
+                                          </ul>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#VersionRefAttributes_AltVersionRefs" target="_top" title="No namespace" shape="rect">AltVersionRefs</a></b></td><td rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#RefsLinkType" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">RefsLinkType</a></b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Links to alternate versions of the content by referencing the version's id attribute,
+                                          e.g. perhaps a Welsh version or an image (Figure) of a Formula
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="schemaLegislationCommonAttributes_xsd.html#CommonAttributes_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1">restriction of <b>xsd:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">
+                                          					
+                                          <p>A unique identifier for the element.</p>
+                                          					
+                                          <p>The format of this identifier is yxxxxx where y is a letter and xxxxx is a number,
+                                             padded to five digits.
+                                          </p>
+                                          					
+                                          <p>Note that most elements that normally have identifiers have a separate, element-specific
+                                             definition of the id attribute in the schema.
+                                          </p>
+                                          				
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#base" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:base</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to change the base from which relative URLs are calculated. See http://www.w3.org/TR/xmlbase/
+                                          for information about this attribute.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#lang" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:lang</a></b></td><td rowspan="1" colspan="1"><b>xs:language</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Should be used to indicate the main language of the content contained by the element
+                                          upon which the attribute is appearing. Values should be taken from the ISO 639 standard.
+                                          This attribute should be used where the language is different from the main language
+                                          of the document.
+                                       </div>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="namespace_xsd.html#space" target="_top" title="http://www.w3.org/XML/1998/namespace" shape="rect">xml:space</a></b></td><td rowspan="1" colspan="1">restriction of <b>xs:NCName</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation">Is used to indicate whether white space is significant in the contained content and
+                                          can contain the value ‘default’ or ‘preserve’. For a value of ‘default’, it is left
+                                          to an application as to how to treat white space.
+                                       </div>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Instance</b></div>
+                           <div class="floatRight"><input id="button_instance_Where" type="image" src="img/btM.gif" value="-" onclick="switchState('instance_Where');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="instance_Where" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;Where</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xmlns=</span><span class="tAV">"http://www.legislation.gov.uk/namespaces/legislation"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;KeyList</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Separator=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/KeyList&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;UnorderedList</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Class=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">Decoration=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,1}</span><span class="tEl">&lt;/UnorderedList&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;Para</span><span class="tT"> </span><span class="tAN">Align=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">AltVersionRefs=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:base=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">id=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:lang=</span><span class="tAV">""</span><span class="tT"> </span><span class="tAN">xml:space=</span><span class="tAV">""</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">{1,unbounded}</span><span class="tEl">&lt;/Para&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/Where&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Where" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Where');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Where" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:element</span><span class="tAN"> name=</span><span class="tAV">"Where"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">Explains the nomenclature used in the formula</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:complexType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:choice</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"KeyList"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"UnorderedList"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:element</span><span class="tAN"> ref=</span><span class="tAV">"Para"</span><span class="tAN"> maxOccurs=</span><span class="tAV">"unbounded"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:choice&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"CommonFormattingAttributes"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:complexType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:element&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Formula_ID" shape="rect"/><div class="componentTitle">Attribute <span class="qname"><b><a href="schemaFormula_xsd.html#Formula" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Formula</a></b> / @ID</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">No namespace</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_Formula_ID" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_Formula_ID');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_Formula_ID" style="display:block">
+                              <div class="annotation">A unique identifier in the format x00000</div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_Formula_ID" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_Formula_ID');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_Formula_ID" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>simple</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Facets</b></div>
+                           <div class="floatRight"><input id="button_facets_Formula_ID" type="image" src="img/btM.gif" value="-" onclick="switchState('facets_Formula_ID');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="facets_Formula_ID" style="display:block">
+                              <table class="facetsTable"><tr><td class="firstColumn" rowspan="1" colspan="1">pattern</td><td rowspan="1" colspan="1"><b>(\i\c*) &amp; ([\i-[:]][\c-[:]]*) &amp; (x[0-9]{5})</b></td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Formula_ID" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Formula_ID');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Formula_ID" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="schemaFormula_xsd.html#Formula" target="_top" title="http://www.legislation.gov.uk/namespaces/legislation" shape="rect">Formula</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Formula_ID" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Formula_ID');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Formula_ID" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xsd:attribute</span><span class="tAN"> name=</span><span class="tAV">"ID"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:annotation</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:documentation</span><span class="tEl">&gt;</span><span class="tT" style="white-space:normal">A unique identifier in the format x00000</span><span class="tEl">&lt;/xsd:documentation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:annotation&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xsd:simpleType</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xsd:restriction</span><span class="tAN"> base=</span><span class="tAV">"xsd:ID"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;xsd:pattern</span><span class="tAN"> value=</span><span class="tAV">"x[0-9]{5}"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/xsd:restriction&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xsd:simpleType&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xsd:attribute&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      <div class="footer">
+         <hr/>
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent" shape="rect"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript" xml:space="preserve">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body></html>

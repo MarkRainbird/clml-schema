@@ -1,0 +1,1072 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>Schema documentation for </title><link rel="stylesheet" href="docHtml.css" type="text/css"/><script type="text/javascript" xml:space="preserve">
+         <!--
+        
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                        //--></script><link rel="stylesheet" type="text/css" href="sidebar.css"/></head><body>
+      <h1 class="banner"><img src="img/site_logo_legislation.gif" alt="legislation.gov.uk"/> Crown Legislation Markup Language (CLML) Reference</h1><h2><a id="INDEX" shape="rect">Table of Contents</a></h2><p><a href="schemaLegislationCore_xsd.html#Legislation" target="_top" id="startPageLink">Start Page</a> | 
+            <a href="CLMLuserGuide-v2-7.html" target="_top" id="userGuideLink">User Guide</a></p>
+      <p><a href="CLMLreferenceGuide-v2-7.indexList.html" shape="rect">Components</a><span> | </span><a href="schHierarchy.html" shape="rect">Resource Hierarchy</a></p>
+      <hr/>
+      <ul class="schemaHierarchy"><li class="internal">
+            <p class="componentTitle"><input id="button_sHlegislation.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsd');" class="control"/><a href="legislation_xsd.html#legislation.xsd" target="_top" shape="rect">legislation.xsd</a></p>
+            <div id="sHlegislation.xsd" style="display:block">
+               <ul class="internal"><li class="schemaHierarchy">
+                     <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsd" type="image" value="-" src="img/btP.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'legislation.xsd'."/> <a href="schemaLegislationCore_xsd.html#schemaLegislationCore.xsd" target="_top" title="Included by 'legislation.xsd'." shape="rect">schemaLegislationCore.xsd</a></p>
+                     <div id="sHlegislation.xsdschemaLegislationCore.xsd" style="display:none">
+                        <ul class="internal"><li class="schemaHierarchy">
+                              <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationCore.xsd'."/> <a href="schemaLegislationIncludes_xsd.html#schemaLegislationIncludes.xsd" target="_top" title="Included by 'schemaLegislationCore.xsd'." shape="rect">schemaLegislationIncludes.xsd</a></p>
+                              <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsd" style="display:block">
+                                 <ul class="internal"><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationTypes_xsd.html#schemaLegislationTypes.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationTypes.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsdmathml2.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsdmathml2.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationTypes.xsd'."/> <a href="mathml2_xsd.html#mathml2.xsd" target="_top" title="Imported by  'schemaLegislationTypes.xsd'." shape="rect">mathml2.xsd</a></p>
+                                                <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsdmathml2.xsd" style="display:block">
+                                                   <ul class="internal"><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="math_xsd.html#math.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">math.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd.html#common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'common-attribs.xsd'."/> <a href="xlink-href_xsd.html#xlink-href.xsd" target="_top" title="Imported by  'common-attribs.xsd'." shape="rect">xlink-href.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-types_xsd.html#common-types.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-types.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="characters_xsd.html#characters.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">characters.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd.html#tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="scripts_xsd.html#scripts.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">scripts.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="space_xsd.html#space.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">space.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="layout_xsd.html#layout.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">layout.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="table_xsd.html#table.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">table.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="style_xsd.html#style.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">style.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="error_xsd.html#error.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">error.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="action_xsd.html#action.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">action.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attrib_xsd.html#common-attrib.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attrib.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_content_tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="arith_xsd.html#arith.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">arith.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="functions_xsd.html#functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">functions.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="logic_xsd.html#logic.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">logic.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constructs_xsd.html#constructs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constructs.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constants_xsd.html#constants.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constants.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="elementary-functions_xsd.html#elementary-functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">elementary-functions.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="relations_xsd.html#relations.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">relations.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="semantics_xsd.html#semantics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">semantics.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="sets_xsd.html#sets.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">sets.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="linear-algebra_xsd.html#linear-algebra.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">linear-algebra.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="calculus_xsd.html#calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">calculus.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="vector-calculus_xsd.html#vector-calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">vector-calculus.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="statistics_xsd.html#statistics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">statistics.xsd</a></p>
+                                                      </li></ul>
+                                                </div>
+                                             </li><li class="schemaHierarchy">
+                                                <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsdschemaTable-XHTML.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsdschemaTable-XHTML.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationTypes.xsd'."/> <a href="schemaTable-XHTML_xsd.html#schemaTable-XHTML.xsd" target="_top" title="Imported by  'schemaLegislationTypes.xsd'." shape="rect">schemaTable-XHTML.xsd</a></p>
+                                                <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationTypes.xsdschemaTable-XHTML.xsd" style="display:block">
+                                                   <ul class="internal"><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="namespace_xsd.html#namespace.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">namespace.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaTableAttributes-FO_xsd.html#schemaTableAttributes-FO.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaTableAttributes-FO.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/Cycle12.png" title="Imported by  'schemaTable-XHTML.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaLegislationTypes_xsd.html#schemaLegislationTypes.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaLegislationTypes.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaTableTypes_xsd.html#schemaTableTypes.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaTableTypes.xsd</a></p>
+                                                      </li></ul>
+                                                </div>
+                                             </li></ul>
+                                       </div>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaDerivedTypes_xsd.html#schemaDerivedTypes.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaDerivedTypes.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationCommonAttributes.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationCommonAttributes.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationCommonAttributes_xsd.html#schemaLegislationCommonAttributes.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationCommonAttributes.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationCommonAttributes.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationCommonAttributes.xsd'."/> <a href="namespace_xsd.html#namespace.xsd" target="_top" title="Imported by  'schemaLegislationCommonAttributes.xsd'." shape="rect">namespace.xsd</a></p>
+                                             </li></ul>
+                                       </div>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationAttributes_xsd.html#schemaLegislationAttributes.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationAttributes.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationMainEU_xsd.html#schemaLegislationMainEU.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationMainEU.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaCommonElements_xsd.html#schemaCommonElements.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaCommonElements.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationStructure_xsd.html#schemaLegislationStructure.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationStructure.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationStructureEU_xsd.html#schemaLegislationStructureEU.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationStructureEU.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationNumberedSections_xsd.html#schemaLegislationNumberedSections.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationNumberedSections.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaBasicInline_xsd.html#schemaBasicInline.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaBasicInline.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationSemantics_xsd.html#schemaLegislationSemantics.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationSemantics.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaEmphasis_xsd.html#schemaEmphasis.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaEmphasis.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaChanges.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaChanges.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaChanges_xsd.html#schemaChanges.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaChanges.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaChanges.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaChanges.xsdmathml2.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaChanges.xsdmathml2.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaChanges.xsd'."/> <a href="mathml2_xsd.html#mathml2.xsd" target="_top" title="Imported by  'schemaChanges.xsd'." shape="rect">mathml2.xsd</a></p>
+                                                <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaChanges.xsdmathml2.xsd" style="display:block">
+                                                   <ul class="internal"><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="math_xsd.html#math.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">math.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaChanges.xsdmathml2.xsdcommon-attribs.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaChanges.xsdmathml2.xsdcommon-attribs.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd.html#common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaChanges.xsdmathml2.xsdcommon-attribs.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'common-attribs.xsd'."/> <a href="xlink-href_xsd.html#xlink-href.xsd" target="_top" title="Imported by  'common-attribs.xsd'." shape="rect">xlink-href.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-types_xsd.html#common-types.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-types.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="characters_xsd.html#characters.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">characters.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd.html#tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="scripts_xsd.html#scripts.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">scripts.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="space_xsd.html#space.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">space.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="layout_xsd.html#layout.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">layout.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="table_xsd.html#table.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">table.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="style_xsd.html#style.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">style.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="error_xsd.html#error.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">error.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="action_xsd.html#action.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">action.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attrib_xsd.html#common-attrib.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attrib.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_content_tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="arith_xsd.html#arith.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">arith.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="functions_xsd.html#functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">functions.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="logic_xsd.html#logic.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">logic.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constructs_xsd.html#constructs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constructs.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constants_xsd.html#constants.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constants.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="elementary-functions_xsd.html#elementary-functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">elementary-functions.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="relations_xsd.html#relations.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">relations.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="semantics_xsd.html#semantics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">semantics.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="sets_xsd.html#sets.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">sets.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="linear-algebra_xsd.html#linear-algebra.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">linear-algebra.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="calculus_xsd.html#calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">calculus.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="vector-calculus_xsd.html#vector-calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">vector-calculus.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="statistics_xsd.html#statistics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">statistics.xsd</a></p>
+                                                      </li></ul>
+                                                </div>
+                                             </li></ul>
+                                       </div>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaAcronymsAbbreviations_xsd.html#schemaAcronymsAbbreviations.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaAcronymsAbbreviations.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaFormatting_xsd.html#schemaFormatting.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaFormatting.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaCommentary_xsd.html#schemaCommentary.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaCommentary.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaFootnote_xsd.html#schemaFootnote.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaFootnote.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaMarginnote_xsd.html#schemaMarginnote.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaMarginnote.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLinks_xsd.html#schemaLinks.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLinks.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationContents_xsd.html#schemaLegislationContents.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationContents.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationContentsEU_xsd.html#schemaLegislationContentsEU.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationContentsEU.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLists_xsd.html#schemaLists.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLists.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaFormula.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaFormula.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaFormula_xsd.html#schemaFormula.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaFormula.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaFormula.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaFormula.xsdmathml2.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaFormula.xsdmathml2.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaFormula.xsd'."/> <a href="mathml2_xsd.html#mathml2.xsd" target="_top" title="Imported by  'schemaFormula.xsd'." shape="rect">mathml2.xsd</a></p>
+                                                <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaFormula.xsdmathml2.xsd" style="display:block">
+                                                   <ul class="internal"><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="math_xsd.html#math.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">math.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaFormula.xsdmathml2.xsdcommon-attribs.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaFormula.xsdmathml2.xsdcommon-attribs.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd.html#common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaFormula.xsdmathml2.xsdcommon-attribs.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'common-attribs.xsd'."/> <a href="xlink-href_xsd.html#xlink-href.xsd" target="_top" title="Imported by  'common-attribs.xsd'." shape="rect">xlink-href.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-types_xsd.html#common-types.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-types.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="characters_xsd.html#characters.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">characters.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd.html#tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="scripts_xsd.html#scripts.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">scripts.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="space_xsd.html#space.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">space.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="layout_xsd.html#layout.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">layout.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="table_xsd.html#table.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">table.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="style_xsd.html#style.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">style.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="error_xsd.html#error.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">error.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="action_xsd.html#action.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">action.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attrib_xsd.html#common-attrib.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attrib.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_content_tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="arith_xsd.html#arith.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">arith.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="functions_xsd.html#functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">functions.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="logic_xsd.html#logic.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">logic.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constructs_xsd.html#constructs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constructs.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constants_xsd.html#constants.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constants.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="elementary-functions_xsd.html#elementary-functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">elementary-functions.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="relations_xsd.html#relations.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">relations.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="semantics_xsd.html#semantics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">semantics.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="sets_xsd.html#sets.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">sets.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="linear-algebra_xsd.html#linear-algebra.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">linear-algebra.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="calculus_xsd.html#calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">calculus.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="vector-calculus_xsd.html#vector-calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">vector-calculus.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="statistics_xsd.html#statistics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">statistics.xsd</a></p>
+                                                      </li></ul>
+                                                </div>
+                                             </li></ul>
+                                       </div>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaFigure_xsd.html#schemaFigure.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaFigure.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaTabular_xsd.html#schemaTabular.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaTabular.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTabular.xsd'."/> <a href="schemaTable-XHTML_xsd.html#schemaTable-XHTML.xsd" target="_top" title="Imported by  'schemaTabular.xsd'." shape="rect">schemaTable-XHTML.xsd</a></p>
+                                                <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsd" style="display:block">
+                                                   <ul class="internal"><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="namespace_xsd.html#namespace.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">namespace.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaTableAttributes-FO_xsd.html#schemaTableAttributes-FO.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaTableAttributes-FO.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaLegislationTypes_xsd.html#schemaLegislationTypes.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaLegislationTypes.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationTypes.xsd'."/> <a href="mathml2_xsd.html#mathml2.xsd" target="_top" title="Imported by  'schemaLegislationTypes.xsd'." shape="rect">mathml2.xsd</a></p>
+                                                                  <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsd" style="display:block">
+                                                                     <ul class="internal"><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="math_xsd.html#math.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">math.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd.html#common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                                           <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaTabular.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd" style="display:block">
+                                                                              <ul class="internal"><li class="schemaHierarchy">
+                                                                                    <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'common-attribs.xsd'."/> <a href="xlink-href_xsd.html#xlink-href.xsd" target="_top" title="Imported by  'common-attribs.xsd'." shape="rect">xlink-href.xsd</a></p>
+                                                                                 </li></ul>
+                                                                           </div>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-types_xsd.html#common-types.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-types.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="characters_xsd.html#characters.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">characters.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd.html#tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="scripts_xsd.html#scripts.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">scripts.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="space_xsd.html#space.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">space.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="layout_xsd.html#layout.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">layout.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="table_xsd.html#table.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">table.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="style_xsd.html#style.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">style.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="error_xsd.html#error.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">error.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="action_xsd.html#action.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">action.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attrib_xsd.html#common-attrib.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attrib.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_content_tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="arith_xsd.html#arith.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">arith.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="functions_xsd.html#functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">functions.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="logic_xsd.html#logic.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">logic.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constructs_xsd.html#constructs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constructs.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constants_xsd.html#constants.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constants.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="elementary-functions_xsd.html#elementary-functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">elementary-functions.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="relations_xsd.html#relations.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">relations.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="semantics_xsd.html#semantics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">semantics.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="sets_xsd.html#sets.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">sets.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="linear-algebra_xsd.html#linear-algebra.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">linear-algebra.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="calculus_xsd.html#calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">calculus.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="vector-calculus_xsd.html#vector-calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">vector-calculus.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="statistics_xsd.html#statistics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">statistics.xsd</a></p>
+                                                                        </li></ul>
+                                                                  </div>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'schemaLegislationTypes.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationTypes.xsd'."/> <a href="schemaTable-XHTML_xsd.html#schemaTable-XHTML.xsd" target="_top" title="Imported by  'schemaLegislationTypes.xsd'." shape="rect">schemaTable-XHTML.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaTableTypes_xsd.html#schemaTableTypes.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaTableTypes.xsd</a></p>
+                                                      </li></ul>
+                                                </div>
+                                             </li></ul>
+                                       </div>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaVersion_xsd.html#schemaVersion.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaVersion.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaIncludedDocument_xsd.html#schemaIncludedDocument.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaIncludedDocument.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaResources_xsd.html#schemaResources.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaResources.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationAmendments_xsd.html#schemaLegislationAmendments.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationAmendments.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationAmendments.xsd'."/> <a href="schemaTable-XHTML_xsd.html#schemaTable-XHTML.xsd" target="_top" title="Imported by  'schemaLegislationAmendments.xsd'." shape="rect">schemaTable-XHTML.xsd</a></p>
+                                                <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsd" style="display:block">
+                                                   <ul class="internal"><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="namespace_xsd.html#namespace.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">namespace.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaTableAttributes-FO_xsd.html#schemaTableAttributes-FO.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaTableAttributes-FO.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaLegislationTypes_xsd.html#schemaLegislationTypes.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaLegislationTypes.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationTypes.xsd'."/> <a href="mathml2_xsd.html#mathml2.xsd" target="_top" title="Imported by  'schemaLegislationTypes.xsd'." shape="rect">mathml2.xsd</a></p>
+                                                                  <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsd" style="display:block">
+                                                                     <ul class="internal"><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="math_xsd.html#math.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">math.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd.html#common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                                           <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaLegislationAmendments.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd" style="display:block">
+                                                                              <ul class="internal"><li class="schemaHierarchy">
+                                                                                    <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'common-attribs.xsd'."/> <a href="xlink-href_xsd.html#xlink-href.xsd" target="_top" title="Imported by  'common-attribs.xsd'." shape="rect">xlink-href.xsd</a></p>
+                                                                                 </li></ul>
+                                                                           </div>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-types_xsd.html#common-types.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-types.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="characters_xsd.html#characters.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">characters.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd.html#tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="scripts_xsd.html#scripts.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">scripts.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="space_xsd.html#space.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">space.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="layout_xsd.html#layout.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">layout.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="table_xsd.html#table.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">table.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="style_xsd.html#style.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">style.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="error_xsd.html#error.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">error.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="action_xsd.html#action.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">action.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attrib_xsd.html#common-attrib.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attrib.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_content_tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="arith_xsd.html#arith.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">arith.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="functions_xsd.html#functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">functions.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="logic_xsd.html#logic.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">logic.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constructs_xsd.html#constructs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constructs.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constants_xsd.html#constants.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constants.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="elementary-functions_xsd.html#elementary-functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">elementary-functions.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="relations_xsd.html#relations.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">relations.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="semantics_xsd.html#semantics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">semantics.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="sets_xsd.html#sets.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">sets.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="linear-algebra_xsd.html#linear-algebra.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">linear-algebra.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="calculus_xsd.html#calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">calculus.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="vector-calculus_xsd.html#vector-calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">vector-calculus.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="statistics_xsd.html#statistics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">statistics.xsd</a></p>
+                                                                        </li></ul>
+                                                                  </div>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'schemaLegislationTypes.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationTypes.xsd'."/> <a href="schemaTable-XHTML_xsd.html#schemaTable-XHTML.xsd" target="_top" title="Imported by  'schemaLegislationTypes.xsd'." shape="rect">schemaTable-XHTML.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaTableTypes_xsd.html#schemaTableTypes.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaTableTypes.xsd</a></p>
+                                                      </li></ul>
+                                                </div>
+                                             </li></ul>
+                                       </div>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaExtract_xsd.html#schemaExtract.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaExtract.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationForm_xsd.html#schemaLegislationForm.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationForm.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaCitations.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaCitations.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaCitations_xsd.html#schemaCitations.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaCitations.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationIncludes.xsdschemaCitations.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaCitations.xsd'."/> <a href="schemaCommon_xsd.html#schemaCommon.xsd" target="_top" title="Included by 'schemaCitations.xsd'." shape="rect">schemaCommon.xsd</a></p>
+                                             </li></ul>
+                                       </div>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationBoxGroup_xsd.html#schemaLegislationBoxGroup.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationBoxGroup.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationPrelims_xsd.html#schemaLegislationPrelims.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationPrelims.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationPrelimsEU_xsd.html#schemaLegislationPrelimsEU.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationPrelimsEU.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaLegislationSignature_xsd.html#schemaLegislationSignature.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaLegislationSignature.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaTableTypes_xsd.html#schemaTableTypes.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaTableTypes.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaStrike_xsd.html#schemaStrike.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaStrike.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationIncludes.xsd'."/> <a href="schemaNote_xsd.html#schemaNote.xsd" target="_top" title="Included by 'schemaLegislationIncludes.xsd'." shape="rect">schemaNote.xsd</a></p>
+                                    </li></ul>
+                              </div>
+                           </li><li class="schemaHierarchy">
+                              <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationCore.xsd'."/> <a href="schemaLegislationMain_xsd.html#schemaLegislationMain.xsd" target="_top" title="Included by 'schemaLegislationCore.xsd'." shape="rect">schemaLegislationMain.xsd</a></p>
+                           </li><li class="schemaHierarchy">
+                              <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationCore.xsd'."/> <a href="schemaLegislationExplanatoryNotes_xsd.html#schemaLegislationExplanatoryNotes.xsd" target="_top" title="Included by 'schemaLegislationCore.xsd'." shape="rect">schemaLegislationExplanatoryNotes.xsd</a></p>
+                           </li><li class="schemaHierarchy">
+                              <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationCore.xsd'."/> <a href="schemaLegislationCommon_xsd.html#schemaLegislationCommon.xsd" target="_top" title="Included by 'schemaLegislationCore.xsd'." shape="rect">schemaLegislationCommon.xsd</a></p>
+                              <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsd" style="display:block">
+                                 <ul class="internal"><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationCommon.xsd'."/> <a href="schemaTable-XHTML_xsd.html#schemaTable-XHTML.xsd" target="_top" title="Imported by  'schemaLegislationCommon.xsd'." shape="rect">schemaTable-XHTML.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="namespace_xsd.html#namespace.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">namespace.xsd</a></p>
+                                             </li><li class="schemaHierarchy">
+                                                <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaTableAttributes-FO_xsd.html#schemaTableAttributes-FO.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaTableAttributes-FO.xsd</a></p>
+                                             </li><li class="schemaHierarchy">
+                                                <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaLegislationTypes_xsd.html#schemaLegislationTypes.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaLegislationTypes.xsd</a></p>
+                                                <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsd" style="display:block">
+                                                   <ul class="internal"><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationTypes.xsd'."/> <a href="mathml2_xsd.html#mathml2.xsd" target="_top" title="Imported by  'schemaLegislationTypes.xsd'." shape="rect">mathml2.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="math_xsd.html#math.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">math.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd.html#common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                                  <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationCommon.xsdschemaTable-XHTML.xsdschemaLegislationTypes.xsdmathml2.xsdcommon-attribs.xsd" style="display:block">
+                                                                     <ul class="internal"><li class="schemaHierarchy">
+                                                                           <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'common-attribs.xsd'."/> <a href="xlink-href_xsd.html#xlink-href.xsd" target="_top" title="Imported by  'common-attribs.xsd'." shape="rect">xlink-href.xsd</a></p>
+                                                                        </li></ul>
+                                                                  </div>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-types_xsd.html#common-types.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-types.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attribs_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_presentation_common-attribs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attribs.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="characters_xsd.html#characters.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">characters.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd.html#tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="scripts_xsd.html#scripts.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">scripts.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="space_xsd.html#space.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">space.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="layout_xsd.html#layout.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">layout.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="table_xsd.html#table.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">table.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="style_xsd.html#style.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">style.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="error_xsd.html#error.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">error.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="action_xsd.html#action.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">action.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="common-attrib_xsd.html#common-attrib.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">common-attrib.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="tokens_xsd_1.html#schema_NAMESPACE_http___www.w3.org_1998_Math_MathML_LOCATION_file__C__Development_TNA_tna.legislation.schema.clml_schemaDoc_temp_schemaTempFolder_xsd_schemaModules_mathml2_content_tokens.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">tokens.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="arith_xsd.html#arith.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">arith.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="functions_xsd.html#functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">functions.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="logic_xsd.html#logic.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">logic.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constructs_xsd.html#constructs.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constructs.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="constants_xsd.html#constants.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">constants.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="elementary-functions_xsd.html#elementary-functions.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">elementary-functions.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="relations_xsd.html#relations.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">relations.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="semantics_xsd.html#semantics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">semantics.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="sets_xsd.html#sets.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">sets.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="linear-algebra_xsd.html#linear-algebra.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">linear-algebra.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="calculus_xsd.html#calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">calculus.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="vector-calculus_xsd.html#vector-calculus.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">vector-calculus.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'mathml2.xsd'."/> <a href="statistics_xsd.html#statistics.xsd" target="_top" title="Included by 'mathml2.xsd'." shape="rect">statistics.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/Cycle12.png" title="Imported by  'schemaLegislationTypes.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationTypes.xsd'."/> <a href="schemaTable-XHTML_xsd.html#schemaTable-XHTML.xsd" target="_top" title="Imported by  'schemaLegislationTypes.xsd'." shape="rect">schemaTable-XHTML.xsd</a></p>
+                                                      </li></ul>
+                                                </div>
+                                             </li><li class="schemaHierarchy">
+                                                <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaTable-XHTML.xsd'."/> <a href="schemaTableTypes_xsd.html#schemaTableTypes.xsd" target="_top" title="Imported by  'schemaTable-XHTML.xsd'." shape="rect">schemaTableTypes.xsd</a></p>
+                                             </li></ul>
+                                       </div>
+                                    </li></ul>
+                              </div>
+                           </li><li class="schemaHierarchy">
+                              <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationCore.xsd'."/> <a href="schemaCommonNonEdit_xsd.html#schemaCommonNonEdit.xsd" target="_top" title="Included by 'schemaLegislationCore.xsd'." shape="rect">schemaCommonNonEdit.xsd</a></p>
+                              <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsd" style="display:block">
+                                 <ul class="internal"><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsddc.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsddc.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaCommonNonEdit.xsd'."/> <a href="dc_xsd.html#dc.xsd" target="_top" title="Imported by  'schemaCommonNonEdit.xsd'." shape="rect">dc.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsddc.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'dc.xsd'."/> <a href="namespace_xsd.html#namespace.xsd" target="_top" title="Imported by  'dc.xsd'." shape="rect">namespace.xsd</a></p>
+                                             </li></ul>
+                                       </div>
+                                    </li><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsddcterms.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsddcterms.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaCommonNonEdit.xsd'."/> <a href="dcterms_xsd.html#dcterms.xsd" target="_top" title="Imported by  'schemaCommonNonEdit.xsd'." shape="rect">dcterms.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsddcterms.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'dcterms.xsd'."/> <a href="namespace_xsd.html#namespace.xsd" target="_top" title="Imported by  'dcterms.xsd'." shape="rect">namespace.xsd</a></p>
+                                             </li></ul>
+                                       </div>
+                                    </li><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaCommonNonEdit.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'schemaCommonNonEdit.xsd'." shape="rect">atom.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'atom.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'atom.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsd" style="display:block">
+                                                   <ul class="internal"><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdlocal.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdlocal.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">local.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdlocal.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">atom.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdlocal.xsdxml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdlocal.xsdxml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xml.xsd</a></p>
+                                                                  <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdlocal.xsdxml.xsd" style="display:block">
+                                                                     <ul class="internal"><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">local.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">atom.xsd</a></p>
+                                                                        </li></ul>
+                                                                  </div>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">atom.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdxml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdxml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">xml.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdxml.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdxml.xsdlocal.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdxml.xsdlocal.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">local.xsd</a></p>
+                                                                  <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxhtml.xsdxml.xsdlocal.xsd" style="display:block">
+                                                                     <ul class="internal"><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">atom.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xml.xsd</a></p>
+                                                                        </li></ul>
+                                                                  </div>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">atom.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li></ul>
+                                                </div>
+                                             </li><li class="schemaHierarchy">
+                                                <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'atom.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'atom.xsd'." shape="rect">xml.xsd</a></p>
+                                                <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsd" style="display:block">
+                                                   <ul class="internal"><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdlocal.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdlocal.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">local.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdlocal.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdlocal.xsdxhtml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdlocal.xsdxhtml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                                  <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdlocal.xsdxhtml.xsd" style="display:block">
+                                                                     <ul class="internal"><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">local.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">atom.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">xml.xsd</a></p>
+                                                                        </li></ul>
+                                                                  </div>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">atom.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xml.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdxhtml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdxhtml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdxhtml.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdxhtml.xsdlocal.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdxhtml.xsdlocal.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">local.xsd</a></p>
+                                                                  <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaCommonNonEdit.xsdatom.xsdxml.xsdxhtml.xsdlocal.xsd" style="display:block">
+                                                                     <ul class="internal"><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">atom.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xml.xsd</a></p>
+                                                                        </li></ul>
+                                                                  </div>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">atom.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">xml.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">atom.xsd</a></p>
+                                                      </li></ul>
+                                                </div>
+                                             </li></ul>
+                                       </div>
+                                    </li></ul>
+                              </div>
+                           </li><li class="schemaHierarchy">
+                              <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationCore.xsd'."/> <a href="schemaLegislationMetadata_xsd.html#schemaLegislationMetadata.xsd" target="_top" title="Imported by  'schemaLegislationCore.xsd'." shape="rect">schemaLegislationMetadata.xsd</a></p>
+                              <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsd" style="display:block">
+                                 <ul class="internal"><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Include12.gif" title="Included by 'schemaLegislationMetadata.xsd'."/> <a href="schemaLegislationMetadataEU_xsd.html#schemaLegislationMetadataEU.xsd" target="_top" title="Included by 'schemaLegislationMetadata.xsd'." shape="rect">schemaLegislationMetadataEU.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationMetadata.xsd'."/> <a href="schemaCommon_xsd.html#schemaCommon.xsd" target="_top" title="Imported by  'schemaLegislationMetadata.xsd'." shape="rect">schemaCommon.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsddc.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsddc.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationMetadata.xsd'."/> <a href="dc_xsd.html#dc.xsd" target="_top" title="Imported by  'schemaLegislationMetadata.xsd'." shape="rect">dc.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsddc.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'dc.xsd'."/> <a href="namespace_xsd.html#namespace.xsd" target="_top" title="Imported by  'dc.xsd'." shape="rect">namespace.xsd</a></p>
+                                             </li></ul>
+                                       </div>
+                                    </li><li class="schemaHierarchy">
+                                       <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationMetadata.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'schemaLegislationMetadata.xsd'." shape="rect">atom.xsd</a></p>
+                                       <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsd" style="display:block">
+                                          <ul class="internal"><li class="schemaHierarchy">
+                                                <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'atom.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'atom.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsd" style="display:block">
+                                                   <ul class="internal"><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdlocal.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdlocal.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">local.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdlocal.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">atom.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdlocal.xsdxml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdlocal.xsdxml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xml.xsd</a></p>
+                                                                  <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdlocal.xsdxml.xsd" style="display:block">
+                                                                     <ul class="internal"><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">local.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">atom.xsd</a></p>
+                                                                        </li></ul>
+                                                                  </div>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">atom.xsd</a></p>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdxml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdxml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">xml.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdxml.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdxml.xsdlocal.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdxml.xsdlocal.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">local.xsd</a></p>
+                                                                  <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxhtml.xsdxml.xsdlocal.xsd" style="display:block">
+                                                                     <ul class="internal"><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">atom.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xml.xsd</a></p>
+                                                                        </li></ul>
+                                                                  </div>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">atom.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li></ul>
+                                                </div>
+                                             </li><li class="schemaHierarchy">
+                                                <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'atom.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'atom.xsd'." shape="rect">xml.xsd</a></p>
+                                                <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsd" style="display:block">
+                                                   <ul class="internal"><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdlocal.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdlocal.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">local.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdlocal.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdlocal.xsdxhtml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdlocal.xsdxhtml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                                  <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdlocal.xsdxhtml.xsd" style="display:block">
+                                                                     <ul class="internal"><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">local.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">atom.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">xml.xsd</a></p>
+                                                                        </li></ul>
+                                                                  </div>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">atom.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xml.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdxhtml.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdxhtml.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                         <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdxhtml.xsd" style="display:block">
+                                                            <ul class="internal"><li class="schemaHierarchy">
+                                                                  <p><input id="button_sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdxhtml.xsdlocal.xsd" type="image" value="-" src="img/btM.gif" onclick="switchState('sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdxhtml.xsdlocal.xsd');" class="control"/><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="local_xsd.html#local.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">local.xsd</a></p>
+                                                                  <div id="sHlegislation.xsdschemaLegislationCore.xsdschemaLegislationMetadata.xsdatom.xsdxml.xsdxhtml.xsdlocal.xsd" style="display:block">
+                                                                     <ul class="internal"><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xhtml_xsd.html#xhtml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xhtml.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">atom.xsd</a></p>
+                                                                        </li><li class="schemaHierarchy">
+                                                                           <p><img src="img/Cycle12.png" title="Imported by  'local.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'local.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'local.xsd'." shape="rect">xml.xsd</a></p>
+                                                                        </li></ul>
+                                                                  </div>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">atom.xsd</a></p>
+                                                               </li><li class="schemaHierarchy">
+                                                                  <p><img src="img/Cycle12.png" title="Imported by  'xhtml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xhtml.xsd'."/> <a href="xml_xsd.html#xml.xsd" target="_top" title="Imported by  'xhtml.xsd'." shape="rect">xml.xsd</a></p>
+                                                               </li></ul>
+                                                         </div>
+                                                      </li><li class="schemaHierarchy">
+                                                         <p><img src="img/Cycle12.png" title="Imported by  'xml.xsd'. Cycle detected."/> <img src="img/Import12.gif" title="Imported by  'xml.xsd'."/> <a href="atom_xsd.html#atom.xsd" target="_top" title="Imported by  'xml.xsd'." shape="rect">atom.xsd</a></p>
+                                                      </li></ul>
+                                                </div>
+                                             </li></ul>
+                                       </div>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationMetadata.xsd'."/> <a href="namespace_xsd.html#namespace.xsd" target="_top" title="Imported by  'schemaLegislationMetadata.xsd'." shape="rect">namespace.xsd</a></p>
+                                    </li><li class="schemaHierarchy">
+                                       <p><img src="img/HierarchyArrow12.jpg"/> <img src="img/Import12.gif" title="Imported by  'schemaLegislationMetadata.xsd'."/> <a href="ukGovErrors_xsd.html#ukGovErrors.xsd" target="_top" title="Imported by  'schemaLegislationMetadata.xsd'." shape="rect">ukGovErrors.xsd</a></p>
+                                    </li></ul>
+                              </div>
+                           </li></ul>
+                     </div>
+                  </li></ul>
+            </div>
+         </li></ul>
+      <div class="footer">
+         <hr/>
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent" shape="rect"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div>
+   </body></html>

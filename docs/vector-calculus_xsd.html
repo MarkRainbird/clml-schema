@@ -1,0 +1,967 @@
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><title>Schema documentation for vector-calculus.xsd</title><link rel="stylesheet" href="docHtml.css" type="text/css"/><script type="text/javascript" xml:space="preserve">
+         <!--
+        var propertiesBoxes= new Array('properties_vector-calculus.xsd', 
+				'properties_divergence', 
+				'properties_grad', 
+				'properties_curl', 
+				'properties_laplacian');
+var usedByBoxes= new Array('usedBy_divergence', 
+				'usedBy_grad', 
+				'usedBy_curl', 
+				'usedBy_laplacian', 
+				'usedBy_divergence.type', 
+				'usedBy_grad.type', 
+				'usedBy_curl.type', 
+				'usedBy_laplacian.type', 
+				'usedBy_Content-vector-calculus.class', 
+				'usedBy_divergence.attlist', 
+				'usedBy_grad.attlist', 
+				'usedBy_curl.attlist', 
+				'usedBy_laplacian.attlist');
+var sourceBoxes= new Array('source_divergence', 
+				'source_grad', 
+				'source_curl', 
+				'source_laplacian', 
+				'source_divergence.type', 
+				'source_grad.type', 
+				'source_curl.type', 
+				'source_laplacian.type', 
+				'source_Content-vector-calculus.class', 
+				'source_divergence.attlist', 
+				'source_grad.attlist', 
+				'source_curl.attlist', 
+				'source_laplacian.attlist');
+var diagramBoxes= new Array('diagram_divergence', 
+				'diagram_grad', 
+				'diagram_curl', 
+				'diagram_laplacian', 
+				'diagram_divergence.type', 
+				'diagram_grad.type', 
+				'diagram_curl.type', 
+				'diagram_laplacian.type', 
+				'diagram_Content-vector-calculus.class', 
+				'diagram_divergence.attlist', 
+				'diagram_grad.attlist', 
+				'diagram_curl.attlist', 
+				'diagram_laplacian.attlist');
+var annotationBoxes= new Array('annotations_vector-calculus.xsd');
+var attributesBoxes= new Array('attributes_divergence', 
+				'attributes_grad', 
+				'attributes_curl', 
+				'attributes_laplacian', 
+				'attributes_divergence.type', 
+				'attributes_grad.type', 
+				'attributes_curl.type', 
+				'attributes_laplacian.type', 
+				'attributes_divergence.attlist', 
+				'attributes_grad.attlist', 
+				'attributes_curl.attlist', 
+				'attributes_laplacian.attlist');
+var modelBoxes= new Array('model_Content-vector-calculus.class');
+
+      
+        var button_prefix = 'button_';
+        
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+    
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updatePageTitle(message) {
+            top.document.title = message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id, isChunked, indexFileLocation, indexFileNamespace, indexFileComponent){
+
+            if (!isChunked) {
+             var selectIds = new Array('toc_group_by_namespace', 'toc_group_by_location', 'toc_group_by_component_type');
+             // Make all the tabs invisible.
+               for (i = 0; i < 3; i++){
+                  var tab = getElementObject(selectIds[i]);
+                  tab.style.display = 'none';
+               }
+               var selTab = getElementObject(id);
+               selTab.style.display = 'block';
+            } else {
+             if (id == 'toc_group_by_namespace') {
+               parent.indexFrame.location = indexFileNamespace;
+             } else  if (id == 'toc_group_by_location') {
+               parent.indexFrame.location = indexFileLocation;
+             } else  if (id == 'toc_group_by_component_type') {
+              parent.indexFrame.location = indexFileComponent;
+             }
+            }
+         }
+          
+
+    
+                    //--></script><link rel="stylesheet" type="text/css" href="frames.css"/></head><body><iframe id="nav" src="CLMLreferenceGuide-v2-7.indexListcomp.html"> </iframe>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+                  <h3>Showing:</h3>
+                  <table><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, annotationBoxes);" class="control"/></span><span class="globalControlName">Annotations</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, attributesBoxes);" class="control"/></span><span class="globalControlName">Attributes </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, diagramBoxes);" class="control"/></span><span class="globalControlName">Diagrams</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, modelBoxes);" class="control"/></span><span class="globalControlName">Model </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, propertiesBoxes);" class="control"/></span><span class="globalControlName">Properties </span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, sourceBoxes);" class="control"/></span><span class="globalControlName">Source</span></td></tr><tr><td rowspan="1" colspan="1"><span><input type="checkbox" value="-" checked="checked" onclick="switchStateForAll(this, usedByBoxes);" class="control"/></span><span class="globalControlName">Used by </span></td></tr></table>
+                  <div align="right"><span><input type="button" onclick="getElementObject('global_controls').style.display = 'none';" value="Close"/></span></div>
+               </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      </div><a id="vector-calculus.xsd" shape="rect"/><div class="componentTitle">Included schema <span class="qname">vector-calculus.xsd</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Annotations</b></div>
+                           <div class="floatRight"><input id="button_annotations_vector-calculus.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('annotations_vector-calculus.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="annotations_vector-calculus.xsd" style="display:block">
+                              <div class="annotation">
+                                 This is an XML Schema module for the vector calculs operators of content
+                                 MathML. 
+                                 Author: Stéphane Dalmas, INRIA.
+                                 
+                              </div>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_vector-calculus.xsd" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_vector-calculus.xsd');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_vector-calculus.xsd" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">attribute form default</td><td rowspan="1" colspan="1"><b>unqualified</b></td></tr><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">element form default</td><td rowspan="1" colspan="1"><b>qualified</b></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="divergence" shape="rect"/><div class="componentTitle">Element <span class="qname">divergence</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_divergence" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_divergence');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_divergence" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Element_divergence.jpeg" usemap="#vector-calculus_xsd_Element_divergence"/><map name="vector-calculus_xsd_Element_divergence" id="vector-calculus_xsd_Element_divergence"><area alt="vector-calculus_xsd.tmp#divergence.attlist" href="vector-calculus_xsd.html#divergence.attlist" coords="144,82,281,108" shape="rect"/><area alt="vector-calculus_xsd.tmp#divergence.type" href="vector-calculus_xsd.html#divergence.type" coords="116,3,245,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_divergence" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_divergence');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_divergence" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_divergence" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_divergence');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_divergence" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#Content-vector-calculus.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-vector-calculus.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_divergence" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_divergence');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_divergence" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_divergence" type="image" src="img/btM.gif" value="-" onclick="switchState('source_divergence');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_divergence" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"divergence"</span><span class="tAN"> type=</span><span class="tAV">"divergence.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="grad" shape="rect"/><div class="componentTitle">Element <span class="qname">grad</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_grad" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_grad');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_grad" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Element_grad.jpeg" usemap="#vector-calculus_xsd_Element_grad"/><map name="vector-calculus_xsd_Element_grad" id="vector-calculus_xsd_Element_grad"><area alt="vector-calculus_xsd.tmp#grad.attlist" href="vector-calculus_xsd.html#grad.attlist" coords="112,82,217,108" shape="rect"/><area alt="vector-calculus_xsd.tmp#grad.type" href="vector-calculus_xsd.html#grad.type" coords="84,3,181,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_grad" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_grad');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_grad" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_grad" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_grad');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_grad" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#Content-vector-calculus.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-vector-calculus.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_grad" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_grad');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_grad" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_grad" type="image" src="img/btM.gif" value="-" onclick="switchState('source_grad');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_grad" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"grad"</span><span class="tAN"> type=</span><span class="tAV">"grad.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="curl" shape="rect"/><div class="componentTitle">Element <span class="qname">curl</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_curl" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_curl');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_curl" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Element_curl.jpeg" usemap="#vector-calculus_xsd_Element_curl"/><map name="vector-calculus_xsd_Element_curl" id="vector-calculus_xsd_Element_curl"><area alt="vector-calculus_xsd.tmp#curl.attlist" href="vector-calculus_xsd.html#curl.attlist" coords="110,82,211,108" shape="rect"/><area alt="vector-calculus_xsd.tmp#curl.type" href="vector-calculus_xsd.html#curl.type" coords="82,3,175,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_curl" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_curl');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_curl" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_curl" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_curl');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_curl" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#Content-vector-calculus.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-vector-calculus.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_curl" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_curl');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_curl" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_curl" type="image" src="img/btM.gif" value="-" onclick="switchState('source_curl');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_curl" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"curl"</span><span class="tAN"> type=</span><span class="tAV">"curl.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="laplacian" shape="rect"/><div class="componentTitle">Element <span class="qname">laplacian</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_laplacian" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_laplacian');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_laplacian" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Element_laplacian.jpeg" usemap="#vector-calculus_xsd_Element_laplacian"/><map name="vector-calculus_xsd_Element_laplacian" id="vector-calculus_xsd_Element_laplacian"><area alt="vector-calculus_xsd.tmp#laplacian.attlist" href="vector-calculus_xsd.html#laplacian.attlist" coords="132,82,257,108" shape="rect"/><area alt="vector-calculus_xsd.tmp#laplacian.type" href="vector-calculus_xsd.html#laplacian.type" coords="104,3,221,25" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Properties</b></div>
+                           <div class="floatRight"><input id="button_properties_laplacian" type="image" src="img/btM.gif" value="-" onclick="switchState('properties_laplacian');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="properties_laplacian" style="display:block">
+                              <table class="propertiesTable"><tr><td class="firstColumn" style="white-space: nowrap;" rowspan="1" colspan="1">content</td><td rowspan="1" colspan="1"><b>complex</b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_laplacian" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_laplacian');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_laplacian" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#Content-vector-calculus.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">Content-vector-calculus.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_laplacian" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_laplacian');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_laplacian" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_laplacian" type="image" src="img/btM.gif" value="-" onclick="switchState('source_laplacian');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_laplacian" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:element</span><span class="tAN"> name=</span><span class="tAV">"laplacian"</span><span class="tAN"> type=</span><span class="tAV">"laplacian.type"</span><span class="tEl">/&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="divergence.type" shape="rect"/><div class="componentTitle">Complex Type <span class="qname">divergence.type</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_divergence.type" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_divergence.type');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_divergence.type" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Complex_Type_divergence_type.jpeg" usemap="#vector-calculus_xsd_Complex_Type_divergence_type"/><map name="vector-calculus_xsd_Complex_Type_divergence_type" id="vector-calculus_xsd_Complex_Type_divergence_type"><area alt="vector-calculus_xsd.tmp#divergence.attlist" href="vector-calculus_xsd.html#divergence.attlist" coords="178,42,315,68" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_divergence.type" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_divergence.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_divergence.type" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#divergence" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">divergence</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_divergence.type" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_divergence.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_divergence.type" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_divergence.type" type="image" src="img/btM.gif" value="-" onclick="switchState('source_divergence.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_divergence.type" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:complexType</span><span class="tAN"> name=</span><span class="tAV">"divergence.type"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"divergence.attlist"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:complexType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="grad.type" shape="rect"/><div class="componentTitle">Complex Type <span class="qname">grad.type</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_grad.type" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_grad.type');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_grad.type" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Complex_Type_grad_type.jpeg" usemap="#vector-calculus_xsd_Complex_Type_grad_type"/><map name="vector-calculus_xsd_Complex_Type_grad_type" id="vector-calculus_xsd_Complex_Type_grad_type"><area alt="vector-calculus_xsd.tmp#grad.attlist" href="vector-calculus_xsd.html#grad.attlist" coords="146,42,251,68" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_grad.type" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_grad.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_grad.type" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#grad" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">grad</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_grad.type" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_grad.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_grad.type" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_grad.type" type="image" src="img/btM.gif" value="-" onclick="switchState('source_grad.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_grad.type" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:complexType</span><span class="tAN"> name=</span><span class="tAV">"grad.type"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"grad.attlist"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:complexType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="curl.type" shape="rect"/><div class="componentTitle">Complex Type <span class="qname">curl.type</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_curl.type" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_curl.type');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_curl.type" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Complex_Type_curl_type.jpeg" usemap="#vector-calculus_xsd_Complex_Type_curl_type"/><map name="vector-calculus_xsd_Complex_Type_curl_type" id="vector-calculus_xsd_Complex_Type_curl_type"><area alt="vector-calculus_xsd.tmp#curl.attlist" href="vector-calculus_xsd.html#curl.attlist" coords="142,42,243,68" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_curl.type" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_curl.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_curl.type" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#curl" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">curl</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_curl.type" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_curl.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_curl.type" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_curl.type" type="image" src="img/btM.gif" value="-" onclick="switchState('source_curl.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_curl.type" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:complexType</span><span class="tAN"> name=</span><span class="tAV">"curl.type"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"curl.attlist"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:complexType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="laplacian.type" shape="rect"/><div class="componentTitle">Complex Type <span class="qname">laplacian.type</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_laplacian.type" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_laplacian.type');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_laplacian.type" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Complex_Type_laplacian_type.jpeg" usemap="#vector-calculus_xsd_Complex_Type_laplacian_type"/><map name="vector-calculus_xsd_Complex_Type_laplacian_type" id="vector-calculus_xsd_Complex_Type_laplacian_type"><area alt="vector-calculus_xsd.tmp#laplacian.attlist" href="vector-calculus_xsd.html#laplacian.attlist" coords="166,42,291,68" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_laplacian.type" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_laplacian.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_laplacian.type" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#laplacian" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">laplacian</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_laplacian.type" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_laplacian.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_laplacian.type" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                              <table><tr><td rowspan="1" colspan="1"><b>Wildcard:  </b>ANY attribute from ANY namespace OTHER than 'http://www.w3.org/1998/Math/MathML'
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_laplacian.type" type="image" src="img/btM.gif" value="-" onclick="switchState('source_laplacian.type');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_laplacian.type" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:complexType</span><span class="tAN"> name=</span><span class="tAV">"laplacian.type"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"laplacian.attlist"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:complexType&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="Content-vector-calculus.class" shape="rect"/><div class="componentTitle">Element Group <span class="qname">Content-vector-calculus.class</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_Content-vector-calculus.class" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_Content-vector-calculus.class');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_Content-vector-calculus.class" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Element_Group_Content-vector-calculus_class.jpeg" usemap="#vector-calculus_xsd_Element_Group_Content-vector-calculus_class"/><map name="vector-calculus_xsd_Element_Group_Content-vector-calculus_class" id="vector-calculus_xsd_Element_Group_Content-vector-calculus_class"><area alt="vector-calculus_xsd.tmp#divergence" href="vector-calculus_xsd.html#divergence" coords="299,0,384,25" shape="rect"/><area alt="vector-calculus_xsd.tmp#grad" href="vector-calculus_xsd.html#grad" coords="299,35,352,60" shape="rect"/><area alt="vector-calculus_xsd.tmp#curl" href="vector-calculus_xsd.html#curl" coords="299,70,350,95" shape="rect"/><area alt="vector-calculus_xsd.tmp#laplacian" href="vector-calculus_xsd.html#laplacian" coords="299,105,372,130" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_Content-vector-calculus.class" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_Content-vector-calculus.class');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_Content-vector-calculus.class" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Element Group </td><td rowspan="1" colspan="1"><b><a href="math_xsd.html#ContExpr.class" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">ContExpr.class</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Model</b><div class="floatRight"><input id="button_model_Content-vector-calculus.class" type="image" src="img/btM.gif" value="-" onclick="switchState('model_Content-vector-calculus.class');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="model_Content-vector-calculus.class" style="display:block"><b><a href="vector-calculus_xsd.html#divergence" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">divergence</a></b> | <b><a href="vector-calculus_xsd.html#grad" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">grad</a></b> | <b><a href="vector-calculus_xsd.html#curl" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">curl</a></b> | <b><a href="vector-calculus_xsd.html#laplacian" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">laplacian</a></b></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Children</b></td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#curl" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">curl</a></b>, <b><a href="vector-calculus_xsd.html#divergence" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">divergence</a></b>, <b><a href="vector-calculus_xsd.html#grad" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">grad</a></b>, <b><a href="vector-calculus_xsd.html#laplacian" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">laplacian</a></b></td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_Content-vector-calculus.class" type="image" src="img/btM.gif" value="-" onclick="switchState('source_Content-vector-calculus.class');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_Content-vector-calculus.class" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:group</span><span class="tAN"> name=</span><span class="tAV">"Content-vector-calculus.class"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:choice</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"divergence"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"grad"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"curl"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;xs:element</span><span class="tAN"> ref=</span><span class="tAV">"laplacian"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/xs:choice&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:group&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="divergence.attlist" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">divergence.attlist</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_divergence.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_divergence.attlist');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_divergence.attlist" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Attribute_Group_divergence_attlist.jpeg" usemap="#vector-calculus_xsd_Attribute_Group_divergence_attlist"/><map name="vector-calculus_xsd_Attribute_Group_divergence_attlist" id="vector-calculus_xsd_Attribute_Group_divergence_attlist"><area alt="common-attrib_xsd.tmp#Definition.attrib_encoding" href="common-attrib_xsd.html#Definition.attrib_encoding" coords="179,44,273,69" shape="rect"/><area alt="common-attrib_xsd.tmp#Definition.attrib_definitionURL" href="common-attrib_xsd.html#Definition.attrib_definitionURL" coords="179,79,292,104" shape="rect"/><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="168,3,294,29" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_class" href="common-attribs_xsd.html#Common.attrib_class" coords="179,165,255,190" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_style" href="common-attribs_xsd.html#Common.attrib_style" coords="179,200,252,225" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_xref" href="common-attribs_xsd.html#Common.attrib_xref" coords="179,235,249,260" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_id" href="common-attribs_xsd.html#Common.attrib_id" coords="179,270,249,295" shape="rect"/><area alt="xlink-href_xsd.tmp#href" href="xlink-href_xsd.html#href" coords="179,305,273,330" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="168,124,291,150" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_divergence.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_divergence.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_divergence.attlist" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Complex Type </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#divergence.type" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">divergence.type</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_divergence.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_divergence.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_divergence.attlist" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_divergence.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('source_divergence.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_divergence.attlist" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"divergence.attlist"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"Definition.attrib"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"Common.attrib"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="grad.attlist" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">grad.attlist</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_grad.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_grad.attlist');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_grad.attlist" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Attribute_Group_grad_attlist.jpeg" usemap="#vector-calculus_xsd_Attribute_Group_grad_attlist"/><map name="vector-calculus_xsd_Attribute_Group_grad_attlist" id="vector-calculus_xsd_Attribute_Group_grad_attlist"><area alt="common-attrib_xsd.tmp#Definition.attrib_encoding" href="common-attrib_xsd.html#Definition.attrib_encoding" coords="147,44,241,69" shape="rect"/><area alt="common-attrib_xsd.tmp#Definition.attrib_definitionURL" href="common-attrib_xsd.html#Definition.attrib_definitionURL" coords="147,79,260,104" shape="rect"/><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="136,3,262,29" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_class" href="common-attribs_xsd.html#Common.attrib_class" coords="147,165,223,190" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_style" href="common-attribs_xsd.html#Common.attrib_style" coords="147,200,220,225" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_xref" href="common-attribs_xsd.html#Common.attrib_xref" coords="147,235,217,260" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_id" href="common-attribs_xsd.html#Common.attrib_id" coords="147,270,217,295" shape="rect"/><area alt="xlink-href_xsd.tmp#href" href="xlink-href_xsd.html#href" coords="147,305,241,330" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="136,124,259,150" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_grad.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_grad.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_grad.attlist" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Complex Type </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#grad.type" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">grad.type</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_grad.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_grad.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_grad.attlist" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_grad.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('source_grad.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_grad.attlist" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"grad.attlist"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"Definition.attrib"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"Common.attrib"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="curl.attlist" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">curl.attlist</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_curl.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_curl.attlist');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_curl.attlist" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Attribute_Group_curl_attlist.jpeg" usemap="#vector-calculus_xsd_Attribute_Group_curl_attlist"/><map name="vector-calculus_xsd_Attribute_Group_curl_attlist" id="vector-calculus_xsd_Attribute_Group_curl_attlist"><area alt="common-attrib_xsd.tmp#Definition.attrib_encoding" href="common-attrib_xsd.html#Definition.attrib_encoding" coords="143,44,237,69" shape="rect"/><area alt="common-attrib_xsd.tmp#Definition.attrib_definitionURL" href="common-attrib_xsd.html#Definition.attrib_definitionURL" coords="143,79,256,104" shape="rect"/><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="132,3,258,29" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_class" href="common-attribs_xsd.html#Common.attrib_class" coords="143,165,219,190" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_style" href="common-attribs_xsd.html#Common.attrib_style" coords="143,200,216,225" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_xref" href="common-attribs_xsd.html#Common.attrib_xref" coords="143,235,213,260" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_id" href="common-attribs_xsd.html#Common.attrib_id" coords="143,270,213,295" shape="rect"/><area alt="xlink-href_xsd.tmp#href" href="xlink-href_xsd.html#href" coords="143,305,237,330" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="132,124,255,150" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_curl.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_curl.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_curl.attlist" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Complex Type </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#curl.type" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">curl.type</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_curl.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_curl.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_curl.attlist" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_curl.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('source_curl.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_curl.attlist" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"curl.attlist"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"Definition.attrib"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"Common.attrib"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table><a id="laplacian.attlist" shape="rect"/><div class="componentTitle">Attribute Group <span class="qname">laplacian.attlist</span></div>
+      <table class="rt"><tr><td class="rt_cornerTopLeft" rowspan="1" colspan="1"/><td class="rt_lineTop" rowspan="1" colspan="1"/><td class="rt_cornerTopRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_lineLeft" rowspan="1" colspan="1"/><td class="rt_content" rowspan="1" colspan="1">
+               <table class="component"><tbody><tr><td class="firstColumn" rowspan="1" colspan="1"><b>Namespace</b></td><td rowspan="1" colspan="1">http://www.w3.org/1998/Math/MathML</td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Diagram</b></div>
+                           <div class="floatRight"><input id="button_diagram_laplacian.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('diagram_laplacian.attlist');" class="control"/></div>
+                        </td><td class="diagram" rowspan="1" colspan="1">
+                           <div id="diagram_laplacian.attlist" style="display:block"><img alt="Diagram" src="img/vector-calculus_xsd_Attribute_Group_laplacian_attlist.jpeg" usemap="#vector-calculus_xsd_Attribute_Group_laplacian_attlist"/><map name="vector-calculus_xsd_Attribute_Group_laplacian_attlist" id="vector-calculus_xsd_Attribute_Group_laplacian_attlist"><area alt="common-attrib_xsd.tmp#Definition.attrib_encoding" href="common-attrib_xsd.html#Definition.attrib_encoding" coords="167,44,261,69" shape="rect"/><area alt="common-attrib_xsd.tmp#Definition.attrib_definitionURL" href="common-attrib_xsd.html#Definition.attrib_definitionURL" coords="167,79,280,104" shape="rect"/><area alt="common-attrib_xsd.tmp#Definition.attrib" href="common-attrib_xsd.html#Definition.attrib" coords="156,3,282,29" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_class" href="common-attribs_xsd.html#Common.attrib_class" coords="167,165,243,190" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_style" href="common-attribs_xsd.html#Common.attrib_style" coords="167,200,240,225" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_xref" href="common-attribs_xsd.html#Common.attrib_xref" coords="167,235,237,260" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib_id" href="common-attribs_xsd.html#Common.attrib_id" coords="167,270,237,295" shape="rect"/><area alt="xlink-href_xsd.tmp#href" href="xlink-href_xsd.html#href" coords="167,305,261,330" shape="rect"/><area alt="common-attribs_xsd.tmp#Common.attrib" href="common-attribs_xsd.html#Common.attrib" coords="156,124,279,150" shape="rect"/></map></div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Used by</b></div>
+                           <div class="floatRight"><input id="button_usedBy_laplacian.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('usedBy_laplacian.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="usedBy_laplacian.attlist" style="display:block">
+                              <table class="usedByTable"><tr><td class="firstColumn" rowspan="1" colspan="1">Complex Type </td><td rowspan="1" colspan="1"><b><a href="vector-calculus_xsd.html#laplacian.type" target="_top" title="http://www.w3.org/1998/Math/MathML" shape="rect">laplacian.type</a></b></td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Attributes</b></div>
+                           <div class="floatRight"><input id="button_attributes_laplacian.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('attributes_laplacian.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="attributes_laplacian.attlist" style="display:block">
+                              <table class="attributesTable"><thead><tr><th rowspan="1" colspan="1">QName</th><th width="10%" rowspan="1" colspan="1">Type</th><th width="5%" rowspan="1" colspan="1">Use</th><th rowspan="1" colspan="1"/></tr></thead><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_class" target="_top" title="No namespace" shape="rect">class</a></b></td><td rowspan="1" colspan="1"><b>xs:NMTOKENS</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_definitionURL" target="_top" title="No namespace" shape="rect">definitionURL</a></b></td><td rowspan="1" colspan="1"><b>xs:anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attrib_xsd.html#Definition.attrib_encoding" target="_top" title="No namespace" shape="rect">encoding</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_id" target="_top" title="No namespace" shape="rect">id</a></b></td><td rowspan="1" colspan="1"><b>xs:ID</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_style" target="_top" title="No namespace" shape="rect">style</a></b></td><td rowspan="1" colspan="1"><b>xs:string</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="xlink-href_xsd.html#href" target="_top" title="http://www.w3.org/1999/xlink" shape="rect">xlink:href</a></b></td><td rowspan="1" colspan="1"><b>anyURI</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1"><b><a href="common-attribs_xsd.html#Common.attrib_xref" target="_top" title="No namespace" shape="rect">xref</a></b></td><td rowspan="1" colspan="1"><b>xs:IDREF</b></td><td rowspan="1" colspan="1">optional</td><td rowspan="1" colspan="1">
+                                       <div class="annotation"/>
+                                    </td></tr></table>
+                           </div>
+                        </td></tr><tr><td class="firstColumn" rowspan="1" colspan="1">
+                           <div class="floatLeft"><b>Source</b></div>
+                           <div class="floatRight"><input id="button_source_laplacian.attlist" type="image" src="img/btM.gif" value="-" onclick="switchState('source_laplacian.attlist');" class="control"/></div>
+                        </td><td rowspan="1" colspan="1">
+                           <div id="source_laplacian.attlist" style="display:block">
+                              <table style="table-layout:fixed;white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space: -o-pre-wrap;word-wrap: break-word;_white-space:pre;" class="preWrapContainer"><tr><td rowspan="1" colspan="1"><pre xml:space="preserve"><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> name=</span><span class="tAV">"laplacian.attlist"</span><span class="tEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"Definition.attrib"</span><span class="tEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;xs:attributeGroup</span><span class="tAN"> ref=</span><span class="tAV">"Common.attrib"</span><span class="tEl">/&gt;</span><span class="tI">
+</span><span class="tEl">&lt;/xs:attributeGroup&gt;</span></pre></td></tr></table>
+                           </div>
+                        </td></tr></tbody></table>
+            </td><td class="rt_lineRight" rowspan="1" colspan="1"/></tr><tr><td class="rt_cornerBottomLeft" rowspan="1" colspan="1"/><td class="rt_lineBottom" rowspan="1" colspan="1"/><td class="rt_cornerBottomRight" rowspan="1" colspan="1"/></tr></table>
+      <div class="footer">
+         <hr/>
+         <div align="center">XML Schema documentation generated by <a href="http://www.oxygenxml.com" target="_parent" shape="rect"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript" xml:space="preserve">
+         <!--
+                     // The namespace is the selected option in the TOC combo.
+                    
+                     // Floats the toolbar.
+                     var globalControls = getElementObject("global_controls"); 
+                     
+                     if(globalControls != null){
+	                     var browser=navigator.appName;
+						 var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+						 
+						 var IE6 = false;
+						 if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+						 	IE6 = true;
+						 }
+	
+	                     //alert (IE6 + " |V| " + version);
+	                     
+	                     if(IE6){
+	                     	// On IE 6 the 'fixed' property is not supported. We must use javascript. 
+	                         globalControls.style.position='absolute';                         
+	                         // The global controls will do not exist in the TOC frame, when chunking.
+	                         findAndFloat("global_controls", 225, 30);    
+	                     } else {
+	                      	  globalControls.style.position='fixed';                     	
+	                     }
+	                     
+	                     globalControls.style.right='0';                       
+                     }
+                //--></script></body></html>
